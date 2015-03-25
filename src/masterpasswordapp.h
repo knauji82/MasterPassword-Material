@@ -115,7 +115,11 @@ public:
 
   Q_INVOKABLE bool existsDir(QString const &path);
 
+  Q_INVOKABLE QString exportDirectory();
+
   Q_INVOKABLE void importFile(QString const &path, bool overwrite);
+
+  Q_INVOKABLE void exportFile(QString const &path);
 
 signals:
   void requestLogout();

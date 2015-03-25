@@ -24,6 +24,7 @@
 #define LOGOUT_TIMER_INTERVAL 250
 
 #include "importer.h"
+#include "exporter.h"
 #include "sitemenu.h"
 
 MasterPasswordApp::MasterPasswordApp(int &argc, char *argv[])
@@ -398,6 +399,11 @@ bool MasterPasswordApp::existsDir(QString const &path)
   return QDir(QUrl(path).toLocalFile()).exists();
 }
 
+QString MasterPasswordApp::exportDirectory()
+{
+  return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+}
+
 void MasterPasswordApp::importFile(QString const &path, bool overwrite)
 {
   QFile file(QUrl(path).toLocalFile());
@@ -407,5 +413,15 @@ void MasterPasswordApp::importFile(QString const &path, bool overwrite)
     site_model_.import(Importer::parseJson(file), overwrite);
   }
   save();
+}
+
+void MasterPasswordApp::exportFile(QString const &path)
+{
+  QFile file(QUrl(path).toLocalFile());
+  QFileInfo info(file);
+  if (info.suffix() == "json")
+  {
+    Exporter::toJson(site_model_.list(), settings_.algorithmVersion(), file);
+  }
 }
 
