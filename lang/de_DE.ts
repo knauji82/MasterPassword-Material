@@ -113,55 +113,60 @@
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="33"/>
-        <location filename="../src/ImportExportPage.qml" line="92"/>
+        <location filename="../src/ImportExportPage.qml" line="93"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="34"/>
-        <location filename="../src/ImportExportPage.qml" line="170"/>
+        <location filename="../src/ImportExportPage.qml" line="171"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="68"/>
+        <source>Choose a file to import</source>
+        <translation>Wähle eine Datei zum Importieren</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="69"/>
         <source>Compatible with Master Password for Android</source>
         <translation>Kompatibel mit Master Password für Android</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="71"/>
-        <location filename="../src/ImportExportPage.qml" line="131"/>
+        <location filename="../src/ImportExportPage.qml" line="72"/>
+        <location filename="../src/ImportExportPage.qml" line="132"/>
         <source>Choose</source>
         <translation>Wählen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="79"/>
+        <location filename="../src/ImportExportPage.qml" line="80"/>
         <source>Replace existing sites</source>
         <translation>Vorhandene Seiten ersetzen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="101"/>
+        <location filename="../src/ImportExportPage.qml" line="102"/>
         <source>Import a file</source>
         <translation>Datei importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="128"/>
-        <location filename="../src/ImportExportPage.qml" line="179"/>
+        <location filename="../src/ImportExportPage.qml" line="129"/>
+        <location filename="../src/ImportExportPage.qml" line="180"/>
         <source>Destination directory</source>
         <translation>Zielverzeichnis</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="140"/>
+        <location filename="../src/ImportExportPage.qml" line="141"/>
         <source>File name</source>
         <translation>Dateiname</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="146"/>
+        <location filename="../src/ImportExportPage.qml" line="147"/>
         <source>Destination file</source>
         <translation>Zieldatei</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="150"/>
+        <location filename="../src/ImportExportPage.qml" line="151"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>

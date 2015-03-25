@@ -140,7 +140,6 @@ QVariant SiteModel::data(QModelIndex const &index, int role) const
     case ContextRole:
       return site.context();
     case LastUsedRole:
-     // return site.lastUsed() > 0 ? QDateTime::fromTime_t(site.lastUsed()).toString("dd.MM.yyyy hh:mm") : "";
       return QDateTime::fromTime_t(site.lastUsed());
     case CategoryRole:
       return site.category();

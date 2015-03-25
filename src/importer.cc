@@ -60,7 +60,9 @@ QList<Site> Importer::parseJson(QFile &file)
                 site.value("category").toString()
            );
   }
+
   file.close();
+
   return out;
 }
 
