@@ -32,23 +32,24 @@ QList<Site> Importer::parseJson(QFile &file)
   {
     QJsonObject site = i->toObject();
 
-    QJsonValue j_site_type = site.value("passwordType");
+    QJsonValue type_name = site.value("passwordType").toString();
     MPSiteType site_type;
-    if (j_site_type.toString() == "GeneratedMaximum")
+
+    if (type_name == "GeneratedMaximum")
       site_type = MPSiteTypeGeneratedMaximum;
-    else if (j_site_type.toString() == "GeneratedLong")
+    else if (type_name == "GeneratedLong")
       site_type = MPSiteTypeGeneratedLong;
-    else if (j_site_type.toString() == "GeneratedMedium")
+    else if (type_name == "GeneratedMedium")
       site_type = MPSiteTypeGeneratedMedium;
-    else if (j_site_type.toString() == "GeneratedShort")
+    else if (type_name == "GeneratedShort")
       site_type = MPSiteTypeGeneratedShort;
-    else if (j_site_type.toString() == "GeneratedBasic")
+    else if (type_name == "GeneratedBasic")
       site_type = MPSiteTypeGeneratedBasic;
-    else if (j_site_type.toString() == "GeneratedPIN")
+    else if (type_name == "GeneratedPIN")
       site_type = MPSiteTypeGeneratedPIN;
-    else if (j_site_type.toString() == "GeneratedName")
+    else if (type_name == "GeneratedName")
       site_type = MPSiteTypeGeneratedName;
-    else if (j_site_type.toString() == "GeneratedPhrase")
+    else if (type_name == "GeneratedPhrase")
       site_type = MPSiteTypeGeneratedPhrase;
 
     out << Site(site.value("siteName").toString(),
