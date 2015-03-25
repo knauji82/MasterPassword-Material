@@ -284,7 +284,7 @@ Page {
                             ListItem.Standard {
                                 text: qsTr("Increase counter")
                                 onClicked: {
-                                    SiteProxyModel.modify(index, siteName, MPW.typeName(siteType), siteCounter+1, siteContext, siteCategories)
+                                    SiteProxyModel.modify(index, siteName, MPW.typeName(siteType), siteCounter+1, siteContext, siteCategory)
                                     menu.close()
                                 }
                             }

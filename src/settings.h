@@ -42,16 +42,12 @@ namespace key {
   QString const sortOrder           = "sort_order";
 
   namespace site {
-    QString const name       = "name";
-    QString const type       = "type";
-    QString const counter    = "counter";
-    QString const context    = "context";
-    QString const lastUsed   = "last_used";
-    QString const categories = "categories";
-
-    namespace category {
-      QString const name = "name";
-    }
+    QString const name     = "name";
+    QString const type     = "type";
+    QString const counter  = "counter";
+    QString const context  = "context";
+    QString const lastUsed = "last_used";
+    QString const category = "category";
   }
 }
 
@@ -213,13 +209,7 @@ public:
     setValue(key::site::counter, site.counter());
     setValue(key::site::context, site.context());
     setValue(key::site::lastUsed, site.lastUsed());
-    beginWriteArray(key::site::categories);
-    for (int i=0; i < site.categories().size(); i++)
-    {
-      setArrayIndex(i);
-      setValue(key::site::category::name, site.categories()[i]);
-    }
-    endArray();
+    setValue(key::site::category, site.category());
   }
 
   void removeSite()
@@ -229,27 +219,18 @@ public:
     remove(key::site::counter);
     remove(key::site::context);
     remove(key::site::lastUsed);
-    remove(key::site::categories);
+    remove(key::site::category);
   }
 
   Site loadSite()
   {
-    QStringList categories;
-    int size = beginReadArray(key::site::categories);
-    for (int i=0; i < size; i++)
-    {
-      setArrayIndex(i);
-      categories << value<QString>(key::site::category::name);
-    }
-    endArray();
-
     return Site(
       value<QString>(key::site::name),
       static_cast<MPSiteType>(value<uint>(key::site::type)),
       value<int>(key::site::counter),
       value<QString>(key::site::context),
       value<uint>(key::site::lastUsed),
-      categories
+      value<QString>(key::site::category)
     );
   }
 

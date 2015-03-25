@@ -57,7 +57,7 @@ QList<Site> Importer::parseJson(QFile &file)
                 site.value("siteCounter").toInt(),
                 site.value("siteContext").isUndefined() ? "" : site.value("siteContext").toString(),
                 QDateTime::fromString(site.value("lastUsed").toString(), "MMM d, yyyy h:mm:ss AP").toTime_t(),
-                site.value("category").toString().isEmpty() ? QStringList() : QStringList(site.value("category").toString())
+                site.value("category").toString()
            );
   }
   file.close();

@@ -41,9 +41,8 @@ void CategoryModel::updateCategories()
   QStringList list;
 
   for (QList<Site>::const_iterator i=site_model_->list().begin(); i != site_model_->list().end(); i++)
-    for (int j=0; j < i->categories().size(); j++)
-      if (!list.contains(i->categories()[j]))
-        list << i->categories()[j];
+    if (!i->category().isEmpty() && !list.contains(i->category()))
+      list << i->category();
 
   list.sort(Qt::CaseInsensitive);
   list.prepend(tr("All"));

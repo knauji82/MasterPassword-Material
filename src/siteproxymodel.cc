@@ -27,23 +27,23 @@ SiteProxyModel::SiteProxyModel(SiteModel *model)
   setDynamicSortFilter(true);
   setSortRole(SiteModel::NameRole);
   setSortCaseSensitivity(Qt::CaseInsensitive);
-  setFilterRole(SiteModel::CategoriesRole);
+  setFilterRole(SiteModel::CategoryRole);
   setFilterCaseSensitivity(Qt::CaseSensitive);
 }
 
-int SiteProxyModel::insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories, bool overwrite)
+int SiteProxyModel::insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &category, bool overwrite)
 {
-  int index = site_model_->insert(name, type_name, counter, context, categories, overwrite);
+  int index = site_model_->insert(name, type_name, counter, context, category, overwrite);
   return mapFromSource(site_model_->index(index)).row();
 }
 
-int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories)
+int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &category)
 {
   bool name_changed = name != siteAt(index).name();
   if (name_changed)
     remove(index);
 
-  return insert(name, type_name, counter, context, categories, !name_changed);
+  return insert(name, type_name, counter, context, category, !name_changed);
 }
 
 void SiteProxyModel::setCategoryFilter(QString const &category)
@@ -66,5 +66,5 @@ bool SiteProxyModel::filterAcceptsRow(int row, QModelIndex const &parent) const
 
   Site const site = site_model_->list()[index.row()];
 
-  return site.categories().contains(category_filter_);
+  return site.category() == category_filter_;
 }

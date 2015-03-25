@@ -41,9 +41,9 @@ public:
     QSortFilterProxyModel::sort(0, order);
   }
 
-  Q_INVOKABLE int insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories, bool overwrite=false);
+  Q_INVOKABLE int insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &category, bool overwrite=false);
 
-  Q_INVOKABLE int modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories);
+  Q_INVOKABLE int modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &category);
 
   Q_INVOKABLE inline void updateDate(int index)
   {

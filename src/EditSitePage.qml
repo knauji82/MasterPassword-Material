@@ -113,12 +113,12 @@ Page {
                 }
 
                 Label {
-                    text: qsTr("Categories")
+                    text: qsTr("Category")
                     style: "subheading"
                 }
                 TextField {
-                    id: categories
-                    text: newSite ? "" : site.siteCategories
+                    id: category
+                    text: newSite ? "" : site.siteCategory
                     Layout.fillWidth: true
                 }
             }
@@ -177,8 +177,8 @@ Page {
                     text: qsTr("Save")
                     textColor: Theme.primaryColor
                     onClicked: {
-                        var err = (newSite) ? SiteProxyModel.insert(name.text, type.selectedText, parseInt(counter.text), context.text, categories.text)
-                                            : SiteProxyModel.modify(siteIndex, name.text, type.selectedText, parseInt(counter.text), context.text, categories.text)
+                        var err = (newSite) ? SiteProxyModel.insert(name.text, type.selectedText, parseInt(counter.text), context.text, category.text)
+                                            : SiteProxyModel.modify(siteIndex, name.text, type.selectedText, parseInt(counter.text), context.text, category.text)
                         if (err != -1) {
                             Backend.save()
                             pageStack.pop()

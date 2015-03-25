@@ -30,7 +30,7 @@ QHash<int, QByteArray> SiteModel::roleNames() const
   roles[TypeRole] = "siteType";
   roles[ContextRole] = "siteContext";
   roles[LastUsedRole] = "siteLastUsed";
-  roles[CategoriesRole] = "siteCategories";
+  roles[CategoryRole] = "siteCategory";
   return roles;
 }
 
@@ -142,8 +142,8 @@ QVariant SiteModel::data(QModelIndex const &index, int role) const
     case LastUsedRole:
      // return site.lastUsed() > 0 ? QDateTime::fromTime_t(site.lastUsed()).toString("dd.MM.yyyy hh:mm") : "";
       return QDateTime::fromTime_t(site.lastUsed());
-    case CategoriesRole:
-      return site.categories().join(" ");
+    case CategoryRole:
+      return site.category();
   }
 
   return QVariant();

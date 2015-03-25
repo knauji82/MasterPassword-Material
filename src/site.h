@@ -31,16 +31,16 @@ private:
   int          counter_;
   QString      context_;
   unsigned int last_used_;
-  QStringList  categories_;
+  QString      category_;
 
 public:
-  Site(QString const &name, MPSiteType type, int counter, QString const &context, uint last_used=0, QStringList const &categories=QStringList())
+  Site(QString const &name, MPSiteType type, int counter, QString const &context, uint last_used=0, QString const &category=QString())
       : name_(name),
         type_(type),
         counter_(counter),
         context_(context),
         last_used_(last_used),
-        categories_(categories) {}
+        category_(category) {}
 
   inline QString const & name() const
   {
@@ -102,14 +102,14 @@ public:
     last_used_ = last_used;
   }
 
-  inline QStringList const & categories() const
+  inline QString const & category() const
   {
-    return categories_;
+    return category_;
   }
 
-  inline void setCategories(QStringList const &categories)
+  inline void setCategory(QString const &category)
   {
-    categories_ = categories;
+    category_ = category;
   }
 };
 

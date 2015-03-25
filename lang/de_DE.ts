@@ -4,7 +4,7 @@
 <context>
     <name>CategoryModel</name>
     <message>
-        <location filename="../src/categorymodel.cc" line="49"/>
+        <location filename="../src/categorymodel.cc" line="48"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
@@ -48,8 +48,8 @@
     </message>
     <message>
         <location filename="../src/EditSitePage.qml" line="116"/>
-        <source>Categories</source>
-        <translation>Kategorien</translation>
+        <source>Category</source>
+        <translation>Category</translation>
     </message>
     <message>
         <location filename="../src/EditSitePage.qml" line="144"/>

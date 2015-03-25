@@ -49,7 +49,7 @@ public:
     TypeRole,
     ContextRole,
     LastUsedRole,
-    CategoriesRole
+    CategoryRole
   };
 
   inline QList<Site> const & list() const
@@ -57,9 +57,9 @@ public:
     return sites_;
   }
 
-  inline int insert(QString const &name, QString const & type_name, int counter, QString const &context, QString const &categories, bool overwrite)
+  inline int insert(QString const &name, QString const & type_name, int counter, QString const &context, QString const &category, bool overwrite)
   {
-    return insert(Site(name, mpw::typeWithName(type_name), counter, context, 0, categories.split(" ", QString::SkipEmptyParts)), overwrite);
+    return insert(Site(name, mpw::typeWithName(type_name), counter, context, 0, category), overwrite);
   }
 
   int insert(Site const &site, bool overwrite=false);
