@@ -37,15 +37,6 @@ int SiteProxyModel::insert(QString const &name, QString const &type_name, int co
   return mapFromSource(site_model_->index(index)).row();
 }
 
-/*
-int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories)
-{
-  QModelIndex source_index = mapToSource(this->index(index, 0));
-  site_model_->modify(source_index, name, mpw::typeWithName(type_name), counter, context, categories.split(" ", QString::SkipEmptyParts));
-  return mapFromSource(source_index).row();
-}
-*/
-
 int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories)
 {
   bool name_changed = name != siteAt(index).name();
