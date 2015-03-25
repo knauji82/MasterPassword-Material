@@ -31,7 +31,7 @@ Page {
 
     tabs: [
         qsTr("Import"),
-        //qsTr("Export")
+        qsTr("Export")
     ]
 
     TabView {
@@ -115,9 +115,69 @@ Page {
                 anchors.centerIn: parent
                 elevation: 1
 
+                Column {
+                    anchors {
+                        centerIn: parent
+                    }
+
+                    Row {
+                        TextField {
+                            id: exportDir
+                            text: dirDialog.folder
+                            width: units.dp(350)
+                            placeholderText: qsTr("Destination directory")
+                        }
+                        Button {
+                            text: qsTr("Choose")
+                            onClicked: dirDialog.open()
+                        }
+                    }
+
+                    GridLayout {
+                        columns: 2
+
+                        Label {
+                            text: qsTr("File name")
+                            style: "subheading"
+                        }
+                        TextField {
+                            id: fileName
+                            text: (new Date()).toLocaleString(Qt.locale(), "yyyy-MM-dd_HH-mm")+"_export"
+                            placeholderText: qsTr("Destination file")
+                        }
+
+                        Label {
+                            text: "Format"
+                            style: "subheading"
+                        }
+                        MenuField {
+                            id: format
+                            Layout.fillWidth: true
+                            model: ["Json"]
+                        }
+                    }
+                }
+
+                Button {
+                    anchors {
+                        bottom: parent.bottom
+                        horizontalCenter: parent.horizontalCenter
+                        margins: units.dp(8)
+                    }
+                    enabled: exportDir.text.length > 0 && fileName.text.length > 0 && Backend.existsDir(exportDir.text)
+                    width: units.dp(300)
+                    elevation: 1
+                    text: qsTr("Export")
+                    onClicked: {
+                        Backend.exportFile(exportDir.text+"/"+fileName.text+"."+format.selectedText.toLowerCase())
+                        pageStack.pop()
+                    }
+                }
+
                 FileDialog {
                     id: dirDialog
                     title: "Export"
+                    folder: "file://"+Backend.exportDirectory()
                     selectFolder: true
                     onAccepted: exportDir.text = fileUrl
                 }

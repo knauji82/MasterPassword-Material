@@ -118,12 +118,19 @@
         <translation>Import</translation>
     </message>
     <message>
+        <location filename="../src/ImportExportPage.qml" line="34"/>
+        <location filename="../src/ImportExportPage.qml" line="170"/>
+        <source>Export</source>
+        <translation>Export</translation>
+    </message>
+    <message>
         <location filename="../src/ImportExportPage.qml" line="68"/>
         <source>Compatible with Master Password for Android</source>
         <translation>Kompatibel mit Master Password für Android</translation>
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="71"/>
+        <location filename="../src/ImportExportPage.qml" line="131"/>
         <source>Choose</source>
         <translation>Wählen</translation>
     </message>
@@ -131,6 +138,21 @@
         <location filename="../src/ImportExportPage.qml" line="79"/>
         <source>Replace existing sites</source>
         <translation>Vorhandene Seiten ersetzen</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="128"/>
+        <source>Destination directory</source>
+        <translation>Zielverzeichnis</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="140"/>
+        <source>File name</source>
+        <translation>Dateiname</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="146"/>
+        <source>Destination file</source>
+        <translation>Zieldatei</translation>
     </message>
 </context>
 <context>
@@ -314,32 +336,32 @@
 <context>
     <name>MasterPasswordApp</name>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="170"/>
+        <location filename="../src/masterpasswordapp.cc" line="171"/>
         <source>Sites</source>
         <translation>Seiten</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="182"/>
+        <location filename="../src/masterpasswordapp.cc" line="183"/>
         <source>&amp;Hide</source>
         <translation>&amp;Verstecken</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="183"/>
+        <location filename="../src/masterpasswordapp.cc" line="184"/>
         <source>&amp;Show</source>
         <translation>&amp;Zeigen</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="184"/>
+        <location filename="../src/masterpasswordapp.cc" line="185"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="223"/>
+        <location filename="../src/masterpasswordapp.cc" line="224"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="249"/>
+        <location filename="../src/masterpasswordapp.cc" line="250"/>
         <source>I&apos;m now running in the background!</source>
         <translation>Ich laufe jetzt im Hintergrund!</translation>
     </message>

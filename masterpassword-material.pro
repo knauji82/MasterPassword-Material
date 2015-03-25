@@ -59,7 +59,8 @@ HEADERS += \
     src/mpw.h \
     src/masterkey.h \
     src/clipboard.h \
-    src/importer.h
+    src/importer.h \
+    src/exporter.h
 
 SOURCES += \
     lib/masterpassword-algorithm/mpw-types.c \
@@ -74,7 +75,8 @@ SOURCES += \
     src/sitehistorymodel.cc \
     src/mpw.cc \
     src/clipboard.cc \
-    src/importer.cc
+    src/importer.cc \
+    src/exporter.cc
 
 TRANSLATIONS = \
     lang/de_DE.ts
