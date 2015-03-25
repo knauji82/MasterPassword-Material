@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+if [[ -e "lib/MasterPassword" ]]; then
+  pushd "lib/MasterPassword"
+  git pull --rebase
+  popd
+else
+  git clone https://github.com/Lyndir/MasterPassword lib/MasterPassword
+  ln -s "$(pwd)/lib/MasterPassword/MasterPassword/C" "lib/masterpassword-algorithm"
+fi
+
+[[ -e "lib/scrypt/.built" ]] && exit
+git svn clone --prefix=origin/ --stdlayout "http://scrypt.googlecode.com/svn" lib/scrypt
+cd lib/scrypt
+printf '%s' "$(git describe --always)" > scrypt-version
+aclocal
+autoheader
+autoconf
+mkdir -p config.aux
+automake --add-missing
+./configure
+make
+install -d "../include/scrypt/"
+find . -name '*.h' -exec install -m 444 {} "../include/scrypt/" \;
+date > .built

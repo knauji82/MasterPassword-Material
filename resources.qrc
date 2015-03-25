@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="tray_icon">res/icon.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>lang/de_DE.qm</file>
+        <file alias="main.qml">src/main.qml</file>
+        <file alias="LoginPage.qml">src/LoginPage.qml</file>
+        <file alias="MainPage.qml">src/MainPage.qml</file>
+        <file alias="EditSitePage.qml">src/EditSitePage.qml</file>
+        <file alias="SettingsPage.qml">src/SettingsPage.qml</file>
+        <file alias="HelpPage.qml">src/HelpPage.qml</file>
+        <file alias="ImportExportPage.qml">src/ImportExportPage.qml</file>
+        <file alias="Expandable.qml">src/Expandable.qml</file>
+    </qresource>
+</RCC>
