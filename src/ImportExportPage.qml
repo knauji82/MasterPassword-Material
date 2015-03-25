@@ -98,7 +98,7 @@ Page {
 
                 FileDialog {
                     id: fileDialog
-                    title: "Import"
+                    title: qsTr("Import a file")
                     nameFilters: ["Json (*.json)"]
                 }
             }
@@ -147,7 +147,7 @@ Page {
                         }
 
                         Label {
-                            text: "Format"
+                            text: qsTr("Format")
                             style: "subheading"
                         }
                         MenuField {
@@ -176,7 +176,7 @@ Page {
 
                 FileDialog {
                     id: dirDialog
-                    title: "Export"
+                    title: qsTr("Destination directory")
                     folder: "file://"+Backend.exportDirectory()
                     selectFolder: true
                     onAccepted: exportDir.text = fileUrl

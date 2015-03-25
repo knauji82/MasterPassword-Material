@@ -140,7 +140,13 @@
         <translation>Vorhandene Seiten ersetzen</translation>
     </message>
     <message>
+        <location filename="../src/ImportExportPage.qml" line="101"/>
+        <source>Import a file</source>
+        <translation>Datei importieren</translation>
+    </message>
+    <message>
         <location filename="../src/ImportExportPage.qml" line="128"/>
+        <location filename="../src/ImportExportPage.qml" line="179"/>
         <source>Destination directory</source>
         <translation>Zielverzeichnis</translation>
     </message>
@@ -153,6 +159,11 @@
         <location filename="../src/ImportExportPage.qml" line="146"/>
         <source>Destination file</source>
         <translation>Zieldatei</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="150"/>
+        <source>Format</source>
+        <translation>Format</translation>
     </message>
 </context>
 <context>
