@@ -28,6 +28,7 @@
 class SiteProxyModel : public QSortFilterProxyModel
 {
   Q_OBJECT
+  Q_PROPERTY(QString categoryFilter WRITE setCategoryFilter)
 
 private:
   SiteModel *site_model_;
@@ -55,14 +56,9 @@ public:
     removeRow(index);
   }
 
-  Q_INVOKABLE void setCategoryFilter(QString const &category);
+  void setCategoryFilter(QString const &category);
 
   bool filterAcceptsRow(int row, QModelIndex const &parent) const;
-
-  Q_INVOKABLE void setSortRole(int role)
-  {
-    QSortFilterProxyModel::setSortRole(role);
-  }
 
   inline Site const & siteAt(int index)
   {

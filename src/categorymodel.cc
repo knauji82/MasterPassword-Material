@@ -47,5 +47,6 @@ void CategoryModel::updateCategories()
   list.sort(Qt::CaseInsensitive);
   list.prepend(tr("All"));
   setStringList(list);
+  emit modelChanged();
 }
 

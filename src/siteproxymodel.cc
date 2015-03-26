@@ -43,6 +43,10 @@ int SiteProxyModel::modify(int index, QString const &name, QString const &type_n
   if (name_changed)
     remove(index);
 
+  // make sure mapFromSource() will work
+  if (category.isEmpty())
+    setCategoryFilter("");
+
   return insert(name, type_name, counter, context, category, !name_changed);
 }
 

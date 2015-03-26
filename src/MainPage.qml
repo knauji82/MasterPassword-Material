@@ -165,7 +165,12 @@ Page {
                     width: parent.width
                     model: CategoryModel
                     helperText: qsTr("Filter sites by a category")
-                    onSelectedTextChanged: SiteProxyModel.setCategoryFilter(selectedIndex == 0 ? "" : selectedText)
+                    onSelectedTextChanged: SiteProxyModel.categoryFilter = selectedIndex == 0 ? "" : selectedText
+
+                    Connections {
+                        target: CategoryModel
+                        onModelChanged: filter.selectedIndex = 0
+                    }
                 }
             }
 

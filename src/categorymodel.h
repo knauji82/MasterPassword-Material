@@ -39,6 +39,9 @@ public:
 
 public slots:
   void updateCategories();
+
+signals:
+  void modelChanged();
 };
 
 #endif // CATEGORYMODEL_H
