@@ -46,32 +46,28 @@ Page {
         Action {
             name: qsTr("Add")
             iconName: "content/add"
-            onTriggered: {
-                pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
-            }
-        },
-        Action {
-            name: qsTr("Help")
-            iconName: "action/help"
-            onTriggered: pageStack.push(Qt.resolvedUrl("HelpPage.qml"))
+            onTriggered: pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
         },
         Action {
             name: qsTr("Import/Export")
             iconName: "communication/import_export"
             onTriggered: pageStack.push(Qt.resolvedUrl("ImportExportPage.qml"))
-
+        },
+        Action {
+            name: qsTr("About")
+            iconName: "action/info"
+            onTriggered: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
         },
         Action {
             name: qsTr("Settings")
             iconName: "action/settings"
             onTriggered: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
-        },
+        },  
         Action {
             name: qsTr("Quit")
             iconName: "action/exit_to_app"
             onTriggered: Qt.quit()
         }
-
     ]
 
     backAction: Action {

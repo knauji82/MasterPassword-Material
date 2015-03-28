@@ -9,8 +9,8 @@
         <file alias="MainPage.qml">src/MainPage.qml</file>
         <file alias="EditSitePage.qml">src/EditSitePage.qml</file>
         <file alias="SettingsPage.qml">src/SettingsPage.qml</file>
-        <file alias="HelpPage.qml">src/HelpPage.qml</file>
         <file alias="ImportExportPage.qml">src/ImportExportPage.qml</file>
         <file alias="Expandable.qml">src/Expandable.qml</file>
+        <file alias="AboutPage.qml">src/AboutPage.qml</file>
     </qresource>
 </RCC>
