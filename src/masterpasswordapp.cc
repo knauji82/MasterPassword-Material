@@ -101,9 +101,11 @@ MasterPasswordApp::MasterPasswordApp(int &argc, char *argv[])
 
 MasterPasswordApp::~MasterPasswordApp()
 {
-  save();
-  if (!settings_.group().isEmpty())
+  if (loggedIn())
+  {
+    save();
     settings_.endGroup();
+  }
   settings_.setValue("window_width", root_window_->width());
   settings_.setValue("window_height", root_window_->height());
 
