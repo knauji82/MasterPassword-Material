@@ -301,9 +301,8 @@ Page {
                             left: parent.left
                             right: parent.right
                         }
-
                         text: siteName
-                        font.pixelSize: units.dp(32)
+                        style: "headline"
                         horizontalAlignment: Text.AlignHCenter
                     }
 
@@ -386,6 +385,7 @@ Page {
                             SiteProxyModel.updateDate(index)
                         }
                     }
+
                     ProgressBar {
                         opacity: inClipboard ? 1 : 0
                         color: theme.accentColor
