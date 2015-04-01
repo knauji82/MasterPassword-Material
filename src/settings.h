@@ -56,10 +56,10 @@ class Settings : public QSettings
   Q_OBJECT
 
 public:
-  explicit Settings(QObject *parent=0) : QSettings(QSettings::IniFormat,
+  explicit Settings(QObject *parent=0) : QSettings(QSettings::NativeFormat,
                                                    QSettings::UserScope,
                                                    QCoreApplication::applicationName(),
-                                                   "config",
+                                                   "settings",
                                                    parent) {}
 
   Q_INVOKABLE inline QVariant value(QString const &key, QVariant const &default_value=QVariant()) const
@@ -226,7 +226,7 @@ public:
   {
     return Site(
       value<QString>(key::site::name),
-      static_cast<MPSiteType>(value<uint>(key::site::type)),
+      value<MPSiteType>(key::site::type),
       value<int>(key::site::counter),
       value<QString>(key::site::context),
       value<uint>(key::site::lastUsed),
