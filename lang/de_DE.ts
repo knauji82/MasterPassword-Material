@@ -102,13 +102,13 @@
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="33"/>
-        <location filename="../src/ImportExportPage.qml" line="93"/>
+        <location filename="../src/ImportExportPage.qml" line="92"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
         <location filename="../src/ImportExportPage.qml" line="34"/>
-        <location filename="../src/ImportExportPage.qml" line="171"/>
+        <location filename="../src/ImportExportPage.qml" line="170"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
@@ -118,44 +118,39 @@
         <translation>Wähle eine Datei zum Importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="69"/>
-        <source>Compatible with Master Password for Android</source>
-        <translation>Kompatibel mit Master Password für Android</translation>
-    </message>
-    <message>
-        <location filename="../src/ImportExportPage.qml" line="72"/>
-        <location filename="../src/ImportExportPage.qml" line="132"/>
+        <location filename="../src/ImportExportPage.qml" line="71"/>
+        <location filename="../src/ImportExportPage.qml" line="131"/>
         <source>Choose</source>
         <translation>Wählen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="80"/>
+        <location filename="../src/ImportExportPage.qml" line="79"/>
         <source>Replace existing sites</source>
         <translation>Vorhandene Seiten ersetzen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="102"/>
+        <location filename="../src/ImportExportPage.qml" line="101"/>
         <source>Import a file</source>
         <translation>Datei importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="129"/>
-        <location filename="../src/ImportExportPage.qml" line="180"/>
+        <location filename="../src/ImportExportPage.qml" line="128"/>
+        <location filename="../src/ImportExportPage.qml" line="179"/>
         <source>Destination directory</source>
         <translation>Zielverzeichnis</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="141"/>
+        <location filename="../src/ImportExportPage.qml" line="140"/>
         <source>File name</source>
         <translation>Dateiname</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="147"/>
+        <location filename="../src/ImportExportPage.qml" line="146"/>
         <source>Destination file</source>
         <translation>Zieldatei</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="151"/>
+        <location filename="../src/ImportExportPage.qml" line="150"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
@@ -313,7 +308,7 @@
     </message>
     <message>
         <location filename="../src/MainPage.qml" line="191"/>
-        <location filename="../src/MainPage.qml" line="385"/>
+        <location filename="../src/MainPage.qml" line="384"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>
@@ -328,12 +323,12 @@
         <translation>Zähler erhöhen</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="315"/>
+        <location filename="../src/MainPage.qml" line="314"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="322"/>
+        <location filename="../src/MainPage.qml" line="321"/>
         <source>Counter</source>
         <translation>Zähler</translation>
     </message>
@@ -341,32 +336,32 @@
 <context>
     <name>MasterPasswordApp</name>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="171"/>
+        <location filename="../src/masterpasswordapp.cc" line="173"/>
         <source>Sites</source>
         <translation>Seiten</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="183"/>
+        <location filename="../src/masterpasswordapp.cc" line="185"/>
         <source>&amp;Hide</source>
         <translation>&amp;Verstecken</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="184"/>
+        <location filename="../src/masterpasswordapp.cc" line="186"/>
         <source>&amp;Show</source>
         <translation>&amp;Zeigen</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="185"/>
+        <location filename="../src/masterpasswordapp.cc" line="187"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="224"/>
+        <location filename="../src/masterpasswordapp.cc" line="226"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="250"/>
+        <location filename="../src/masterpasswordapp.cc" line="252"/>
         <source>I&apos;m now running in the background!</source>
         <translation>Ich laufe jetzt im Hintergrund!</translation>
     </message>

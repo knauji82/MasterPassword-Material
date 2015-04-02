@@ -66,7 +66,6 @@ Page {
                             text: fileDialog.fileUrl
                             width: units.dp(350)
                             placeholderText: qsTr("Choose a file to import")
-                            helperText: qsTr("Compatible with Master Password for Android")
                         }
                         Button {
                             text: qsTr("Choose")
