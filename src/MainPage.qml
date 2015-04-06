@@ -80,6 +80,9 @@ Page {
         id: confirmLogoutDialog
         title: qsTr("Logout now?")
 
+        positiveButtonText: qsTr("Ok")
+        negativeButtonText: qsTr("Cancel")
+
         onAccepted: {
             Backend.logout()
             pageStack.pop()
