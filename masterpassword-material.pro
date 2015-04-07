@@ -60,12 +60,14 @@ HEADERS += \
     src/masterkey.h \
     src/clipboard.h \
     src/importer.h \
-    src/exporter.h
+    src/exporter.h \
+    src/simplecrypt.h
 
 SOURCES += \
     lib/masterpassword-algorithm/mpw-types.c \
     lib/masterpassword-algorithm/mpw-util.c \
     lib/masterpassword-algorithm/mpw-algorithm.c \
+    src/masterkey.cc \
     src/main.cc \
     src/masterpasswordapp.cc \
     src/qmlapplicationengine.cc \
@@ -76,7 +78,8 @@ SOURCES += \
     src/mpw.cc \
     src/clipboard.cc \
     src/importer.cc \
-    src/exporter.cc
+    src/exporter.cc \
+    src/simplecrypt.cc
 
 TRANSLATIONS = \
     lang/de_DE.ts

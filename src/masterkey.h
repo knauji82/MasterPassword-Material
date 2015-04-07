@@ -23,6 +23,7 @@
 
 #include "mpw.h"
 #include "site.h"
+#include "simplecrypt.h"
 
 class MasterKey
 {
@@ -56,6 +57,10 @@ public:
   {
     return mpw_passwordForSite(key_, site_name, site_type, site_counter, site_variant, site_context, algorithm_version_);
   }
+
+  QString encrypt(QString const &text);
+
+  QString decrypt(QString const &encrypted);
 };
 
 #endif // MASTERKEY_H
