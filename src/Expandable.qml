@@ -44,9 +44,6 @@ View {
         expanded = true
     }
 
-    signal collapsed()
-    signal expanded()
-
     Behavior on height {
         NumberAnimation { duration: 250 }
     }
