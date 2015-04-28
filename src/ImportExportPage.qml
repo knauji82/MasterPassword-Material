@@ -23,7 +23,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
 import Qt.labs.folderlistmodel 2.1
 import Material 0.1
-import Material.ListItems 0.1 as ListItem
 
 Page {
     id: page
@@ -156,6 +155,21 @@ Page {
                             model: ["Json"]
                         }
                     }
+
+                    ViewSwitcher {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        index: format.selectedIndex
+
+                        Checkbox {
+                            id: compatibility
+                            text: qsTr("Compatibility mode (for Android)")
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
                 }
 
                 Button {
@@ -169,7 +183,7 @@ Page {
                     elevation: 1
                     text: qsTr("Export")
                     onClicked: {
-                        Backend.exportFile(exportDir.text+"/"+fileName.text+"."+format.selectedText.toLowerCase())
+                        Backend.exportFile(exportDir.text+"/"+fileName.text+"."+format.selectedText.toLowerCase(), {"compatibility": compatibility.checked})
                         pageStack.pop()
                     }
                 }

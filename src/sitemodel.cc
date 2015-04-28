@@ -26,11 +26,12 @@ QHash<int, QByteArray> SiteModel::roleNames() const
 {
   QHash<int, QByteArray> roles;
   roles[NameRole] = "siteName";
-  roles[CounterRole] = "siteCounter";
-  roles[TypeRole] = "siteType";
-  roles[ContextRole] = "siteContext";
-  roles[LastUsedRole] = "siteLastUsed";
   roles[CategoryRole] = "siteCategory";
+  roles[LastUsedRole] = "siteLastUsed";
+  roles[LastVariantRole] = "siteLastVariant";
+  roles[PasswordRole] = "sitePassword";
+  roles[LoginRole] = "siteLogin";
+  roles[AnswerRole] = "siteAnswer";
   return roles;
 }
 
@@ -108,11 +109,11 @@ bool SiteModel::removeRows(int row, int count, QModelIndex const &parent)
   return true;
 }
 
-void SiteModel::updateDate(QModelIndex const &index)
+void SiteModel::updateDate(QModelIndex const &index, MPSiteVariant variant)
 {
   Site *site = &sites_[index.row()];
   unsigned int time = QDateTime::currentDateTime().toTime_t();
-  site->setLastUsed(time);
+  site->setLastUsed(time, variant);
   emit dataChanged(index, index);
 }
 
@@ -133,16 +134,18 @@ QVariant SiteModel::data(QModelIndex const &index, int role) const
   {
     case NameRole:
       return site.name();
-    case TypeRole:
-      return site.typeAsInt();
-    case CounterRole:
-      return site.counter();
-    case ContextRole:
-      return site.context();
-    case LastUsedRole:
-      return QDateTime::fromTime_t(site.lastUsed());
     case CategoryRole:
       return site.category();
+    case LastUsedRole:
+      return QDateTime::fromTime_t(site.lastUsed());
+    case LastVariantRole:
+      return mpw::variantName(site.lastVariant());
+    case PasswordRole:
+      return site.password()->toMap();
+    case LoginRole:
+      return site.login()->toMap();
+    case AnswerRole:
+      return site.answer()->toMap();
   }
 
   return QVariant();

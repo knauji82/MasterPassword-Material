@@ -105,30 +105,6 @@ Page {
                 text: qsTr("Options")
 
                 Label {
-                    text: qsTr("Variant") + ":"
-                    style: "subheading"
-                }
-
-                MenuField {
-                    id: variant
-                    width: parent.width
-                    model: MPW.variantNames()
-                    helperText: qsTr("The kind of content to generate") + "\n- " +
-                                qsTr("The Password to log in with") + "\n- " +
-                                qsTr("The username to log in as") + "\n- " +
-                                qsTr("The answer to a security question")
-                }
-
-                Item {
-                    /* Spacer */
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: units.dp(10)
-                }
-
-                Label {
                     text: qsTr("Order") + ":"
                     style: "subheading"
                 }
@@ -181,18 +157,19 @@ Page {
                     model: SiteHistoryModel
                     delegate: ListItem.Subtitled {
                         text: siteName
+                        valueText: siteLastVariant
                         subText: Qt.formatDateTime(siteLastUsed, "ddd MMMM d yy hh:mm:ss")
                         onClicked: {
                             var sourceIndex = SiteHistoryModel.mapIndexToSource(index)
                             var proxyIndex = SiteProxyModel.mapIndexFromSource(sourceIndex)
-                            if (proxyIndex == -1) {
+                            if (proxyIndex === -1) {
                                 filter.selectedIndex = 0
                                 proxyIndex = SiteProxyModel.mapIndexFromSource(sourceIndex)
                             }
-                            Backend.copyToClipboard(Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext))
+                            Backend.copyToClipboard(Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, siteLastVariant))
                             siteView.clipboardIndex = proxyIndex
                             snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
-                            SiteProxyModel.updateDate(proxyIndex)
+                            SiteProxyModel.updateDate(proxyIndex, siteLastVariant)
                         }
                     }
                 }
@@ -200,8 +177,9 @@ Page {
         }
     }
 
-    GridView {
+    DynamicGrid {
         id: siteView
+        focus: true
 
         anchors {
             top: parent.top
@@ -210,15 +188,27 @@ Page {
             right: sideBar.left
         }
 
-        cellWidth: units.dp(300)
-        cellHeight: units.dp(200)
-
         model: SiteProxyModel
+
+        spacing: units.dp(12)
+        columnWidth: units.dp(300)
 
         property int clipboardIndex: -1
         readonly property int clipboardSourceIndex: clipboardIndex >= 0 ? SiteProxyModel.mapIndexToSource(clipboardIndex) : -1
 
         property double clipboardProgress: 0
+
+        /*
+        Keys.onReturnPressed: {
+            itemAt(selectedIndex).focus = true
+        }
+        */
+
+        Connections {
+            target: SiteProxyModel
+            onSortOrderChanged: siteView.update()
+            onDataChanged: siteView.update()
+        }
 
         Connections {
             target: ResetClipboardThread
@@ -231,175 +221,161 @@ Page {
             }
         }
 
-        delegate: Item {
-            width: units.dp(300)
-            height: units.dp(200)
+        delegate: Card {
+            height: column.implicitHeight
+
+            elevation: index == siteView.selectedIndex ? 2 : 1
 
             readonly property bool inClipboard: index === SiteProxyModel.mapIndexFromSource(siteView.clipboardSourceIndex)
 
-            Card {
-                anchors {
-                    fill: parent
-                    margins: units.dp(16)
+            /*
+            Keys.onUpPressed: {}
+            Keys.onDownPressed: {}
+            Keys.onEscapePressed: siteView.focus = true
+            */
+
+            function getPassword() {
+                switch (sitePassword.contentType) {
+                    case ContentType.None:
+                        return ""
+                    case ContentType.Generated:
+                        return Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, MPW.variantNamePassword())
+                    case ContentType.Stored:
+                        return Backend.decrypt(sitePassword.content)
                 }
+            }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onReleased: {
-                        onSiteSelected(index)
-                    }
+            function getLogin() {
+                switch (siteLogin.contentType) {
+                    case ContentType.None:
+                        return ""
+                    case ContentType.Generated:
+                        return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNameName()), siteLogin.counter, MPW.variantNameLogin())
+                    case ContentType.Stored:
+                        return Backend.decrypt(siteLogin.content)
                 }
+            }
 
-                Icon {
-                    id: caller
-                    width: units.dp(25)
-                    height: units.dp(25)
-                    anchors.margins: units.dp(5)
-                    name: "navigation/more_vert"
+            function getAnswer() {
+                switch (siteAnswer.contentType) {
+                    case ContentType.None:
+                        return ""
+                    case ContentType.Generated:
+                        return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer())
+                    case ContentType.Stored:
+                        return Backend.decrypt(siteAnswer.content)
+                }
+            }
 
+            MouseArea {
+                anchors.fill: parent
+                onReleased: onSiteSelected(index)
+            }
+
+            ColumnLayout {
+                id: column
+                anchors.fill: parent
+
+                Label {
                     anchors {
-                        top: parent.top
+                        left: parent.left
                         right: parent.right
                     }
+                    text: siteName
+                    style: "headline"
+                    horizontalAlignment: Text.AlignHCenter
+                }
 
-                    Ink {
-                        anchors.fill: parent
-                        onClicked: menu.open(caller, 0, units.dp(30))
+                ClipboardButton {
+                    text: getPassword()
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNamePassword())
                     }
 
-                    Dropdown {
-                        id: menu
-                        width: units.dp(150)
-                        implicitHeight: column.height
-                        anchor: Item.TopRight
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.dp(8)
+                    }
 
-                        Column {
-                            id: column
-                            width: parent.width
+                    visible: text != ""
 
-                            ListItem.Standard {
-                                text: qsTr("Delete")
-                                onClicked: {
-                                    SiteProxyModel.remove(index)
-                                    menu.close()
-                                }
-                            }
-
-                            ListItem.Standard {
-                                text: qsTr("Increase counter")
-                                onClicked: {
-                                    SiteProxyModel.modify(index, siteName, MPW.typeName(siteType), siteCounter+1, siteContext, siteCategory)
-                                    menu.close()
-                                }
-                            }
+                    Label {
+                        text: {
+                            var t = qsTr("Password")
+                            if (sitePassword.isGenerated)
+                                t += ": " + MPW.typeName(sitePassword.type)
+                            return t
+                        }
+                        anchors {
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
                 }
 
-                ColumnLayout {
-                    anchors.fill: parent
+                ClipboardButton {
+                    text: getLogin()
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied login for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNameLogin())
+                    }
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.dp(8)
+                    }
+
+                    visible: text != ""
 
                     Label {
+                        text: "Login"
                         anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        text: siteName
-                        style: "headline"
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-
-                    GridLayout {
-                        columns: 2
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        Label {
-                            text: qsTr("Type")
-                        }
-                        Label {
-                            text: MPW.typeName(siteType)
-                        }
-
-                        Label {
-                            text: qsTr("Counter")
-                        }
-                        Label {
-                            text: siteCounter
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
+                }
 
-                    Controls.Button {
+                ClipboardButton {
+                    text: getAnswer()
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied answer for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNameAnswer())
+                    }
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.dp(8)
+                    }
+
+                    visible: text != ""
+
+                    Label {
+                        text: "answer"
                         anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: 10
-                        }
-                        height: units.dp(40)
-
-                        style: ControlStyles.ButtonStyle {
-                            background: View {
-                                radius: units.dp(2)
-
-                                backgroundColor: "transparent"
-                                tintColor: mouseArea.currentCircle || control.focus || control.hovered
-                                         ? Qt.rgba(0, 0, 0, mouseArea.currentCircle
-                                            ? 0.1 : 0.03)
-                                         : "transparent"
-                                Ink {
-                                    id: mouseArea
-                                    anchors.fill: parent
-                                    focus: control.focus
-                                    focusWidth: parent.width - units.dp(30)
-                                    focusColor: Qt.darker("white", 1.05)
-
-                                    Connections {
-                                        target: control.__behavior
-                                        onPressed: mouseArea.onPressed(mouse)
-                                        onCanceled: mouseArea.onCanceled()
-                                        onReleased: mouseArea.onReleased(mouse)
-                                    }
-                                }
-                            }
-                            label: Item {
-                                implicitHeight: Math.max(units.dp(36), label.height + units.dp(16))
-                                implicitWidth: Math.max(units.dp(88), label.width + units.dp(32))
-
-                                Label {
-                                    id: label
-                                    anchors.centerIn: parent
-                                    text: control.text
-                                    style: "title"
-                                    color: Theme.accentColor
-                                }
-
-                            }
-                        }
-
-                        text: if (variant.selectedText) {
-                            var pw = Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext)
-                            HidePasswords ? Backend.obscure(pw) : pw
-                        }
-
-                        onClicked: {
-                            Backend.copyToClipboard(Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext))
-                            siteView.clipboardIndex = index
-                            snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
-                            SiteProxyModel.updateDate(index)
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
+                }
 
-                    ProgressBar {
-                        opacity: inClipboard ? 1 : 0
-                        color: theme.accentColor
-                        Layout.fillWidth: true
+                ProgressBar {
+                    opacity: inClipboard ? 1 : 0
+                    color: theme.accentColor
+                    Layout.fillWidth: true
 
-                        NumberAnimation on value {
-                            running: inClipboard
-                            from : siteView.clipboardProgress
-                            to: 1
-                            duration: (ClipboardDuration * 1000) * (1 - siteView.clipboardProgress)
-                        }
+                    NumberAnimation on value {
+                        running: inClipboard
+                        from : siteView.clipboardProgress
+                        to: 1
+                        duration: (ClipboardDuration * 1000) * (1 - siteView.clipboardProgress)
                     }
                 }
             }

@@ -1,7 +1,4 @@
 <RCC>
-    <qresource prefix="/images">
-        <file alias="tray_icon">res/icon.svg</file>
-    </qresource>
     <qresource prefix="/">
         <file>lang/de_DE.qm</file>
         <file alias="main.qml">src/main.qml</file>
@@ -12,5 +9,11 @@
         <file alias="ImportExportPage.qml">src/ImportExportPage.qml</file>
         <file alias="Expandable.qml">src/Expandable.qml</file>
         <file alias="AboutPage.qml">src/AboutPage.qml</file>
+        <file alias="ClipboardButton.qml">src/ClipboardButton.qml</file>
+        <file alias="DynamicGrid.qml">src/DynamicGrid.qml</file>
+        <file alias="ViewSwitcher.qml">src/ViewSwitcher.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="tray_icon">res/icon.svg</file>
     </qresource>
 </RCC>

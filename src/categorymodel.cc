@@ -39,6 +39,7 @@ QHash<int, QByteArray> CategoryModel::roleNames() const
 void CategoryModel::updateCategories()
 {
   QStringList list;
+  bool changed = false;
 
   for (QList<Site>::const_iterator i=site_model_->list().begin(); i != site_model_->list().end(); i++)
     if (!i->category().isEmpty() && !list.contains(i->category()))
@@ -46,7 +47,21 @@ void CategoryModel::updateCategories()
 
   list.sort(Qt::CaseInsensitive);
   list.prepend(tr("All"));
+
+  if (list.length() != stringList().length())
+  {
+    changed = true;
+  }
+  else
+  {
+    for (int i=0; i < list.length(); i++)
+      if (list[i] != stringList()[i])
+        changed = true;
+  }
+
   setStringList(list);
-  emit modelChanged();
+
+  if (changed)
+    emit modelChanged();
 }
 

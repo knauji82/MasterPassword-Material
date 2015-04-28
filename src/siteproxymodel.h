@@ -39,16 +39,20 @@ public:
 
   Q_INVOKABLE void sort(Qt::SortOrder order=Qt::AscendingOrder)
   {
-    QSortFilterProxyModel::sort(0, order);
+    if (order != sortOrder())
+    {
+      QSortFilterProxyModel::sort(0, order);
+      emit sortOrderChanged(order);
+    }
   }
 
-  Q_INVOKABLE int insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &category, bool overwrite=false);
+  Q_INVOKABLE int insert(QVariantMap const &site_map, bool overwrite=false);
 
-  Q_INVOKABLE int modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &category);
+  Q_INVOKABLE int modify(int index, QVariantMap const &site_map);
 
-  Q_INVOKABLE inline void updateDate(int index)
+  Q_INVOKABLE inline void updateDate(int index, QString const &variant_name)
   {
-    site_model_->updateDate(mapToSource(this->index(index, 0)));
+    site_model_->updateDate(mapToSource(this->index(index, 0)), mpw::variantWithName(variant_name));
   }
 
   Q_INVOKABLE inline void remove(int index)
@@ -89,6 +93,9 @@ public:
   {
     return rowCount();
   }
+
+signals:
+  void sortOrderChanged(Qt::SortOrder order);
 };
 
 #endif // SITEPROXYMODEL_H

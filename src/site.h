@@ -21,26 +21,23 @@
 #ifndef SITE
 #define SITE
 
-#include "mpw.h"
+#include <QSharedPointer>
 
-struct Site
+#include "content.h"
+
+class Site
 {
-private:
-  QString      name_;
-  MPSiteType   type_;
-  int          counter_;
-  QString      context_;
-  unsigned int last_used_;
-  QString      category_;
-
 public:
-  Site(QString const &name, MPSiteType type, int counter, QString const &context, uint last_used=0, QString const &category=QString())
+  Site(QString const &name, Content *password, Content *login, Content *answer, QString const &category=QString(), uint last_used=0, MPSiteVariant last_variant=0)
       : name_(name),
-        type_(type),
-        counter_(counter),
-        context_(context),
+        category_(category),
         last_used_(last_used),
-        category_(category) {}
+        last_variant_(last_variant)
+  {
+    password_.reset(password);
+    login_.reset(login);
+    answer_.reset(answer);
+  }
 
   inline QString const & name() const
   {
@@ -52,56 +49,6 @@ public:
     name_ = name;
   }
 
-  inline MPSiteType type() const
-  {
-    return type_;
-  }
-
-  inline int typeAsInt() const
-  {
-    return type_;
-  }
-
-  inline void setType(MPSiteType type)
-  {
-    type_ = type;
-  }
-
-  inline void setType(int type)
-  {
-    setType(static_cast<MPSiteType>(type));
-  }
-
-  inline int counter() const
-  {
-    return counter_;
-  }
-
-  inline void setCounter(int counter)
-  {
-    counter_ = counter;
-  }
-
-  inline QString const & context() const
-  {
-    return context_;
-  }
-
-  inline void setContext(QString const &context)
-  {
-    context_ = context;
-  }
-
-  inline uint lastUsed() const
-  {
-    return last_used_;
-  }
-
-  inline void setLastUsed(uint last_used)
-  {
-    last_used_ = last_used;
-  }
-
   inline QString const & category() const
   {
     return category_;
@@ -111,6 +58,44 @@ public:
   {
     category_ = category;
   }
+
+  inline uint lastUsed() const
+  {
+    return last_used_;
+  }
+
+  inline void setLastUsed(uint last_used, MPSiteVariant variant)
+  {
+    last_used_ = last_used;
+    last_variant_ = variant;
+  }
+
+  inline MPSiteVariant lastVariant() const { return last_variant_; }
+
+  inline Content * password() const
+  {
+    return password_.data();
+  }
+
+  inline Content * login() const
+  {
+    return login_.data();
+  }
+
+  inline Content * answer() const
+  {
+    return answer_.data();
+  }
+
+private:
+  QString name_;
+  QString category_;
+  uint last_used_;
+  MPSiteVariant last_variant_;
+
+  QSharedPointer<Content> password_;
+  QSharedPointer<Content> login_;
+  QSharedPointer<Content> answer_;
 };
 
 #endif // SITE

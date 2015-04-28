@@ -26,7 +26,8 @@
 
 #include <QSettings>
 
-namespace key {
+namespace key
+{
   QString const appVersion = "app_version";
 
   QString const algorithmVersion    = "algorithm_version";
@@ -41,13 +42,20 @@ namespace key {
   QString const trayInfoShown       = "tray_info_shown";
   QString const sortOrder           = "sort_order";
 
-  namespace site {
-    QString const name     = "name";
-    QString const type     = "type";
-    QString const counter  = "counter";
-    QString const context  = "context";
-    QString const lastUsed = "last_used";
-    QString const category = "category";
+  namespace site
+  {
+    QString const name        = "name";
+    QString const category    = "category";
+    QString const lastUsed    = "last_used";
+    QString const lastVariant = "last_variant";
+    QString const type        = "type";
+    QString const counter     = "counter";
+    QString const context     = "context";
+    QString const content     = "content";
+    QString const contentType = "content_type";
+    QString const password    = "password";
+    QString const login       = "login";
+    QString const answer      = "answer";
   }
 }
 
@@ -202,37 +210,11 @@ public:
     setValue(key::sortOrder, v);
   }
 
-  void store(Site const &site)
-  {
-    setValue(key::site::name, site.name());
-    setValue(key::site::type, site.type());
-    setValue(key::site::counter, site.counter());
-    setValue(key::site::context, site.context());
-    setValue(key::site::lastUsed, site.lastUsed());
-    setValue(key::site::category, site.category());
-  }
+  void store(Site const &site);
 
-  void removeSite()
-  {
-    remove(key::site::name);
-    remove(key::site::type);
-    remove(key::site::counter);
-    remove(key::site::context);
-    remove(key::site::lastUsed);
-    remove(key::site::category);
-  }
+  Site loadSite();
 
-  Site loadSite()
-  {
-    return Site(
-      value<QString>(key::site::name),
-      value<MPSiteType>(key::site::type),
-      value<int>(key::site::counter),
-      value<QString>(key::site::context),
-      value<uint>(key::site::lastUsed),
-      value<QString>(key::site::category)
-    );
-  }
+  void removeSite();
 
 signals:
   void valueChanged(QString const &key, const QVariant &value);

@@ -50,6 +50,7 @@ HEADERS += \
     src/masterpasswordapp.h \
     src/qmlapplicationengine.h \
     src/settings.h \
+    src/content.h \
     src/site.h \
     src/sitemodel.h \
     src/siteproxymodel.h \
@@ -71,6 +72,8 @@ SOURCES += \
     src/main.cc \
     src/masterpasswordapp.cc \
     src/qmlapplicationengine.cc \
+    src/settings.cc \
+    src/content.cc \
     src/sitemodel.cc \
     src/siteproxymodel.cc \
     src/categorymodel.cc \

@@ -74,8 +74,8 @@ protected slots:
   void autoLogout();
   void iconActivated(QSystemTrayIcon::ActivationReason reason);
   void traySiteClicked(QAction *action);
-  void quitOnHide(bool isVisible);
-  void toggleHideShow(bool isVisible);
+  void quitOnHide(bool visible);
+  void toggleHideShow(bool visible);
   void modelChanged();
   void settingChanged(QString const &key, QVariant const &value);
 #ifdef Q_OS_WIN32
@@ -97,7 +97,11 @@ public:
   bool verifyPassword(QString const &password);
 
   Q_INVOKABLE QString passwordForSite(QString const &site_name, int site_type, int site_counter,
-                                      QString const &site_variant, QString const &site_context);
+                                      QString const &site_variant, QString const &site_context="");
+
+  Q_INVOKABLE QString encrypt(QString const &text);
+
+  Q_INVOKABLE QString decrypt(QString const &text);
 
   Q_INVOKABLE void copyToClipboard(QString const &text);
 
@@ -119,7 +123,7 @@ public:
 
   Q_INVOKABLE void importFile(QString const &path, bool overwrite);
 
-  Q_INVOKABLE void exportFile(QString const &path);
+  Q_INVOKABLE void exportFile(QString const &path, QVariantMap const &args);
 
 signals:
   void requestLogout();

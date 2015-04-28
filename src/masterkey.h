@@ -47,13 +47,9 @@ public:
     return algorithm_version_;
   }
 
-  inline char const * passwordForSite(Site const &site, MPSiteVariant const site_variant)
-  {
-    return passwordForSite(site.name().toStdString().c_str(), site.type(), site.counter(), site_variant,
-                           site.context().isEmpty() ? NULL : site.context().toStdString().c_str());
-  }
+  char const * passwordForSite(Site const &site, MPSiteVariant variant);
 
-  inline char const * passwordForSite(char const *site_name, MPSiteType const site_type, uint32_t const site_counter, MPSiteVariant const site_variant, char const *site_context)
+  inline char const * passwordForSite(char const *site_name, MPSiteType const site_type, uint32_t const site_counter, MPSiteVariant const site_variant, char const *site_context=NULL)
   {
     return mpw_passwordForSite(key_, site_name, site_type, site_counter, site_variant, site_context, algorithm_version_);
   }

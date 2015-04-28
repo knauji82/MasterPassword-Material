@@ -32,32 +32,57 @@ QList<Site> Importer::parseJson(QFile &file)
   {
     QJsonObject site = i->toObject();
 
-    QJsonValue type_name = site.value("passwordType").toString();
-    MPSiteType site_type;
+    Content *password;
+    Content *login;
+    Content *answer;
+    uint last_used;
+    MPSiteVariant last_variant = 0;
 
-    if (type_name == "GeneratedMaximum")
-      site_type = MPSiteTypeGeneratedMaximum;
-    else if (type_name == "GeneratedLong")
-      site_type = MPSiteTypeGeneratedLong;
-    else if (type_name == "GeneratedMedium")
-      site_type = MPSiteTypeGeneratedMedium;
-    else if (type_name == "GeneratedShort")
-      site_type = MPSiteTypeGeneratedShort;
-    else if (type_name == "GeneratedBasic")
-      site_type = MPSiteTypeGeneratedBasic;
-    else if (type_name == "GeneratedPIN")
-      site_type = MPSiteTypeGeneratedPIN;
-    else if (type_name == "GeneratedName")
-      site_type = MPSiteTypeGeneratedName;
-    else if (type_name == "GeneratedPhrase")
-      site_type = MPSiteTypeGeneratedPhrase;
+    if (site.contains("passwordType") && site.contains("siteCounter"))
+    {
+      QJsonValue type_name = site.value("passwordType").toString();
+      MPSiteType type;
 
-    out << Site(site.value("siteName").toString(),
-                site_type,
-                site.value("siteCounter").toInt(),
-                site.value("siteContext").isUndefined() ? "" : site.value("siteContext").toString(),
-                QDateTime::fromString(site.value("lastUsed").toString(), "MMM d, yyyy h:mm:ss AP").toTime_t(),
-                site.value("category").toString()
+      if (type_name == "GeneratedMaximum")
+        type = MPSiteTypeGeneratedMaximum;
+      else if (type_name == "GeneratedLong")
+        type = MPSiteTypeGeneratedLong;
+      else if (type_name == "GeneratedMedium")
+        type = MPSiteTypeGeneratedMedium;
+      else if (type_name == "GeneratedShort")
+        type = MPSiteTypeGeneratedShort;
+      else if (type_name == "GeneratedBasic")
+        type = MPSiteTypeGeneratedBasic;
+      else if (type_name == "GeneratedPIN")
+        type = MPSiteTypeGeneratedPIN;
+      else if (type_name == "GeneratedName")
+        type = MPSiteTypeGeneratedName;
+      else if (type_name == "GeneratedPhrase")
+        type = MPSiteTypeGeneratedPhrase;
+
+      password = new GeneratedPassword(type, site.value("siteCounter").toInt());
+      login = new Content();
+      answer = new Content();
+
+      last_used = QDateTime::fromString(site.value("lastUsed").toString(), "MMM d, yyyy h:mm:ss AP").toTime_t();
+    }
+    else
+    {
+      password = passwordFromMap(site.value("password").toObject().toVariantMap());
+      login = loginFromMap(site.value("login").toObject().toVariantMap());
+      answer = answerFromMap(site.value("answer").toObject().toVariantMap());
+
+      last_used = site.value("lastUsed").toVariant().toUInt();
+      last_variant = site.value("lastVariant").toInt();
+    }
+
+    out << Site(site.contains("siteName") ? site.value("siteName").toString() : site.value("name").toString(),
+                password,
+                login,
+                answer,
+                site.value("category").toString(),
+                last_used,
+                last_variant
            );
   }
 

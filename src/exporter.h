@@ -30,7 +30,7 @@
 class Exporter
 {
 public:
-  static void toJson(QList<Site> const &sites, MPAlgorithmVersion algorithm_version, QFile &file);
+  static void toJson(QList<Site> const &sites, bool compatibilty, MPAlgorithmVersion algorithm_version, QFile &file);
 };
 
 #endif // EXPORTER_H

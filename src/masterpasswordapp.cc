@@ -20,12 +20,12 @@
 
 #include "masterpasswordapp.h"
 
-#define SHARED_MEM_KEY "masterpassword"
-#define LOGOUT_TIMER_INTERVAL 250
-
 #include "importer.h"
 #include "exporter.h"
 #include "sitemenu.h"
+
+#define SHARED_MEM_KEY "masterpassword"
+#define LOGOUT_TIMER_INTERVAL 250
 
 MasterPasswordApp::MasterPasswordApp(int &argc, char *argv[])
     : QApplication(argc, argv),
@@ -43,6 +43,7 @@ MasterPasswordApp::MasterPasswordApp(int &argc, char *argv[])
 
   // register MPW type
   mpw::registerQml();
+  Content::registerQml();
 
   // app constants
   ctx->setContextProperty("AppVersion", APP_VERSION);
@@ -222,24 +223,34 @@ void MasterPasswordApp::traySiteClicked(QAction *action)
   MPSiteVariant variant = action->data().value<MPSiteVariant>();
   QString password = master_key_->passwordForSite(*site, variant);
   copyToClipboard(password);
-  tray_icon_.showMessage(site->name(),
-                         tr("Copied password for %1 seconds").arg(settings_.clipboardDuration()),
-                         QSystemTrayIcon::NoIcon,
-                         2000);
+  QString msg;
+  switch (variant)
+  {
+    case MPSiteVariantPassword:
+      msg = tr("Copied password for %1 seconds");
+      break;
+    case MPSiteVariantLogin:
+      msg = tr("Copied login for %1 seconds");
+      break;
+    case MPSiteVariantAnswer:
+      msg = tr("Copied answer for %1 seconds");
+      break;
+  }
+  tray_icon_.showMessage(site->name(), msg.arg(settings_.clipboardDuration()), QSystemTrayIcon::NoIcon, 2000);
 }
 
-void MasterPasswordApp::quitOnHide(bool isVisible)
+void MasterPasswordApp::quitOnHide(bool visible)
 {
-  if (!isVisible)
+  if (!visible)
     quit();
 }
 
-void MasterPasswordApp::toggleHideShow(bool isVisible)
+void MasterPasswordApp::toggleHideShow(bool visible)
 {
-  hide_action_->setVisible(isVisible);
-  show_action_->setVisible(!isVisible);
+  hide_action_->setVisible(visible);
+  show_action_->setVisible(!visible);
 
-  if (isVisible)
+  if (visible)
   {
     bg_timer_.stop();
   }
@@ -297,10 +308,21 @@ bool MasterPasswordApp::verifyPassword(QString const &password)
 QString MasterPasswordApp::passwordForSite(QString const &site_name, int site_type, int site_counter,
                                            QString const &site_variant, QString const &site_context)
 {
-  if (!loggedIn())
-    return "master key not set";
+  Q_ASSERT(loggedIn());
   return master_key_->passwordForSite(site_name.toStdString().c_str(), site_type, site_counter,
                                       mpw::variantWithName(site_variant), site_context == "" ? NULL : site_context.toStdString().c_str());
+}
+
+QString MasterPasswordApp::encrypt(QString const &text)
+{
+  Q_ASSERT(loggedIn());
+  return master_key_->encrypt(text);
+}
+
+QString MasterPasswordApp::decrypt(QString const &text)
+{
+  Q_ASSERT(loggedIn());
+  return master_key_->decrypt(text);
 }
 
 void MasterPasswordApp::copyToClipboard(QString const &text)
@@ -417,13 +439,13 @@ void MasterPasswordApp::importFile(QString const &path, bool overwrite)
   save();
 }
 
-void MasterPasswordApp::exportFile(QString const &path)
+void MasterPasswordApp::exportFile(QString const &path, QVariantMap const &args)
 {
   QFile file(QUrl(path).toLocalFile());
   QFileInfo info(file);
   if (info.suffix() == "json")
   {
-    Exporter::toJson(site_model_.list(), settings_.algorithmVersion(), file);
+    Exporter::toJson(site_model_.list(), args["compatibility"].toBool(), settings_.algorithmVersion(), file);
   }
 }
 

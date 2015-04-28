@@ -12,7 +12,7 @@
 <context>
     <name>CategoryModel</name>
     <message>
-        <location filename="../src/categorymodel.cc" line="48"/>
+        <location filename="../src/categorymodel.cc" line="49"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
@@ -25,57 +25,106 @@
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="46"/>
+        <location filename="../src/EditSitePage.qml" line="139"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="47"/>
+        <location filename="../src/EditSitePage.qml" line="140"/>
         <source>%1 already exists.</source>
         <translation>%1 ist bereits vorhanden.</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="73"/>
+        <location filename="../src/EditSitePage.qml" line="175"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="84"/>
+        <location filename="../src/EditSitePage.qml" line="217"/>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="222"/>
+        <location filename="../src/EditSitePage.qml" line="347"/>
+        <location filename="../src/EditSitePage.qml" line="455"/>
+        <source>None</source>
+        <translation>Kein</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="222"/>
+        <location filename="../src/EditSitePage.qml" line="347"/>
+        <location filename="../src/EditSitePage.qml" line="455"/>
+        <source>Generate</source>
+        <translation>Generieren</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="222"/>
+        <location filename="../src/EditSitePage.qml" line="347"/>
+        <location filename="../src/EditSitePage.qml" line="455"/>
+        <source>Store</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="251"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="95"/>
+        <location filename="../src/EditSitePage.qml" line="262"/>
+        <location filename="../src/EditSitePage.qml" line="371"/>
+        <location filename="../src/EditSitePage.qml" line="489"/>
         <source>Counter</source>
         <translation>Zähler</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="106"/>
+        <location filename="../src/EditSitePage.qml" line="308"/>
+        <location filename="../src/EditSitePage.qml" line="416"/>
+        <location filename="../src/EditSitePage.qml" line="536"/>
+        <source>Content</source>
+        <translation>Inhalt</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="314"/>
+        <location filename="../src/EditSitePage.qml" line="422"/>
+        <location filename="../src/EditSitePage.qml" line="542"/>
+        <source>Encrypted with different master key</source>
+        <translation>Mit einem anderen Master Key verschlüsselt</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="342"/>
+        <source>Login</source>
+        <translation>Login</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="450"/>
+        <source>Answer</source>
+        <translation>Antwort</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="479"/>
         <source>Context</source>
         <translation>Kontext</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="116"/>
+        <location filename="../src/EditSitePage.qml" line="186"/>
         <source>Category</source>
         <translation>Category</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="144"/>
+        <location filename="../src/EditSitePage.qml" line="291"/>
+        <location filename="../src/EditSitePage.qml" line="399"/>
+        <location filename="../src/EditSitePage.qml" line="519"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="160"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <location filename="../src/EditSitePage.qml" line="166"/>
+        <location filename="../src/EditSitePage.qml" line="48"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="177"/>
+        <location filename="../src/EditSitePage.qml" line="58"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -83,12 +132,12 @@
 <context>
     <name>Expandable</name>
     <message>
-        <location filename="../src/Expandable.qml" line="56"/>
+        <location filename="../src/Expandable.qml" line="53"/>
         <source>Click to collapse</source>
         <translation>Klicken zum verstecken</translation>
     </message>
     <message>
-        <location filename="../src/Expandable.qml" line="56"/>
+        <location filename="../src/Expandable.qml" line="53"/>
         <source>Click to expand</source>
         <translation>Klicken zum zeigen</translation>
     </message>
@@ -96,63 +145,68 @@
 <context>
     <name>ImportExportPage</name>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="30"/>
+        <location filename="../src/ImportExportPage.qml" line="29"/>
         <source>Import/Export</source>
         <translation>Import/Export</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="33"/>
-        <location filename="../src/ImportExportPage.qml" line="92"/>
+        <location filename="../src/ImportExportPage.qml" line="32"/>
+        <location filename="../src/ImportExportPage.qml" line="91"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="34"/>
-        <location filename="../src/ImportExportPage.qml" line="170"/>
+        <location filename="../src/ImportExportPage.qml" line="33"/>
+        <location filename="../src/ImportExportPage.qml" line="184"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="68"/>
+        <location filename="../src/ImportExportPage.qml" line="67"/>
         <source>Choose a file to import</source>
         <translation>Wähle eine Datei zum Importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="71"/>
-        <location filename="../src/ImportExportPage.qml" line="131"/>
+        <location filename="../src/ImportExportPage.qml" line="70"/>
+        <location filename="../src/ImportExportPage.qml" line="130"/>
         <source>Choose</source>
         <translation>Wählen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="79"/>
+        <location filename="../src/ImportExportPage.qml" line="78"/>
         <source>Replace existing sites</source>
         <translation>Vorhandene Seiten ersetzen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="101"/>
+        <location filename="../src/ImportExportPage.qml" line="100"/>
         <source>Import a file</source>
         <translation>Datei importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="128"/>
-        <location filename="../src/ImportExportPage.qml" line="179"/>
+        <location filename="../src/ImportExportPage.qml" line="127"/>
+        <location filename="../src/ImportExportPage.qml" line="193"/>
         <source>Destination directory</source>
         <translation>Zielverzeichnis</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="140"/>
+        <location filename="../src/ImportExportPage.qml" line="139"/>
         <source>File name</source>
         <translation>Dateiname</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="146"/>
+        <location filename="../src/ImportExportPage.qml" line="145"/>
         <source>Destination file</source>
         <translation>Zieldatei</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="150"/>
+        <location filename="../src/ImportExportPage.qml" line="149"/>
         <source>Format</source>
         <translation>Format</translation>
+    </message>
+    <message>
+        <location filename="../src/ImportExportPage.qml" line="169"/>
+        <source>Compatibility mode (for Android)</source>
+        <translation>Kompatibilitätsmodus (für Android)</translation>
     </message>
 </context>
 <context>
@@ -257,121 +311,101 @@
         <translation>Optionen</translation>
     </message>
     <message>
+        <location filename="../src/MainPage.qml" line="310"/>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="326"/>
+        <source>Copied login for %1 seconds</source>
+        <translation>Login für %1 Sekunden kopiert</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="351"/>
+        <source>Copied answer for %1 seconds</source>
+        <translation>Antwort für %1 Sekunden kopiert</translation>
+    </message>
+    <message>
         <location filename="../src/MainPage.qml" line="108"/>
-        <source>Variant</source>
-        <translation>Variante</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="116"/>
-        <source>The kind of content to generate</source>
-        <translation>Der zu erzeugende Inhalt</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="117"/>
-        <source>The Password to log in with</source>
-        <translation>Das Passwort zum Anmelden</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="118"/>
-        <source>The username to log in as</source>
-        <translation>Der Benutzername zum Anmelden</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="119"/>
-        <source>The answer to a security question</source>
-        <translation>Die Antwort einer Sicherheitsfrage</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="132"/>
         <source>Order</source>
         <translation>Anordnung</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="139"/>
+        <location filename="../src/MainPage.qml" line="115"/>
         <source>Ascending</source>
         <translation>Aufsteigend</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="139"/>
+        <location filename="../src/MainPage.qml" line="115"/>
         <source>Descending</source>
         <translation>Absteigend</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="140"/>
+        <location filename="../src/MainPage.qml" line="116"/>
         <source>Sort by name</source>
         <translation>Nach Namen sortieren</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="158"/>
+        <location filename="../src/MainPage.qml" line="134"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="166"/>
+        <location filename="../src/MainPage.qml" line="142"/>
         <source>Filter sites by a category</source>
         <translation>Seiten durch eine Kategorie filtern</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="177"/>
+        <location filename="../src/MainPage.qml" line="156"/>
         <source>Recently used</source>
         <translation>Kürzlich genutzt</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="194"/>
-        <location filename="../src/MainPage.qml" line="387"/>
+        <location filename="../src/MainPage.qml" line="174"/>
+        <location filename="../src/MainPage.qml" line="296"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="281"/>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="289"/>
-        <source>Increase counter</source>
-        <translation>Zähler erhöhen</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="317"/>
-        <source>Type</source>
-        <translation>Typ</translation>
-    </message>
-    <message>
-        <location filename="../src/MainPage.qml" line="324"/>
-        <source>Counter</source>
-        <translation>Zähler</translation>
     </message>
 </context>
 <context>
     <name>MasterPasswordApp</name>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="173"/>
+        <location filename="../src/masterpasswordapp.cc" line="174"/>
         <source>Sites</source>
         <translation>Seiten</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="185"/>
+        <location filename="../src/masterpasswordapp.cc" line="186"/>
         <source>&amp;Hide</source>
         <translation>&amp;Verstecken</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="186"/>
+        <location filename="../src/masterpasswordapp.cc" line="187"/>
         <source>&amp;Show</source>
         <translation>&amp;Zeigen</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="187"/>
+        <location filename="../src/masterpasswordapp.cc" line="188"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="226"/>
+        <location filename="../src/masterpasswordapp.cc" line="230"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>
     <message>
-        <location filename="../src/masterpasswordapp.cc" line="252"/>
+        <location filename="../src/masterpasswordapp.cc" line="233"/>
+        <source>Copied login for %1 seconds</source>
+        <translation>Login für %1 Sekunden kopiert</translation>
+    </message>
+    <message>
+        <location filename="../src/masterpasswordapp.cc" line="236"/>
+        <source>Copied answer for %1 seconds</source>
+        <translation>Antwort für %1 Sekunden kopiert</translation>
+    </message>
+    <message>
+        <location filename="../src/masterpasswordapp.cc" line="263"/>
         <source>I&apos;m now running in the background!</source>
         <translation>Ich laufe jetzt im Hintergrund!</translation>
     </message>
@@ -467,17 +501,17 @@
 <context>
     <name>SiteMenu</name>
     <message>
-        <location filename="../src/sitemenu.h" line="19"/>
+        <location filename="../src/sitemenu.h" line="40"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/sitemenu.h" line="20"/>
+        <location filename="../src/sitemenu.h" line="42"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../src/sitemenu.h" line="21"/>
+        <location filename="../src/sitemenu.h" line="44"/>
         <source>Answer</source>
         <translation>Antwort</translation>
     </message>

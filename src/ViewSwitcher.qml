@@ -1,5 +1,5 @@
 /**
- * sitemenu.h
+ * ViewSwitcher.qml
  * This file is part of MasterPassword-Material
  *
  * Copyright (c) 2015 Kilian Schweppe
@@ -18,34 +18,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SITEMENU
-#define SITEMENU
+import QtQuick 2.3
 
-#include "site.h"
+Item {
+    property int index: 0
 
-#include <QMenu>
+    implicitWidth: isValidIndex(index) ? children[index].implicitWidth : 0
+    implicitHeight: isValidIndex(index) ? children[index].implicitHeight : 0
 
-class SiteMenu : public QMenu
-{
-  Q_OBJECT
+    onIndexChanged: {
+        for (var i=0; i < children.length; i++)
+            children[i].visible = i == index
+    }
 
-private:
-  Site const *site_;
+    onChildrenChanged: children[children.length-1].visible = children.length-1 == index
 
-public:
-  SiteMenu(Site const *site, QWidget *parent)
-      : QMenu(site->name(), parent), site_(site)
-  {
-    if (site->password()->contentType() != Content::None)
-      addAction(tr("Password"))->setData(MPSiteVariantPassword);
-    if (site->login()->contentType() != Content::None)
-      addAction(tr("Login"))->setData(MPSiteVariantLogin);
-    if (site->answer()->contentType() != Content::None)
-      addAction(tr("Answer"))->setData(MPSiteVariantAnswer);
-  }
-
-  inline Site const * site() const { return site_; }
-};
-
-#endif // SITEMENU
+    function isValidIndex(i) {
+        return i >= 0 && i < children.length
+    }
+}
 
