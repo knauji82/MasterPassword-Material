@@ -12,6 +12,7 @@
         <file alias="ClipboardButton.qml">src/ClipboardButton.qml</file>
         <file alias="DynamicGrid.qml">src/DynamicGrid.qml</file>
         <file alias="ViewSwitcher.qml">src/ViewSwitcher.qml</file>
+        <file alias="FileDialog.qml">src/FileDialog.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="tray_icon">res/icon.svg</file>

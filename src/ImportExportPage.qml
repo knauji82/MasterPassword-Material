@@ -20,8 +20,6 @@
 
 import QtQuick 2.3
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.0
-import Qt.labs.folderlistmodel 2.1
 import Material 0.1
 
 Page {
@@ -62,7 +60,7 @@ Page {
                     Row {
                         TextField {
                             id: importFile
-                            text: fileDialog.fileUrl
+                            text: fileDialog.filePath
                             width: units.dp(350)
                             placeholderText: qsTr("Choose a file to import")
                         }
@@ -122,7 +120,7 @@ Page {
                     Row {
                         TextField {
                             id: exportDir
-                            text: dirDialog.folder
+                            text: dirDialog.folderPath
                             width: units.dp(350)
                             placeholderText: qsTr("Destination directory")
                         }
@@ -141,7 +139,7 @@ Page {
                         }
                         TextField {
                             id: fileName
-                            text: (new Date()).toLocaleString(Qt.locale(), "yyyy-MM-dd_HH-mm")+"_export"
+                            text: new Date().toLocaleString(Qt.locale(), "yyyy-MM-dd_HH-mm")+"_export"
                             placeholderText: qsTr("Destination file")
                         }
 
@@ -191,9 +189,8 @@ Page {
                 FileDialog {
                     id: dirDialog
                     title: qsTr("Destination directory")
-                    folder: "file://"+Backend.exportDirectory()
+                    folder: "file://" + (Qt.platform.os == "windows" ? "/" : "") + Backend.exportDirectory()
                     selectFolder: true
-                    onAccepted: exportDir.text = fileUrl
                 }
             }
         }

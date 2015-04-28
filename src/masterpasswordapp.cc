@@ -415,12 +415,12 @@ void MasterPasswordApp::save()
 
 bool MasterPasswordApp::existsFile(QString const &path)
 {
-  return QFile(QUrl(path).toLocalFile()).exists();
+  return QFile(path).exists();
 }
 
 bool MasterPasswordApp::existsDir(QString const &path)
 {
-  return QDir(QUrl(path).toLocalFile()).exists();
+  return QDir(path).exists();
 }
 
 QString MasterPasswordApp::exportDirectory()
@@ -430,7 +430,7 @@ QString MasterPasswordApp::exportDirectory()
 
 void MasterPasswordApp::importFile(QString const &path, bool overwrite)
 {
-  QFile file(QUrl(path).toLocalFile());
+  QFile file(path);
   QFileInfo info(file);
   if (info.suffix() == "json")
   {
@@ -441,7 +441,7 @@ void MasterPasswordApp::importFile(QString const &path, bool overwrite)
 
 void MasterPasswordApp::exportFile(QString const &path, QVariantMap const &args)
 {
-  QFile file(QUrl(path).toLocalFile());
+  QFile file(path);
   QFileInfo info(file);
   if (info.suffix() == "json")
   {
