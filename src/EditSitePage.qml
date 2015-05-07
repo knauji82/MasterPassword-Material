@@ -143,7 +143,7 @@ Page {
     Flickable {
         anchors {
             fill: parent
-            margins: units.dp(32)
+            margins: Units.dp(32)
         }
         contentHeight: content.height
         contentWidth: width
@@ -151,11 +151,11 @@ Page {
         Column {
             id: content
             anchors.centerIn: parent
-            spacing: units.dp(16)
+            spacing: Units.dp(16)
 
             View {
-                width: units.dp(500)
-                height: columnSite.implicitHeight + units.dp(32)
+                width: Units.dp(500)
+                height: columnSite.implicitHeight + Units.dp(32)
 
                 elevation: 1
 
@@ -164,12 +164,12 @@ Page {
 
                     anchors {
                         fill: parent
-                        margins: units.dp(16)
+                        margins: Units.dp(16)
                     }
 
                     columns: 2
-                    rowSpacing: units.dp(8)
-                    columnSpacing: units.dp(8)
+                    rowSpacing: Units.dp(8)
+                    columnSpacing: Units.dp(8)
 
                     Label {
                         text: qsTr("Name")
@@ -195,8 +195,8 @@ Page {
             }
 
             View {
-                width: units.dp(500)
-                height: columnPassword.implicitHeight + units.dp(32)
+                width: Units.dp(500)
+                height: columnPassword.implicitHeight + Units.dp(32)
 
                 elevation: 1
 
@@ -205,13 +205,13 @@ Page {
 
                     anchors {
                         fill: parent
-                        margins: units.dp(16)
+                        margins: Units.dp(16)
                     }
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: units.dp(8)
-                        columnSpacing: units.dp(8)
+                        rowSpacing: Units.dp(8)
+                        columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Password")
@@ -235,7 +235,7 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: units.dp(8)
+                            spacing: Units.dp(8)
 
                             GridLayout {
                                 anchors {
@@ -244,8 +244,8 @@ Page {
                                 }
 
                                 columns: 2
-                                rowSpacing: units.dp(8)
-                                columnSpacing: units.dp(8)
+                                rowSpacing: Units.dp(8)
+                                columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Type")
@@ -265,7 +265,7 @@ Page {
                                 TextField {
                                     id: passwordCounter
                                     text: !newSite && currentSite.sitePassword.isGenerated ? currentSite.sitePassword.counter : 1
-                                    input.inputMask: "000"
+                                    inputMask: "000"
                                     Layout.fillWidth: true
                                 }
                             }
@@ -274,10 +274,10 @@ Page {
                                 anchors {
                                     left: parent.left
                                     right: parent.right
-                                    margins: units.dp(16)
+                                    margins: Units.dp(16)
                                 }
 
-                                height: units.dp(36)
+                                height: Units.dp(36)
 
                                 elevation: 1
                                 backgroundColor: Theme.primaryDarkColor
@@ -301,8 +301,8 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: units.dp(8)
-                            columnSpacing: units.dp(8)
+                            rowSpacing: Units.dp(8)
+                            columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")
@@ -320,8 +320,8 @@ Page {
             }
 
             View {
-                width: units.dp(500)
-                height: columnLogin.implicitHeight + units.dp(32)
+                width: Units.dp(500)
+                height: columnLogin.implicitHeight + Units.dp(32)
 
                 elevation: 1
 
@@ -330,13 +330,13 @@ Page {
 
                     anchors {
                         fill: parent
-                        margins: units.dp(16)
+                        margins: Units.dp(16)
                     }
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: units.dp(8)
-                        columnSpacing: units.dp(8)
+                        rowSpacing: Units.dp(8)
+                        columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Login")
@@ -360,12 +360,17 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: units.dp(8)
+                            spacing: Units.dp(8)
 
                             GridLayout {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
                                 columns: 2
-                                rowSpacing: units.dp(8)
-                                columnSpacing: units.dp(8)
+                                rowSpacing: Units.dp(8)
+                                columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Counter")
@@ -374,7 +379,7 @@ Page {
                                 TextField {
                                     id: loginCounter
                                     text: !newSite && currentSite.siteLogin.isGenerated ? currentSite.siteLogin.counter : 1
-                                    input.inputMask: "000"
+                                    inputMask: "000"
                                     Layout.fillWidth: true
                                  }
                             }
@@ -383,9 +388,9 @@ Page {
                                 anchors {
                                     left: parent.left
                                     right: parent.right
-                                    margins: units.dp(16)
+                                    margins: Units.dp(16)
                                 }
-                                height: units.dp(36)
+                                height: Units.dp(36)
 
                                 elevation: 1
                                 backgroundColor: Theme.primaryDarkColor
@@ -409,8 +414,8 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: units.dp(8)
-                            columnSpacing: units.dp(8)
+                            rowSpacing: Units.dp(8)
+                            columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")
@@ -428,8 +433,8 @@ Page {
             }
 
             View {
-                width: units.dp(500)
-                height: columnAnswer.implicitHeight + units.dp(32)
+                width: Units.dp(500)
+                height: columnAnswer.implicitHeight + Units.dp(32)
 
                 elevation: 1
 
@@ -438,13 +443,13 @@ Page {
 
                     anchors {
                         fill: parent
-                        margins: units.dp(16)
+                        margins: Units.dp(16)
                     }
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: units.dp(8)
-                        columnSpacing: units.dp(8)
+                        rowSpacing: Units.dp(8)
+                        columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Answer")
@@ -468,12 +473,17 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: units.dp(8)
+                            spacing: Units.dp(8)
 
                             GridLayout {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
                                 columns: 2
-                                rowSpacing: units.dp(8)
-                                columnSpacing: units.dp(8)
+                                rowSpacing: Units.dp(8)
+                                columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Context")
@@ -492,7 +502,7 @@ Page {
                                 TextField {
                                     id: answerCounter
                                     text: !newSite && currentSite.siteAnswer.isGenerated ? currentSite.siteAnswer.counter : 1
-                                    input.inputMask: "000"
+                                    inputMask: "000"
                                     Layout.fillWidth: true
                                 }
                             }
@@ -501,9 +511,9 @@ Page {
                                 anchors {
                                     left: parent.left
                                     right: parent.right
-                                    margins: units.dp(16)
+                                    margins: Units.dp(16)
                                 }
-                                height: units.dp(36)
+                                height: Units.dp(36)
 
                                 elevation: 1
                                 backgroundColor: Theme.primaryDarkColor
@@ -529,8 +539,8 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: units.dp(8)
-                            columnSpacing: units.dp(8)
+                            rowSpacing: Units.dp(8)
+                            columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")

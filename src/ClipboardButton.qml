@@ -19,42 +19,18 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2 as Controls
-import QtQuick.Controls.Styles 1.2 as ControlStyles
 import Material 0.1
+import QtQuick.Controls.Styles.Material 0.1
 
-Controls.Button {
-    height: units.dp(40)
+Button {
+    height: Units.dp(40)
 
     signal copied()
 
-    style: ControlStyles.ButtonStyle {
-        background: View {
-            radius: units.dp(2)
-
-            backgroundColor: "transparent"
-            tintColor: mouseArea.currentCircle || control.focus || control.hovered
-                     ? Qt.rgba(0, 0, 0, mouseArea.currentCircle
-                        ? 0.1 : 0.03)
-                     : "transparent"
-            Ink {
-                id: mouseArea
-                anchors.fill: parent
-                focus: control.focus
-                focusWidth: parent.width - units.dp(30)
-                focusColor: Qt.darker("white", 1.05)
-
-                Connections {
-                    target: control.__behavior
-                    onPressed: mouseArea.onPressed(mouse)
-                    onCanceled: mouseArea.onCanceled()
-                    onReleased: mouseArea.onReleased(mouse)
-                }
-            }
-        }
+    style: ButtonStyle {
         label: Item {
-            implicitHeight: Math.max(units.dp(36), label.height + units.dp(16))
-            implicitWidth: Math.max(units.dp(88), label.width + units.dp(32))
+            implicitHeight: Math.max(Units.dp(36), label.height + Units.dp(16))
+            implicitWidth: Math.max(Units.dp(88), label.width + Units.dp(32))
 
             Label {
                 id: label

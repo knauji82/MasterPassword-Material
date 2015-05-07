@@ -64,49 +64,49 @@ Page {
     View {
         anchors.centerIn: parent
 
-        width: units.dp(500)
-        height: units.dp(240)
+        width: Units.dp(400)
+        height: Units.dp(200)
 
         elevation: 1
 
         ColumnLayout {
+
             anchors {
-                fill: parent
-                margins: units.dp(16)
+                //fill: parent
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                margins: Units.dp(32)
             }
 
-            GridLayout {
-                columns: 2
-                rowSpacing: 10
-                columnSpacing: 10
-                anchors.horizontalCenter: parent.horizontalCenter
+            spacing: Units.dp(24)
 
-                Label {
-                    text: qsTr("Name")
-                    style: "subheading"
-                }
-                TextField {
-                    id: user
-                    text: Settings.userName()
-                    placeholderText: qsTr("Your username")
-                    Layout.fillWidth: true
-                }
+            Component.onCompleted: focusField()
 
-                Label {
-                    text: qsTr("Password")
-                    style: "subheading"
-                }
-                TextField {
-                    id: password
-                    placeholderText: qsTr("Your Master Password")
-                    input.echoMode: TextInput.Password
-                    Layout.fillWidth: true
-                }
-
-                Component.onCompleted: focusField()
+            TextField {
+                id: user
+                text: Settings.userName()
+                placeholderText: qsTr("Your username")
+                floatingLabel: true
+                Layout.fillWidth: true
             }
+
+            TextField {
+                id: password
+                placeholderText: qsTr("Your Master Password")
+                floatingLabel: true
+                echoMode: TextInput.Password
+                Layout.fillWidth: true
+            }
+        }
 
             Button {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                    margins: Units.dp(16)
+                }
                 text: qsTr("Login")
                 textColor: theme.primaryColor
                 elevation: 1
@@ -116,6 +116,6 @@ Page {
 
             Keys.onReturnPressed: tryLogin()
             Keys.onEnterPressed: tryLogin()
-        }
+
     }
 }

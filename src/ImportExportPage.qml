@@ -47,8 +47,8 @@ Page {
             height: tabView.height
 
             View {
-                width: units.dp(550)
-                height: units.dp(300)
+                width: Units.dp(550)
+                height: Units.dp(300)
                 anchors.centerIn: parent
                 elevation: 1
 
@@ -61,7 +61,7 @@ Page {
                         TextField {
                             id: importFile
                             text: fileDialog.filePath
-                            width: units.dp(350)
+                            width: Units.dp(350)
                             placeholderText: qsTr("Choose a file to import")
                         }
                         Button {
@@ -70,7 +70,7 @@ Page {
                         }
                     }
 
-                    Checkbox {
+                    CheckBox {
                         id: overwrite
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: qsTr("Replace existing sites")
@@ -81,10 +81,10 @@ Page {
                     anchors {
                         bottom: parent.bottom
                         horizontalCenter: parent.horizontalCenter
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
                     enabled: importFile.text.length > 0 && Backend.existsFile(importFile.text)
-                    width: units.dp(300)
+                    width: Units.dp(300)
                     elevation: 1
                     text: qsTr("Import")
                     onClicked: {
@@ -107,8 +107,8 @@ Page {
             height: tabView.height
 
             View {
-                width: units.dp(550)
-                height: units.dp(300)
+                width: Units.dp(550)
+                height: Units.dp(300)
                 anchors.centerIn: parent
                 elevation: 1
 
@@ -121,7 +121,7 @@ Page {
                         TextField {
                             id: exportDir
                             text: dirDialog.folderPath
-                            width: units.dp(350)
+                            width: Units.dp(350)
                             placeholderText: qsTr("Destination directory")
                         }
                         Button {
@@ -162,7 +162,7 @@ Page {
 
                         index: format.selectedIndex
 
-                        Checkbox {
+                        CheckBox {
                             id: compatibility
                             text: qsTr("Compatibility mode (for Android)")
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -174,10 +174,10 @@ Page {
                     anchors {
                         bottom: parent.bottom
                         horizontalCenter: parent.horizontalCenter
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
                     enabled: exportDir.text.length > 0 && fileName.text.length > 0 && Backend.existsDir(exportDir.text)
-                    width: units.dp(300)
+                    width: Units.dp(300)
                     elevation: 1
                     text: qsTr("Export")
                     onClicked: {

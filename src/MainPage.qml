@@ -127,7 +127,7 @@ Page {
                         left: parent.left
                         right: parent.right
                     }
-                    height: units.dp(10)
+                    height: Units.dp(10)
                 }
 
                 Label {
@@ -190,8 +190,8 @@ Page {
 
         model: SiteProxyModel
 
-        spacing: units.dp(12)
-        columnWidth: units.dp(300)
+        spacing: Units.dp(12)
+        columnWidth: Units.dp(300)
 
         property int clipboardIndex: -1
         readonly property int clipboardSourceIndex: clipboardIndex >= 0 ? SiteProxyModel.mapIndexToSource(clipboardIndex) : -1
@@ -297,8 +297,9 @@ Page {
                     anchors {
                         left: parent.left
                         right: parent.right
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
+                    implicitHeight: Units.dp(50)
 
                     visible: text != ""
 
@@ -327,8 +328,9 @@ Page {
                     anchors {
                         left: parent.left
                         right: parent.right
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
+                    implicitHeight: Units.dp(50)
 
                     visible: text != ""
 
@@ -352,8 +354,9 @@ Page {
                     anchors {
                         left: parent.left
                         right: parent.right
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
+                    implicitHeight: Units.dp(50)
 
                     visible: text != ""
 

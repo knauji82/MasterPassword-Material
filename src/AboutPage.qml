@@ -28,8 +28,8 @@ Page {
     title: qsTr("About")
 
     View {
-        width: units.dp(550)
-        height: units.dp(350)
+        width: Units.dp(550)
+        height: Units.dp(350)
         anchors.centerIn: parent
         elevation: 1
 

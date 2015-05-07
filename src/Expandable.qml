@@ -34,7 +34,7 @@ View {
         right: parent.right
     }
 
-    height: expanded ? header.height + column.implicitHeight + units.dp(16) : header.height
+    height: expanded ? header.height + column.implicitHeight + Units.dp(16) : header.height
 
     function collapse() {
         expanded = false
@@ -56,7 +56,7 @@ View {
 
     Column {
         id: column
-        spacing: units.dp(10)
+        spacing: Units.dp(10)
         opacity: expanded ? 1 : 0
 
         Behavior on opacity {
@@ -68,10 +68,10 @@ View {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-            topMargin: units.dp(8)
-            bottomMargin: units.dp(8)
-            leftMargin: units.dp(16)
-            rightMargin: units.dp(16)
+            topMargin: Units.dp(8)
+            bottomMargin: Units.dp(8)
+            leftMargin: Units.dp(16)
+            rightMargin: Units.dp(16)
         }
     }
 }

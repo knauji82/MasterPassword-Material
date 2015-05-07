@@ -26,7 +26,7 @@ Flickable {
     property alias delegate: view.delegate
     property alias count: view.count
 
-    property int columnWidth: units.dp(100)
+    property int columnWidth: Units.dp(100)
     property int spacing: 0
 
     property int selectedIndex: -1

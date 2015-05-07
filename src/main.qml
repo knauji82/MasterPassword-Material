@@ -42,7 +42,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         if (Qt.platform.os == "windows")
-            units.multiplier = 1.8
+            Units.multiplier = 1.8
     }
 
     onClosing: {

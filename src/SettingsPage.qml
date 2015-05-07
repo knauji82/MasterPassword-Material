@@ -40,8 +40,8 @@ Page {
     View {
         anchors.centerIn: parent
 
-        width: column.implicitWidth + units.dp(32)
-        height: column.implicitHeight + units.dp(32)
+        width: column.implicitWidth + Units.dp(32)
+        height: column.implicitHeight + Units.dp(32)
 
         elevation: 1
 
@@ -50,7 +50,7 @@ Page {
 
             anchors {
                 fill: parent
-                margins: units.dp(16)
+                margins: Units.dp(16)
             }
 
             GridLayout {
@@ -84,7 +84,7 @@ Page {
                     TextField {
                         id: clipboardDuration
                         text: Settings.clipboardDuration()
-                        input.inputMask: "00"
+                        inputMask: "00"
                     }
                     Label {
                         text: qsTr("seconds")
@@ -94,7 +94,7 @@ Page {
                 Label {
                     text: qsTr("Auto logout")
                 }
-                Checkbox {
+                CheckBox {
                     id: autoLogout
                     checked: Settings.autoLogout()
                 }
@@ -108,7 +108,7 @@ Page {
                     TextField {
                         id: autoLogoutDuration
                         text: Settings.autoLogoutDuration()
-                        input.inputMask: "00"
+                        inputMask: "00"
                     }
                     Label {
                         text: qsTr("minutes")
@@ -118,7 +118,7 @@ Page {
                 Label {
                     text: qsTr("Hide passwords")
                 }
-                Checkbox {
+                CheckBox {
                     id: hidePasswords
                     checked: Settings.hidePasswords()
                 }
@@ -127,7 +127,7 @@ Page {
                     text: qsTr("Verify password at login")
                 }
                 RowLayout {
-                    Checkbox {
+                    CheckBox {
                         id: verifyPassword
                         checked: Settings.verifyPassword()
                         onCheckedChanged: if (checked && !Settings.verifyPassword()) {
@@ -160,7 +160,7 @@ Page {
                                 TextField {
                                     id: password1
                                     Layout.fillWidth: true
-                                    input.echoMode: TextInput.Password
+                                    echoMode: TextInput.Password
                                     focus: true
                                 }
 
@@ -170,7 +170,7 @@ Page {
                                 TextField {
                                     id: password2
                                     Layout.fillWidth: true
-                                    input.echoMode: TextInput.Password
+                                    echoMode: TextInput.Password
                                 }
                             }
 
