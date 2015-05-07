@@ -29,7 +29,7 @@ If you want to know how the algorithm works or to get more familiar with the con
 * Use a shortcut or hotkey to open the app from the background
 * Auto logout
 * Multiple users
-* Json import/export (compatible with  [Master Password for Android]())
+* Json import/export (compatible with  [Master Password for Android](https://play.google.com/store/apps/details?id=de.devland.masterpassword&hl=en))
 
 ## Installation
 
