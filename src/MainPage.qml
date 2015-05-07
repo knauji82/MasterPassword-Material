@@ -44,11 +44,6 @@ Page {
 
     actions: [
         Action {
-            name: qsTr("Add")
-            iconName: "content/add"
-            onTriggered: pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
-        },
-        Action {
             name: qsTr("Import/Export")
             iconName: "communication/import_export"
             onTriggered: pageStack.push(Qt.resolvedUrl("ImportExportPage.qml"))
@@ -74,6 +69,17 @@ Page {
         name: qsTr("Back")
         iconName: "navigation/arrow_back"
         onTriggered: confirmLogoutDialog.show()
+    }
+
+    ActionButton {
+        z: 1
+        anchors {
+            right: sideBar.left
+            bottom: parent.bottom
+            margins: Units.dp(16)
+        }
+        iconName: "content/add"
+        onClicked: pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
     }
 
     Dialog {
@@ -191,6 +197,7 @@ Page {
         model: SiteProxyModel
 
         spacing: Units.dp(12)
+        bottomPadding: Units.dp(64)
         columnWidth: Units.dp(300)
 
         property int clipboardIndex: -1

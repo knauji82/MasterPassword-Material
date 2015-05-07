@@ -28,10 +28,11 @@ Flickable {
 
     property int columnWidth: Units.dp(100)
     property int spacing: 0
+    property int bottomPadding: 0
 
     property int selectedIndex: -1
 
-    contentHeight: view.height
+    contentHeight: view.height + bottomPadding
 
     function update() {
         var m = view.model
