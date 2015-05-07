@@ -72,7 +72,7 @@ Page {
                 }
                 MenuField {
                     id: defaultSiteType
-                    readonly property var typeNames: MPW.typeNames()
+                    readonly property var typeNames: MPW.passwordTypeNames()
                     model: typeNames
                     selectedIndex: typeNames.indexOf(MPW.typeName(Settings.defaultSiteType()))
                     Layout.fillWidth: true

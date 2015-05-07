@@ -252,7 +252,7 @@ Page {
                                     style: "subheading"
                                 }
                                 MenuField {
-                                    readonly property var typeNames: MPW.typeNames()
+                                    readonly property var typeNames: MPW.passwordTypeNames()
                                     id: passwordType
                                     model: typeNames
                                     Layout.fillWidth: true
