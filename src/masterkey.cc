@@ -26,19 +26,19 @@ char const * MasterKey::passwordForSite(Site const &site, MPSiteVariant variant)
   {
     case MPSiteVariantPassword:
     {
-      Q_ASSERT(site.password()->contentType() == Content::Generated);
+      Q_ASSERT(site.password()->isGenerated());
       GeneratedPassword *pw = (GeneratedPassword*) site.password();
       return passwordForSite(site.name().toStdString().c_str(), pw->type(), pw->counter(), variant);
     }
     case MPSiteVariantLogin:
     {
-      Q_ASSERT(site.login()->contentType() == Content::Generated);
+      Q_ASSERT(site.login()->isGenerated());
       GeneratedLogin *login = (GeneratedLogin*) site.login();
       return passwordForSite(site.name().toStdString().c_str(), login->type(), login->counter(), variant);
     }
     case MPSiteVariantAnswer:
     {
-      Q_ASSERT(site.answer()->contentType() == Content::Generated);
+      Q_ASSERT(site.answer()->isGenerated());
       GeneratedAnswer *answer = (GeneratedAnswer*) site.answer();
       return passwordForSite(site.name().toStdString().c_str(), answer->type(), answer->counter(), variant,
                              answer->context().isEmpty() ? NULL : answer->context().toStdString().c_str());

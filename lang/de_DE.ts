@@ -88,7 +88,7 @@
         <location filename="../src/EditSitePage.qml" line="314"/>
         <location filename="../src/EditSitePage.qml" line="422"/>
         <location filename="../src/EditSitePage.qml" line="542"/>
-        <source>Encrypted with different master key</source>
+        <source>Encrypted with a different master key</source>
         <translation>Mit einem anderen Master Key verschlüsselt</translation>
     </message>
     <message>
@@ -145,66 +145,66 @@
 <context>
     <name>ImportExportPage</name>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="29"/>
+        <location filename="../src/ImportExportPage.qml" line="27"/>
         <source>Import/Export</source>
         <translation>Import/Export</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="32"/>
-        <location filename="../src/ImportExportPage.qml" line="91"/>
+        <location filename="../src/ImportExportPage.qml" line="30"/>
+        <location filename="../src/ImportExportPage.qml" line="89"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="33"/>
-        <location filename="../src/ImportExportPage.qml" line="184"/>
+        <location filename="../src/ImportExportPage.qml" line="31"/>
+        <location filename="../src/ImportExportPage.qml" line="182"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="67"/>
+        <location filename="../src/ImportExportPage.qml" line="65"/>
         <source>Choose a file to import</source>
         <translation>Wähle eine Datei zum Importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="70"/>
-        <location filename="../src/ImportExportPage.qml" line="130"/>
+        <location filename="../src/ImportExportPage.qml" line="68"/>
+        <location filename="../src/ImportExportPage.qml" line="128"/>
         <source>Choose</source>
         <translation>Wählen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="78"/>
+        <location filename="../src/ImportExportPage.qml" line="76"/>
         <source>Replace existing sites</source>
         <translation>Vorhandene Seiten ersetzen</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="100"/>
+        <location filename="../src/ImportExportPage.qml" line="98"/>
         <source>Import a file</source>
         <translation>Datei importieren</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="127"/>
-        <location filename="../src/ImportExportPage.qml" line="193"/>
+        <location filename="../src/ImportExportPage.qml" line="125"/>
+        <location filename="../src/ImportExportPage.qml" line="191"/>
         <source>Destination directory</source>
         <translation>Zielverzeichnis</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="139"/>
+        <location filename="../src/ImportExportPage.qml" line="137"/>
         <source>File name</source>
         <translation>Dateiname</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="145"/>
+        <location filename="../src/ImportExportPage.qml" line="143"/>
         <source>Destination file</source>
         <translation>Zieldatei</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="149"/>
+        <location filename="../src/ImportExportPage.qml" line="147"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../src/ImportExportPage.qml" line="169"/>
+        <location filename="../src/ImportExportPage.qml" line="167"/>
         <source>Compatibility mode (for Android)</source>
         <translation>Kompatibilitätsmodus (für Android)</translation>
     </message>
@@ -311,17 +311,17 @@
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="310"/>
+        <location filename="../src/MainPage.qml" line="307"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="326"/>
+        <location filename="../src/MainPage.qml" line="323"/>
         <source>Copied login for %1 seconds</source>
         <translation>Login für %1 Sekunden kopiert</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="351"/>
+        <location filename="../src/MainPage.qml" line="348"/>
         <source>Copied answer for %1 seconds</source>
         <translation>Antwort für %1 Sekunden kopiert</translation>
     </message>
@@ -356,13 +356,13 @@
         <translation>Seiten durch eine Kategorie filtern</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="156"/>
+        <location filename="../src/MainPage.qml" line="153"/>
         <source>Recently used</source>
         <translation>Kürzlich genutzt</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="174"/>
-        <location filename="../src/MainPage.qml" line="296"/>
+        <location filename="../src/MainPage.qml" line="171"/>
+        <location filename="../src/MainPage.qml" line="293"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>

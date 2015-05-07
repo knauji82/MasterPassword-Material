@@ -311,7 +311,7 @@ Page {
                             TextField {
                                 id: passwordContent
                                 text: !newSite && currentSite.sitePassword.isStored ? Backend.decrypt(currentSite.sitePassword.content) : ""
-                                placeholderText: !newSite && currentSite.sitePassword.isStored && text == "" ? qsTr("Encrypted with different master key") : ""
+                                placeholderText: !newSite && currentSite.sitePassword.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
                                 Layout.fillWidth: true
                             }
                         }
@@ -419,7 +419,7 @@ Page {
                             TextField {
                                 id: loginContent
                                 text: !newSite && currentSite.siteLogin.isStored ? Backend.decrypt(currentSite.siteLogin.content) : ""
-                                placeholderText: !newSite && currentSite.siteLogin.isStored && text == "" ? qsTr("Encrypted with different master key") : ""
+                                placeholderText: !newSite && currentSite.siteLogin.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
                                 Layout.fillWidth: true
                             }
                         }
@@ -539,7 +539,7 @@ Page {
                             TextField {
                                 id: answerContent
                                 text: !newSite && currentSite.siteAnswer.isStored ? Backend.decrypt(currentSite.siteAnswer.content) : ""
-                                placeholderText: !newSite && currentSite.siteAnswer.isStored && text == "" ? qsTr("Encrypted with different master key") : ""
+                                placeholderText: !newSite && currentSite.siteAnswer.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
                                 Layout.fillWidth: true
                             }
                         }
