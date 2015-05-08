@@ -82,6 +82,8 @@ public:
 
   inline QString const & content() const { return content_; }
 
+  inline void setContent(QString const &content) { content_ = content; }
+
 private:
   QString content_;
 };
@@ -107,7 +109,11 @@ public:
 
   inline MPSiteType type() const { return type_; }
 
+  inline void setType(MPSiteType type) { type_ = type; }
+
   inline uint32_t counter() const { return counter_; }
+
+  inline void setCounter(uint32_t counter) { counter_ = counter; }
 
 private:
   MPSiteType type_;
@@ -134,6 +140,8 @@ public:
   inline MPSiteType type() const { return MPSiteTypeGeneratedName; }
 
   inline uint32_t counter() const { return counter_; }
+
+  inline void setCounter(uint32_t counter) { counter_ = counter; }
 
 private:
   uint32_t counter_;
@@ -162,7 +170,11 @@ public:
 
   inline QString const & context() const { return context_; }
 
+  inline void setContext(QString const &context) { context_ = context; }
+
   inline uint32_t counter() const { return counter_; }
+
+  inline void setCounter(uint32_t counter) { counter_ = counter; }
 
 private:
   QString context_;
