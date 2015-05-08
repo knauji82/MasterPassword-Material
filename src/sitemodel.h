@@ -62,6 +62,8 @@ public:
 
   void updateDate(QModelIndex const &index, MPSiteVariant variant);
 
+  void increaseCounter(QModelIndex const &index, MPSiteVariant variant);
+
   bool removeRows(int row, int count, QModelIndex const &parent);
 
   inline int length() const

@@ -55,6 +55,11 @@ public:
     site_model_->updateDate(mapToSource(this->index(index, 0)), mpw::variantWithName(variant_name));
   }
 
+  Q_INVOKABLE inline void increaseCounter(int index, QString const &variant_name)
+  {
+    site_model_->increaseCounter(mapToSource(this->index(index, 0)), mpw::variantWithName(variant_name));
+  }
+
   Q_INVOKABLE inline void remove(int index)
   {
     removeRow(index);

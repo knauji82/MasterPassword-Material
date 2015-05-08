@@ -296,17 +296,34 @@
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="315"/>
+        <location filename="../src/MainPage.qml" line="205"/>
+        <source>Edit</source>
+        <translation>Bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="210"/>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="221"/>
+        <location filename="../src/MainPage.qml" line="227"/>
+        <location filename="../src/MainPage.qml" line="233"/>
+        <source>Increase counter (%1)</source>
+        <translation>Zähler erhöhen (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="371"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="331"/>
+        <location filename="../src/MainPage.qml" line="387"/>
         <source>Copied login for %1 seconds</source>
         <translation>Login für %1 Sekunden kopiert</translation>
     </message>
     <message>
-        <location filename="../src/MainPage.qml" line="357"/>
+        <location filename="../src/MainPage.qml" line="413"/>
         <source>Copied answer for %1 seconds</source>
         <translation>Antwort für %1 Sekunden kopiert</translation>
     </message>
@@ -347,7 +364,7 @@
     </message>
     <message>
         <location filename="../src/MainPage.qml" line="177"/>
-        <location filename="../src/MainPage.qml" line="300"/>
+        <location filename="../src/MainPage.qml" line="356"/>
         <source>Copied password for %1 seconds</source>
         <translation>Passwort für %1 Sekunden kopiert</translation>
     </message>

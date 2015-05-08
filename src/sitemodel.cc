@@ -117,6 +117,38 @@ void SiteModel::updateDate(QModelIndex const &index, MPSiteVariant variant)
   emit dataChanged(index, index);
 }
 
+void SiteModel::increaseCounter(QModelIndex const &index, MPSiteVariant variant)
+{
+  Site site = sites_[index.row()];
+
+  switch (variant)
+  {
+    case MPSiteVariantPassword:
+    {
+      Q_ASSERT(site.password()->isGenerated());
+      GeneratedPassword *pw = (GeneratedPassword*) site.password();
+      pw->setCounter(pw->counter()+1);
+      break;
+    }
+    case MPSiteVariantLogin:
+    {
+      Q_ASSERT(site.login()->isGenerated());
+      GeneratedLogin *login = (GeneratedLogin*) site.login();
+      login->setCounter(login->counter()+1);
+      break;
+    }
+    case MPSiteVariantAnswer:
+    {
+      Q_ASSERT(site.answer()->isGenerated());
+      GeneratedAnswer *answer = (GeneratedAnswer*) site.answer();
+      answer->setCounter(answer->counter()+1);
+      break;
+    }
+  }
+
+  emit dataChanged(index, index);
+}
+
 int SiteModel::rowCount(QModelIndex const &parent) const
 {
   Q_UNUSED(parent);

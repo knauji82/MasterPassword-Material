@@ -183,6 +183,62 @@ Page {
         }
     }
 
+    Component {
+        id: actionSheetComponent
+
+        BottomActionSheet {
+            property int siteIndex
+            readonly property var site: SiteProxyModel.getMap(siteIndex)
+
+            title: site.siteName
+
+            onPercentOpenChanged: if (percentOpen == 0) destroy()
+
+            actions: [
+                /*
+                Action {
+                    name: qsTr("Open in Browser")
+                    iconName: "action/open_in_browser"
+                },
+                */
+                Action {
+                    name: qsTr("Edit")
+                    iconName: "content/create"
+                    onTriggered: onSiteSelected(siteIndex)
+                },
+                Action {
+                    name: qsTr("Delete")
+                    iconName: "action/delete"
+                    hasDividerAfter: site.sitePassword.isGenerated ||
+                                     site.siteLogin.isGenerated ||
+                                     site.siteAnswer.isGenerated
+                    onTriggered: {
+                        SiteProxyModel.remove(siteIndex)
+                        Backend.save()
+                    }
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNamePassword())
+                    iconName: "content/add"
+                    visible: site.sitePassword.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNamePassword())
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNameLogin())
+                    iconName: "content/add"
+                    visible: site.siteLogin.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNameLogin())
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNameAnswer())
+                    iconName: "content/add"
+                    visible: site.siteAnswer.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNameAnswer())
+                }
+            ]
+        }
+    }
+
     DynamicGrid {
         id: siteView
         focus: true
@@ -276,7 +332,7 @@ Page {
 
             MouseArea {
                 anchors.fill: parent
-                onReleased: onSiteSelected(index)
+                onReleased: actionSheetComponent.createObject(parent, {"siteIndex": index}).open()
             }
 
             ColumnLayout {
