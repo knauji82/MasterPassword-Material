@@ -266,6 +266,7 @@ Page {
                                     readonly property var typeNames: MPW.passwordTypeNames()
                                     id: passwordType
                                     model: typeNames
+                                    maxVisibleItems: typeNames.length
                                     Layout.fillWidth: true
                                 }
 

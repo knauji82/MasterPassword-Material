@@ -75,6 +75,7 @@ Page {
                     readonly property var typeNames: MPW.passwordTypeNames()
                     model: typeNames
                     selectedIndex: typeNames.indexOf(MPW.typeName(Settings.defaultSiteType()))
+                    maxVisibleItems: typeNames.length
                     Layout.fillWidth: true
                 }
                 Label {
