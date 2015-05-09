@@ -40,6 +40,39 @@ Page {
         pageStack.currentItem.siteIndex = index
     }
 
+    function getPassword(siteName, sitePassword) {
+        switch (sitePassword.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, MPW.variantNamePassword())
+            case ContentType.Stored:
+                return Backend.decrypt(sitePassword.content)
+        }
+    }
+
+    function getLogin(siteName, siteLogin) {
+        switch (siteLogin.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNameName()), siteLogin.counter, MPW.variantNameLogin())
+            case ContentType.Stored:
+                return Backend.decrypt(siteLogin.content)
+        }
+    }
+
+    function getAnswer(siteName, siteAnswer) {
+        switch (siteAnswer.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer())
+            case ContentType.Stored:
+                return Backend.decrypt(siteAnswer.content)
+        }
+    }
+
     actionBar.maxActionCount: 5
 
     actions: [
@@ -172,7 +205,17 @@ Page {
                                 filter.selectedIndex = 0
                                 proxyIndex = SiteProxyModel.mapIndexFromSource(sourceIndex)
                             }
-                            Backend.copyToClipboard(Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, siteLastVariant))
+                            switch (siteLastVariant) {
+                                case MPW.variantNamePassword():
+                                    Backend.copyToClipboard(getPassword(siteName, sitePassword))
+                                    break;
+                                case MPW.variantNameLogin():
+                                    Backend.copyToClipboard(getLogin(siteName, siteLogin))
+                                    break;
+                                case MPW.variantNameAnswer():
+                                    Backend.copyToClipboard(getAnswer(siteName, siteAnswer))
+                                    break;
+                            }
                             siteView.clipboardIndex = proxyIndex
                             snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
                             SiteProxyModel.updateDate(proxyIndex, siteLastVariant)
@@ -297,39 +340,6 @@ Page {
             Keys.onEscapePressed: siteView.focus = true
             */
 
-            function getPassword() {
-                switch (sitePassword.contentType) {
-                    case ContentType.None:
-                        return ""
-                    case ContentType.Generated:
-                        return Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, MPW.variantNamePassword())
-                    case ContentType.Stored:
-                        return Backend.decrypt(sitePassword.content)
-                }
-            }
-
-            function getLogin() {
-                switch (siteLogin.contentType) {
-                    case ContentType.None:
-                        return ""
-                    case ContentType.Generated:
-                        return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNameName()), siteLogin.counter, MPW.variantNameLogin())
-                    case ContentType.Stored:
-                        return Backend.decrypt(siteLogin.content)
-                }
-            }
-
-            function getAnswer() {
-                switch (siteAnswer.contentType) {
-                    case ContentType.None:
-                        return ""
-                    case ContentType.Generated:
-                        return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer())
-                    case ContentType.Stored:
-                        return Backend.decrypt(siteAnswer.content)
-                }
-            }
-
             MouseArea {
                 anchors.fill: parent
                 onReleased: actionSheetComponent.createObject(parent, {"siteIndex": index}).open()
@@ -350,7 +360,7 @@ Page {
                 }
 
                 ClipboardButton {
-                    text: getPassword()
+                    text: getPassword(siteName, sitePassword)
                     onCopied: {
                         siteView.clipboardIndex = index
                         snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
@@ -381,7 +391,7 @@ Page {
                 }
 
                 ClipboardButton {
-                    text: getLogin()
+                    text: getLogin(siteName, siteLogin)
                     onCopied: {
                         siteView.clipboardIndex = index
                         snackbar.open(qsTr("Copied login for %1 seconds").arg(ClipboardDuration))
@@ -407,7 +417,7 @@ Page {
                 }
 
                 ClipboardButton {
-                    text: getAnswer()
+                    text: getAnswer(siteName, siteAnswer)
                     onCopied: {
                         siteView.clipboardIndex = index
                         snackbar.open(qsTr("Copied answer for %1 seconds").arg(ClipboardDuration))
