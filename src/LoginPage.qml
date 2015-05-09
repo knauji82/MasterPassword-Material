@@ -59,6 +59,8 @@ Page {
     Dialog {
         id: errorDialog
         title: qsTr("Error")
+
+        Keys.onReturnPressed: close()
     }
 
     View {
