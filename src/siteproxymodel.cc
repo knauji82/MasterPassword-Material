@@ -37,8 +37,8 @@ int SiteProxyModel::insert(QVariantMap const &site_map, bool overwrite)
   Content *login = loginFromMap(site_map["login"].toMap());
   Content *answer = answerFromMap(site_map["answer"].toMap());
 
-  int index = site_model_->insert(Site(site_map["name"].toString(), password, login, answer, site_map["category"].toString(), site_map["lastUsed"].toUInt(),
-      site_map["lastVariant"].toString().isEmpty() ? 0 : mpw::variantWithName(site_map["lastVariant"].toString())), overwrite);
+  int index = site_model_->insert(Site(site_map["name"].toString(), password, login, answer, site_map["category"].toString(), site_map["url"].toString(),
+      site_map["lastUsed"].toUInt(),site_map["lastVariant"].toString().isEmpty() ? 0 : mpw::variantWithName(site_map["lastVariant"].toString())), overwrite);
   return mapFromSource(site_model_->index(index)).row();
 }
 

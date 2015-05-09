@@ -195,12 +195,12 @@ Page {
             onPercentOpenChanged: if (percentOpen == 0) destroy()
 
             actions: [
-                /*
                 Action {
                     name: qsTr("Open in Browser")
                     iconName: "action/open_in_browser"
+                    visible: site.siteUrl !== ""
+                    onTriggered: Qt.openUrlExternally(site.siteUrl)
                 },
-                */
                 Action {
                     name: qsTr("Edit")
                     iconName: "content/create"

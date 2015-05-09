@@ -35,6 +35,7 @@ QList<Site> Importer::parseJson(QFile &file)
     Content *password;
     Content *login;
     Content *answer;
+    QString url;
     uint last_used;
     MPSiteVariant last_variant = 0;
 
@@ -72,6 +73,7 @@ QList<Site> Importer::parseJson(QFile &file)
       login = loginFromMap(site.value("login").toObject().toVariantMap());
       answer = answerFromMap(site.value("answer").toObject().toVariantMap());
 
+      url = site.value("url").toString();
       last_used = site.value("lastUsed").toVariant().toUInt();
       last_variant = site.value("lastVariant").toInt();
     }
@@ -81,6 +83,7 @@ QList<Site> Importer::parseJson(QFile &file)
                 login,
                 answer,
                 site.value("category").toString(),
+                url,
                 last_used,
                 last_variant
            );

@@ -46,6 +46,7 @@ public:
   enum SiteRole {
     NameRole = Qt::UserRole + 1,
     CategoryRole,
+    UrlRole,
     LastUsedRole,
     LastVariantRole,
     PasswordRole,

@@ -24,6 +24,7 @@ void Settings::store(Site const &site)
 {
   setValue(key::site::name, site.name());
   setValue(key::site::category, site.category());
+  setValue(key::site::url, site.url());
   setValue(key::site::lastUsed, site.lastUsed());
   setValue(key::site::lastVariant, site.lastVariant());
 
@@ -162,6 +163,7 @@ Site Settings::loadSite()
     login,
     answer,
     value<QString>(key::site::category),
+    value<QString>(key::site::url),
     value<uint>(key::site::lastUsed),
     value<MPSiteVariant>(key::site::lastVariant)
   );
@@ -171,6 +173,7 @@ void Settings::removeSite()
 {
   remove(key::site::name);
   remove(key::site::category);
+  remove(key::site::url);
   remove(key::site::lastUsed);
   remove(key::site::lastVariant);
   remove(key::site::password);

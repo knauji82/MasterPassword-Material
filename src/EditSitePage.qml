@@ -115,6 +115,7 @@ Page {
                 var site = {
                     "name": siteName.text,
                     "category": siteCategory.text,
+                    "url": siteUrl.text,
                     "lastUsed": newSite ? 0 : currentSite.siteLastUsed,
                     "lastVariant": newSite? "" : currentSite.lastVariant,
                     "password": password,
@@ -189,6 +190,16 @@ Page {
                     TextField {
                         id: siteCategory
                         text: newSite ? "" : currentSite.siteCategory
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        text: qsTr("Url")
+                        style: "subheading"
+                    }
+                    TextField {
+                        id: siteUrl
+                        text: newSite ? "" : currentSite.siteUrl
                         Layout.fillWidth: true
                     }
                 }

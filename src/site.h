@@ -28,9 +28,11 @@
 class Site
 {
 public:
-  Site(QString const &name, Content *password, Content *login, Content *answer, QString const &category=QString(), uint last_used=0, MPSiteVariant last_variant=0)
+  Site(QString const &name, Content *password, Content *login, Content *answer, QString const &category=QString(),
+       QString const &url=QString(), uint last_used=0, MPSiteVariant last_variant=0)
       : name_(name),
         category_(category),
+        url_(url),
         last_used_(last_used),
         last_variant_(last_variant)
   {
@@ -57,6 +59,16 @@ public:
   inline void setCategory(QString const &category)
   {
     category_ = category;
+  }
+
+  inline QString const & url() const
+  {
+    return url_;
+  }
+
+  inline void setUrl(QString const &url)
+  {
+    url_ = url;
   }
 
   inline uint lastUsed() const
@@ -90,6 +102,7 @@ public:
 private:
   QString name_;
   QString category_;
+  QString url_;
   uint last_used_;
   MPSiteVariant last_variant_;
 

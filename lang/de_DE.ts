@@ -25,96 +25,101 @@
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="139"/>
+        <location filename="../src/EditSitePage.qml" line="140"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="140"/>
+        <location filename="../src/EditSitePage.qml" line="141"/>
         <source>%1 already exists.</source>
         <translation>%1 ist bereits vorhanden.</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="175"/>
+        <location filename="../src/EditSitePage.qml" line="176"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="217"/>
+        <location filename="../src/EditSitePage.qml" line="197"/>
+        <source>Url</source>
+        <translation>Url</translation>
+    </message>
+    <message>
+        <location filename="../src/EditSitePage.qml" line="228"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="222"/>
-        <location filename="../src/EditSitePage.qml" line="347"/>
-        <location filename="../src/EditSitePage.qml" line="460"/>
+        <location filename="../src/EditSitePage.qml" line="233"/>
+        <location filename="../src/EditSitePage.qml" line="358"/>
+        <location filename="../src/EditSitePage.qml" line="471"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="222"/>
-        <location filename="../src/EditSitePage.qml" line="347"/>
-        <location filename="../src/EditSitePage.qml" line="460"/>
+        <location filename="../src/EditSitePage.qml" line="233"/>
+        <location filename="../src/EditSitePage.qml" line="358"/>
+        <location filename="../src/EditSitePage.qml" line="471"/>
         <source>Generate</source>
         <translation>Generieren</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="222"/>
-        <location filename="../src/EditSitePage.qml" line="347"/>
-        <location filename="../src/EditSitePage.qml" line="460"/>
+        <location filename="../src/EditSitePage.qml" line="233"/>
+        <location filename="../src/EditSitePage.qml" line="358"/>
+        <location filename="../src/EditSitePage.qml" line="471"/>
         <source>Store</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="251"/>
+        <location filename="../src/EditSitePage.qml" line="262"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="262"/>
-        <location filename="../src/EditSitePage.qml" line="376"/>
-        <location filename="../src/EditSitePage.qml" line="499"/>
+        <location filename="../src/EditSitePage.qml" line="273"/>
+        <location filename="../src/EditSitePage.qml" line="387"/>
+        <location filename="../src/EditSitePage.qml" line="510"/>
         <source>Counter</source>
         <translation>Zähler</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="308"/>
-        <location filename="../src/EditSitePage.qml" line="421"/>
-        <location filename="../src/EditSitePage.qml" line="546"/>
+        <location filename="../src/EditSitePage.qml" line="319"/>
+        <location filename="../src/EditSitePage.qml" line="432"/>
+        <location filename="../src/EditSitePage.qml" line="557"/>
         <source>Content</source>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="314"/>
-        <location filename="../src/EditSitePage.qml" line="427"/>
-        <location filename="../src/EditSitePage.qml" line="552"/>
+        <location filename="../src/EditSitePage.qml" line="325"/>
+        <location filename="../src/EditSitePage.qml" line="438"/>
+        <location filename="../src/EditSitePage.qml" line="563"/>
         <source>Encrypted with a different master key</source>
         <translation>Mit einem anderen Master Key verschlüsselt</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="342"/>
+        <location filename="../src/EditSitePage.qml" line="353"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="455"/>
+        <location filename="../src/EditSitePage.qml" line="466"/>
         <source>Answer</source>
         <translation>Antwort</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="489"/>
+        <location filename="../src/EditSitePage.qml" line="500"/>
         <source>Context</source>
         <translation>Kontext</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="186"/>
+        <location filename="../src/EditSitePage.qml" line="187"/>
         <source>Category</source>
         <translation>Category</translation>
     </message>
     <message>
-        <location filename="../src/EditSitePage.qml" line="291"/>
-        <location filename="../src/EditSitePage.qml" line="404"/>
-        <location filename="../src/EditSitePage.qml" line="529"/>
+        <location filename="../src/EditSitePage.qml" line="302"/>
+        <location filename="../src/EditSitePage.qml" line="415"/>
+        <location filename="../src/EditSitePage.qml" line="540"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
@@ -294,6 +299,11 @@
         <location filename="../src/MainPage.qml" line="111"/>
         <source>Options</source>
         <translation>Optionen</translation>
+    </message>
+    <message>
+        <location filename="../src/MainPage.qml" line="199"/>
+        <source>Open in Browser</source>
+        <translation>Im Browser öffnen</translation>
     </message>
     <message>
         <location filename="../src/MainPage.qml" line="205"/>

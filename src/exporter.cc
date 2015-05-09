@@ -76,6 +76,7 @@ void Exporter::toJson(QList<Site> const &sites, bool compatibility, MPAlgorithmV
     {
       site_obj.insert("name", i->name());
       site_obj.insert("category", i->category());
+      site_obj.insert("url", i->url());
       site_obj.insert("lastUsed", QJsonValue::fromVariant(i->lastUsed()));
       site_obj.insert("lastVariant", QJsonValue::fromVariant(i->lastVariant()));
 

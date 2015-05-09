@@ -46,6 +46,7 @@ namespace key
   {
     QString const name        = "name";
     QString const category    = "category";
+    QString const url         = "url";
     QString const lastUsed    = "last_used";
     QString const lastVariant = "last_variant";
     QString const type        = "type";

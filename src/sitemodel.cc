@@ -27,6 +27,7 @@ QHash<int, QByteArray> SiteModel::roleNames() const
   QHash<int, QByteArray> roles;
   roles[NameRole] = "siteName";
   roles[CategoryRole] = "siteCategory";
+  roles[UrlRole] = "siteUrl";
   roles[LastUsedRole] = "siteLastUsed";
   roles[LastVariantRole] = "siteLastVariant";
   roles[PasswordRole] = "sitePassword";
@@ -168,6 +169,8 @@ QVariant SiteModel::data(QModelIndex const &index, int role) const
       return site.name();
     case CategoryRole:
       return site.category();
+    case UrlRole:
+      return site.url();
     case LastUsedRole:
       return QDateTime::fromTime_t(site.lastUsed());
     case LastVariantRole:
