@@ -50,7 +50,7 @@ Prebuilt binaries can be found under [releases](https://github.com/fosbob/Master
 ```
 ./prepare
 mkdir build && cd build
-qmake ../qmasterpassword.pro -r -spec linux-g++
+qmake ../masterpassword-material.pro -r -spec linux-g++
 make
 ```
 
@@ -59,7 +59,7 @@ make
 prepare.bat
 mkdir build
 cd build
-qmake.exe ../qmasterpassword.pro -r -spec win32-g++ "CONFIG += release"
+qmake.exe ../masterpassword-material.pro -r -spec win32-g++ "CONFIG += release"
 mingw32-make -f Makefile.Release
 ```
 
