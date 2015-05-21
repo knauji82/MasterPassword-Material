@@ -35,9 +35,7 @@ Flickable {
     contentHeight: view.height + bottomPadding
 
     function update() {
-        var m = view.model
-        view.model = []
-        view.model = m
+        view.alignItems(true)
     }
 
     function itemAt(index) {
