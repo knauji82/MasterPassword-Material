@@ -2,7 +2,7 @@
 
 MasterPassword-Material is a cross-platform GUI for the [Master Password](http://masterpasswordapp.com/) algorithm written with Qt and based on Google's Material Design.
 
-Current version is 0.9.0
+Current version is 1.0.0
 
 ## About
 
