@@ -40,38 +40,62 @@ Page {
         pageStack.currentItem.siteIndex = index
     }
 
+    function getPassword(siteName, sitePassword) {
+        switch (sitePassword.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, sitePassword.type, sitePassword.counter, MPW.variantNamePassword())
+            case ContentType.Stored:
+                return Backend.decrypt(sitePassword.content)
+        }
+    }
+
+    function getLogin(siteName, siteLogin) {
+        switch (siteLogin.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNameName()), siteLogin.counter, MPW.variantNameLogin())
+            case ContentType.Stored:
+                return Backend.decrypt(siteLogin.content)
+        }
+    }
+
+    function getAnswer(siteName, siteAnswer) {
+        switch (siteAnswer.contentType) {
+            case ContentType.None:
+                return ""
+            case ContentType.Generated:
+                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer())
+            case ContentType.Stored:
+                return Backend.decrypt(siteAnswer.content)
+        }
+    }
+
     actionBar.maxActionCount: 5
 
     actions: [
         Action {
-            name: qsTr("Add")
-            iconName: "content/add"
-            onTriggered: {
-                pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
-            }
-        },
-        Action {
-            name: qsTr("Help")
-            iconName: "action/help"
-            onTriggered: pageStack.push(Qt.resolvedUrl("HelpPage.qml"))
-        },
-        Action {
             name: qsTr("Import/Export")
             iconName: "communication/import_export"
             onTriggered: pageStack.push(Qt.resolvedUrl("ImportExportPage.qml"))
-
+        },
+        Action {
+            name: qsTr("About")
+            iconName: "action/info"
+            onTriggered: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
         },
         Action {
             name: qsTr("Settings")
             iconName: "action/settings"
             onTriggered: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
-        },
+        },  
         Action {
             name: qsTr("Quit")
             iconName: "action/exit_to_app"
             onTriggered: Qt.quit()
         }
-
     ]
 
     backAction: Action {
@@ -80,9 +104,23 @@ Page {
         onTriggered: confirmLogoutDialog.show()
     }
 
+    ActionButton {
+        z: 1
+        anchors {
+            right: sideBar.left
+            bottom: parent.bottom
+            margins: Units.dp(16)
+        }
+        iconName: "content/add"
+        onClicked: pageStack.push(Qt.resolvedUrl("EditSitePage.qml"))
+    }
+
     Dialog {
         id: confirmLogoutDialog
         title: qsTr("Logout now?")
+
+        positiveButtonText: qsTr("Ok")
+        negativeButtonText: qsTr("Cancel")
 
         onAccepted: {
             Backend.logout()
@@ -104,30 +142,7 @@ Page {
 
             Expandable {
                 text: qsTr("Options")
-
-                Label {
-                    text: qsTr("Variant") + ":"
-                    style: "subheading"
-                }
-
-                MenuField {
-                    id: variant
-                    width: parent.width
-                    model: MPW.variantNames()
-                    helperText: qsTr("The kind of content to generate") + "\n- " +
-                                qsTr("The Password to log in with") + "\n- " +
-                                qsTr("The username to log in as") + "\n- " +
-                                qsTr("The answer to a security question")
-                }
-
-                Item {
-                    /* Spacer */
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: units.dp(10)
-                }
+                contentMargin: Units.dp(8)
 
                 Label {
                     text: qsTr("Order") + ":"
@@ -152,7 +167,7 @@ Page {
                         left: parent.left
                         right: parent.right
                     }
-                    height: units.dp(10)
+                    height: Units.dp(10)
                 }
 
                 Label {
@@ -165,7 +180,12 @@ Page {
                     width: parent.width
                     model: CategoryModel
                     helperText: qsTr("Filter sites by a category")
-                    onSelectedTextChanged: SiteProxyModel.setCategoryFilter(selectedIndex == 0 ? "" : selectedText)
+                    onSelectedTextChanged: SiteProxyModel.categoryFilter = selectedIndex == 0 ? "" : selectedText
+
+                    Connections {
+                        target: CategoryModel
+                        onModelChanged: filter.selectedIndex = 0
+                    }
                 }
             }
 
@@ -177,18 +197,29 @@ Page {
                     model: SiteHistoryModel
                     delegate: ListItem.Subtitled {
                         text: siteName
+                        valueText: siteLastVariant
                         subText: Qt.formatDateTime(siteLastUsed, "ddd MMMM d yy hh:mm:ss")
                         onClicked: {
                             var sourceIndex = SiteHistoryModel.mapIndexToSource(index)
                             var proxyIndex = SiteProxyModel.mapIndexFromSource(sourceIndex)
-                            if (proxyIndex == -1) {
+                            if (proxyIndex === -1) {
                                 filter.selectedIndex = 0
                                 proxyIndex = SiteProxyModel.mapIndexFromSource(sourceIndex)
                             }
-                            Backend.copyToClipboard(Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext))
+                            switch (siteLastVariant) {
+                                case MPW.variantNamePassword():
+                                    Backend.copyToClipboard(getPassword(siteName, sitePassword))
+                                    break;
+                                case MPW.variantNameLogin():
+                                    Backend.copyToClipboard(getLogin(siteName, siteLogin))
+                                    break;
+                                case MPW.variantNameAnswer():
+                                    Backend.copyToClipboard(getAnswer(siteName, siteAnswer))
+                                    break;
+                            }
                             siteView.clipboardIndex = proxyIndex
                             snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
-                            SiteProxyModel.updateDate(proxyIndex)
+                            SiteProxyModel.updateDate(proxyIndex, siteLastVariant)
                         }
                     }
                 }
@@ -196,8 +227,65 @@ Page {
         }
     }
 
-    GridView {
+    Component {
+        id: actionSheetComponent
+
+        BottomActionSheet {
+            property int siteIndex
+            readonly property var site: SiteProxyModel.getMap(siteIndex)
+
+            title: site.siteName
+
+            onPercentOpenChanged: if (percentOpen == 0) destroy()
+
+            actions: [
+                Action {
+                    name: qsTr("Open in Browser")
+                    iconName: "action/open_in_browser"
+                    visible: site.siteUrl !== ""
+                    onTriggered: Qt.openUrlExternally(site.siteUrl)
+                },
+                Action {
+                    name: qsTr("Edit")
+                    iconName: "content/create"
+                    onTriggered: onSiteSelected(siteIndex)
+                },
+                Action {
+                    name: qsTr("Delete")
+                    iconName: "action/delete"
+                    hasDividerAfter: site.sitePassword.isGenerated ||
+                                     site.siteLogin.isGenerated ||
+                                     site.siteAnswer.isGenerated
+                    onTriggered: {
+                        SiteProxyModel.remove(siteIndex)
+                        Backend.save()
+                    }
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNamePassword())
+                    iconName: "content/add"
+                    visible: site.sitePassword.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNamePassword())
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNameLogin())
+                    iconName: "content/add"
+                    visible: site.siteLogin.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNameLogin())
+                },
+                Action {
+                    name: qsTr("Increase counter (%1)").arg(MPW.variantNameAnswer())
+                    iconName: "content/add"
+                    visible: site.siteAnswer.isGenerated
+                    onTriggered: SiteProxyModel.increaseCounter(siteIndex, MPW.variantNameAnswer())
+                }
+            ]
+        }
+    }
+
+    DynamicGrid {
         id: siteView
+        focus: true
 
         anchors {
             top: parent.top
@@ -206,15 +294,28 @@ Page {
             right: sideBar.left
         }
 
-        cellWidth: units.dp(300)
-        cellHeight: units.dp(200)
-
         model: SiteProxyModel
+
+        spacing: Units.dp(12)
+        bottomPadding: Units.dp(64)
+        columnWidth: Units.dp(300)
 
         property int clipboardIndex: -1
         readonly property int clipboardSourceIndex: clipboardIndex >= 0 ? SiteProxyModel.mapIndexToSource(clipboardIndex) : -1
 
         property double clipboardProgress: 0
+
+        /*
+        Keys.onReturnPressed: {
+            itemAt(selectedIndex).focus = true
+        }
+        */
+
+        Connections {
+            target: SiteProxyModel
+            onSortOrderChanged: siteView.update()
+            onDataChanged: siteView.update()
+        }
 
         Connections {
             target: ResetClipboardThread
@@ -227,175 +328,131 @@ Page {
             }
         }
 
-        delegate: Item {
-            width: units.dp(300)
-            height: units.dp(200)
+        delegate: Card {
+            height: column.implicitHeight
+
+            elevation: index == siteView.selectedIndex ? 2 : 1
 
             readonly property bool inClipboard: index === SiteProxyModel.mapIndexFromSource(siteView.clipboardSourceIndex)
 
-            Card {
-                anchors {
-                    fill: parent
-                    margins: units.dp(16)
-                }
+            /*
+            Keys.onUpPressed: {}
+            Keys.onDownPressed: {}
+            Keys.onEscapePressed: siteView.focus = true
+            */
 
-                MouseArea {
-                    anchors.fill: parent
-                    onReleased: {
-                        onSiteSelected(index)
-                    }
-                }
+            MouseArea {
+                anchors.fill: parent
+                onReleased: actionSheetComponent.createObject(parent, {"siteIndex": index}).open()
+            }
 
-                Icon {
-                    id: caller
-                    width: units.dp(25)
-                    height: units.dp(25)
-                    anchors.margins: units.dp(5)
-                    name: "navigation/more_vert"
+            ColumnLayout {
+                id: column
+                anchors.fill: parent
 
+                Label {
                     anchors {
-                        top: parent.top
+                        left: parent.left
                         right: parent.right
                     }
+                    text: siteName
+                    style: "headline"
+                    horizontalAlignment: Text.AlignHCenter
+                }
 
-                    Ink {
-                        anchors.fill: parent
-                        onClicked: menu.open(caller, 0, units.dp(30))
+                ClipboardButton {
+                    text: getPassword(siteName, sitePassword)
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNamePassword())
                     }
 
-                    Dropdown {
-                        id: menu
-                        width: units.dp(150)
-                        implicitHeight: column.height
-                        anchor: Item.TopRight
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: Units.dp(8)
+                    }
+                    implicitHeight: Units.dp(50)
 
-                        Column {
-                            id: column
-                            width: parent.width
+                    visible: text != ""
 
-                            ListItem.Standard {
-                                text: qsTr("Delete")
-                                onClicked: {
-                                    SiteProxyModel.remove(index)
-                                    menu.close()
-                                }
-                            }
-
-                            ListItem.Standard {
-                                text: qsTr("Increase counter")
-                                onClicked: {
-                                    SiteProxyModel.modify(index, siteName, MPW.typeName(siteType), siteCounter+1, siteContext, siteCategories)
-                                    menu.close()
-                                }
-                            }
+                    Label {
+                        text: {
+                            var t = qsTr("Password")
+                            if (sitePassword.isGenerated)
+                                t += ": " + MPW.typeName(sitePassword.type)
+                            return t
+                        }
+                        anchors {
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
                 }
 
-                ColumnLayout {
-                    anchors.fill: parent
+                ClipboardButton {
+                    text: getLogin(siteName, siteLogin)
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied login for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNameLogin())
+                    }
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: Units.dp(8)
+                    }
+                    implicitHeight: Units.dp(50)
+
+                    visible: text != ""
 
                     Label {
+                        text: "Login"
                         anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-
-                        text: siteName
-                        font.pixelSize: units.dp(32)
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-
-                    GridLayout {
-                        columns: 2
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        Label {
-                            text: qsTr("Type")
-                        }
-                        Label {
-                            text: MPW.typeName(siteType)
-                        }
-
-                        Label {
-                            text: qsTr("Counter")
-                        }
-                        Label {
-                            text: siteCounter
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
+                }
 
-                    Controls.Button {
+                ClipboardButton {
+                    text: getAnswer(siteName, siteAnswer)
+                    onCopied: {
+                        siteView.clipboardIndex = index
+                        snackbar.open(qsTr("Copied answer for %1 seconds").arg(ClipboardDuration))
+                        SiteProxyModel.updateDate(index, MPW.variantNameAnswer())
+                    }
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: Units.dp(8)
+                    }
+                    implicitHeight: Units.dp(50)
+
+                    visible: text != ""
+
+                    Label {
+                        text: "answer"
                         anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: 10
-                        }
-                        height: units.dp(40)
-
-                        style: ControlStyles.ButtonStyle {
-                            background: View {
-                                radius: units.dp(2)
-
-                                backgroundColor: "transparent"
-                                tintColor: mouseArea.currentCircle || control.focus || control.hovered
-                                         ? Qt.rgba(0, 0, 0, mouseArea.currentCircle
-                                            ? 0.1 : 0.03)
-                                         : "transparent"
-                                Ink {
-                                    id: mouseArea
-                                    anchors.fill: parent
-                                    focus: control.focus
-                                    focusWidth: parent.width - units.dp(30)
-                                    focusColor: Qt.darker("white", 1.05)
-
-                                    Connections {
-                                        target: control.__behavior
-                                        onPressed: mouseArea.onPressed(mouse)
-                                        onCanceled: mouseArea.onCanceled()
-                                        onReleased: mouseArea.onReleased(mouse)
-                                    }
-                                }
-                            }
-                            label: Item {
-                                implicitHeight: Math.max(units.dp(36), label.height + units.dp(16))
-                                implicitWidth: Math.max(units.dp(88), label.width + units.dp(32))
-
-                                Label {
-                                    id: label
-                                    anchors.centerIn: parent
-                                    text: control.text
-                                    style: "title"
-                                    color: Theme.accentColor
-                                }
-
-                            }
-                        }
-
-                        text: if (variant.selectedText) {
-                            var pw = Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext)
-                            HidePasswords ? Backend.obscure(pw) : pw
-                        }
-
-                        onClicked: {
-                            Backend.copyToClipboard(Backend.passwordForSite(siteName, siteType, siteCounter, variant.selectedText, siteContext))
-                            siteView.clipboardIndex = index
-                            snackbar.open(qsTr("Copied password for %1 seconds").arg(ClipboardDuration))
-                            SiteProxyModel.updateDate(index)
+                            top: parent.top
+                            horizontalCenter: parent.horizontalCenter
                         }
                     }
-                    ProgressBar {
-                        opacity: inClipboard ? 1 : 0
-                        color: theme.accentColor
-                        Layout.fillWidth: true
+                }
 
-                        NumberAnimation on value {
-                            running: inClipboard
-                            from : siteView.clipboardProgress
-                            to: 1
-                            duration: (ClipboardDuration * 1000) * (1 - siteView.clipboardProgress)
-                        }
+                ProgressBar {
+                    opacity: inClipboard ? 1 : 0
+                    color: theme.accentColor
+                    Layout.fillWidth: true
+
+                    NumberAnimation on value {
+                        running: inClipboard
+                        from : siteView.clipboardProgress
+                        to: 1
+                        duration: (ClipboardDuration * 1000) * (1 - siteView.clipboardProgress)
                     }
                 }
             }

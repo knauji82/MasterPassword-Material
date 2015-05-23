@@ -1,5 +1,5 @@
 /**
- * categorymodel.h
+ * ViewSwitcher.qml
  * This file is part of MasterPassword-Material
  *
  * Copyright (c) 2015 Kilian Schweppe
@@ -18,30 +18,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CATEGORYMODEL_H
-#define CATEGORYMODEL_H
+import QtQuick 2.3
 
-#include "sitemodel.h"
+Item {
+    property int index: 0
 
-#include <QStringListModel>
+    implicitWidth: isValidIndex(index) ? children[index].implicitWidth : 0
+    implicitHeight: isValidIndex(index) ? children[index].implicitHeight : 0
 
-class CategoryModel : public QStringListModel
-{
-  Q_OBJECT
+    onIndexChanged: {
+        for (var i=0; i < children.length; i++)
+            children[i].visible = i == index
+    }
 
-private:
-  SiteModel *site_model_;
+    onChildrenChanged: children[children.length-1].visible = children.length-1 == index
 
-public:
-  CategoryModel(SiteModel *model);
+    function isValidIndex(i) {
+        return i >= 0 && i < children.length
+    }
+}
 
-  QHash<int, QByteArray> roleNames() const;
-
-public slots:
-  void updateCategories();
-
-signals:
-  void modelChanged();
-};
-
-#endif // CATEGORYMODEL_H

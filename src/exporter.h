@@ -1,5 +1,5 @@
 /**
- * categorymodel.h
+ * exporter.h
  * This file is part of MasterPassword-Material
  *
  * Copyright (c) 2015 Kilian Schweppe
@@ -18,30 +18,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CATEGORYMODEL_H
-#define CATEGORYMODEL_H
+#ifndef EXPORTER_H
+#define EXPORTER_H
 
-#include "sitemodel.h"
+#include "mpw.h"
+#include "site.h"
+#include "settings.h"
 
-#include <QStringListModel>
+#include <QJsonDocument>
 
-class CategoryModel : public QStringListModel
+class Exporter
 {
-  Q_OBJECT
-
-private:
-  SiteModel *site_model_;
-
 public:
-  CategoryModel(SiteModel *model);
-
-  QHash<int, QByteArray> roleNames() const;
-
-public slots:
-  void updateCategories();
-
-signals:
-  void modelChanged();
+  static void toJson(QList<Site> const &sites, bool compatibilty, MPAlgorithmVersion algorithm_version, QFile &file);
 };
 
-#endif // CATEGORYMODEL_H
+#endif // EXPORTER_H

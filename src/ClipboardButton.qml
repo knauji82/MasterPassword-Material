@@ -1,5 +1,5 @@
 /**
- * categorymodel.h
+ * ClipboardButton.qml
  * This file is part of MasterPassword-Material
  *
  * Copyright (c) 2015 Kilian Schweppe
@@ -18,30 +18,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CATEGORYMODEL_H
-#define CATEGORYMODEL_H
+import QtQuick 2.3
+import Material 0.1
+import QtQuick.Controls.Styles.Material 0.1
 
-#include "sitemodel.h"
+Button {
+    height: Units.dp(40)
 
-#include <QStringListModel>
+    signal copied()
 
-class CategoryModel : public QStringListModel
-{
-  Q_OBJECT
+    style: ButtonStyle {
+        label: Item {
+            implicitHeight: Math.max(Units.dp(36), label.height + Units.dp(16))
+            implicitWidth: Math.max(Units.dp(88), label.width + Units.dp(32))
 
-private:
-  SiteModel *site_model_;
+            Label {
+                id: label
+                anchors.centerIn: parent
+                text: HidePasswords ? Backend.obscure(control.text) : control.text
+                style: "title"
+                color: Theme.accentColor
+            }
 
-public:
-  CategoryModel(SiteModel *model);
+        }
+    }
 
-  QHash<int, QByteArray> roleNames() const;
+    onClicked: {
+        Backend.copyToClipboard(text)
+        copied()
+    }
+}
 
-public slots:
-  void updateCategories();
-
-signals:
-  void modelChanged();
-};
-
-#endif // CATEGORYMODEL_H

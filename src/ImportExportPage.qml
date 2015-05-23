@@ -20,10 +20,7 @@
 
 import QtQuick 2.3
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.0
-import Qt.labs.folderlistmodel 2.1
 import Material 0.1
-import Material.ListItems 0.1 as ListItem
 
 Page {
     id: page
@@ -31,7 +28,7 @@ Page {
 
     tabs: [
         qsTr("Import"),
-        //qsTr("Export")
+        qsTr("Export")
     ]
 
     TabView {
@@ -50,8 +47,8 @@ Page {
             height: tabView.height
 
             View {
-                width: units.dp(550)
-                height: units.dp(300)
+                width: Units.dp(550)
+                height: Units.dp(300)
                 anchors.centerIn: parent
                 elevation: 1
 
@@ -63,9 +60,9 @@ Page {
                     Row {
                         TextField {
                             id: importFile
-                            text: fileDialog.fileUrl
-                            width: units.dp(350)
-                            helperText: qsTr("Compatible with Master Password for Android")
+                            text: fileDialog.filePath
+                            width: Units.dp(350)
+                            placeholderText: qsTr("Choose a file to import")
                         }
                         Button {
                             text: qsTr("Choose")
@@ -73,7 +70,7 @@ Page {
                         }
                     }
 
-                    Checkbox {
+                    CheckBox {
                         id: overwrite
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: qsTr("Replace existing sites")
@@ -84,10 +81,10 @@ Page {
                     anchors {
                         bottom: parent.bottom
                         horizontalCenter: parent.horizontalCenter
-                        margins: units.dp(8)
+                        margins: Units.dp(8)
                     }
                     enabled: importFile.text.length > 0 && Backend.existsFile(importFile.text)
-                    width: units.dp(300)
+                    width: Units.dp(300)
                     elevation: 1
                     text: qsTr("Import")
                     onClicked: {
@@ -98,7 +95,7 @@ Page {
 
                 FileDialog {
                     id: fileDialog
-                    title: "Import"
+                    title: qsTr("Import a file")
                     nameFilters: ["Json (*.json)"]
                 }
             }
@@ -110,16 +107,90 @@ Page {
             height: tabView.height
 
             View {
-                width: units.dp(550)
-                height: units.dp(300)
+                width: Units.dp(550)
+                height: Units.dp(300)
                 anchors.centerIn: parent
                 elevation: 1
 
+                Column {
+                    anchors {
+                        centerIn: parent
+                    }
+
+                    Row {
+                        TextField {
+                            id: exportDir
+                            text: dirDialog.folderPath
+                            width: Units.dp(350)
+                            placeholderText: qsTr("Destination directory")
+                        }
+                        Button {
+                            text: qsTr("Choose")
+                            onClicked: dirDialog.open()
+                        }
+                    }
+
+                    GridLayout {
+                        columns: 2
+
+                        Label {
+                            text: qsTr("File name")
+                            style: "subheading"
+                        }
+                        TextField {
+                            id: fileName
+                            text: new Date().toLocaleString(Qt.locale(), "yyyy-MM-dd_HH-mm")+"_export"
+                            placeholderText: qsTr("Destination file")
+                        }
+
+                        Label {
+                            text: qsTr("Format")
+                            style: "subheading"
+                        }
+                        MenuField {
+                            id: format
+                            Layout.fillWidth: true
+                            model: ["Json"]
+                        }
+                    }
+
+                    ViewSwitcher {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        index: format.selectedIndex
+
+                        CheckBox {
+                            id: compatibility
+                            text: qsTr("Compatibility mode (for Android)")
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+                }
+
+                Button {
+                    anchors {
+                        bottom: parent.bottom
+                        horizontalCenter: parent.horizontalCenter
+                        margins: Units.dp(8)
+                    }
+                    enabled: exportDir.text.length > 0 && fileName.text.length > 0 && Backend.existsDir(exportDir.text)
+                    width: Units.dp(300)
+                    elevation: 1
+                    text: qsTr("Export")
+                    onClicked: {
+                        Backend.exportFile(exportDir.text+"/"+fileName.text+"."+format.selectedText.toLowerCase(), {"compatibility": compatibility.checked})
+                        pageStack.pop()
+                    }
+                }
+
                 FileDialog {
                     id: dirDialog
-                    title: "Export"
+                    title: qsTr("Destination directory")
+                    folder: "file://" + (Qt.platform.os == "windows" ? "/" : "") + Backend.exportDirectory()
                     selectFolder: true
-                    onAccepted: exportDir.text = fileUrl
                 }
             }
         }

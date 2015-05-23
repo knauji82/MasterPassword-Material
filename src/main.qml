@@ -40,6 +40,11 @@ ApplicationWindow {
         backgroundColor: "#f3f3f3"
     }
 
+    Component.onCompleted: {
+        if (Qt.platform.os == "windows")
+            Units.multiplier = 1.8
+    }
+
     onClosing: {
         if (Backend.loggedIn()) {
             close.accepted = false

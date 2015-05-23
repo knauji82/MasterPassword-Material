@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-VERSION = 0.9.0
+VERSION = 1.0.0
 
 TARGET = "MasterPassword"
 
@@ -50,6 +50,7 @@ HEADERS += \
     src/masterpasswordapp.h \
     src/qmlapplicationengine.h \
     src/settings.h \
+    src/content.h \
     src/site.h \
     src/sitemodel.h \
     src/siteproxymodel.h \
@@ -59,22 +60,29 @@ HEADERS += \
     src/mpw.h \
     src/masterkey.h \
     src/clipboard.h \
-    src/importer.h
+    src/importer.h \
+    src/exporter.h \
+    src/simplecrypt.h
 
 SOURCES += \
     lib/masterpassword-algorithm/mpw-types.c \
     lib/masterpassword-algorithm/mpw-util.c \
     lib/masterpassword-algorithm/mpw-algorithm.c \
+    src/masterkey.cc \
     src/main.cc \
     src/masterpasswordapp.cc \
     src/qmlapplicationengine.cc \
+    src/settings.cc \
+    src/content.cc \
     src/sitemodel.cc \
     src/siteproxymodel.cc \
     src/categorymodel.cc \
     src/sitehistorymodel.cc \
     src/mpw.cc \
     src/clipboard.cc \
-    src/importer.cc
+    src/importer.cc \
+    src/exporter.cc \
+    src/simplecrypt.cc
 
 TRANSLATIONS = \
     lang/de_DE.ts

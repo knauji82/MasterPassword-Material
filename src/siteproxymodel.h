@@ -28,6 +28,7 @@
 class SiteProxyModel : public QSortFilterProxyModel
 {
   Q_OBJECT
+  Q_PROPERTY(QString categoryFilter WRITE setCategoryFilter)
 
 private:
   SiteModel *site_model_;
@@ -38,16 +39,25 @@ public:
 
   Q_INVOKABLE void sort(Qt::SortOrder order=Qt::AscendingOrder)
   {
-    QSortFilterProxyModel::sort(0, order);
+    if (order != sortOrder())
+    {
+      QSortFilterProxyModel::sort(0, order);
+      emit sortOrderChanged(order);
+    }
   }
 
-  Q_INVOKABLE int insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories, bool overwrite=false);
+  Q_INVOKABLE int insert(QVariantMap const &site_map, bool overwrite=false);
 
-  Q_INVOKABLE int modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories);
+  Q_INVOKABLE int modify(int index, QVariantMap const &site_map);
 
-  Q_INVOKABLE inline void updateDate(int index)
+  Q_INVOKABLE inline void updateDate(int index, QString const &variant_name)
   {
-    site_model_->updateDate(mapToSource(this->index(index, 0)));
+    site_model_->updateDate(mapToSource(this->index(index, 0)), mpw::variantWithName(variant_name));
+  }
+
+  Q_INVOKABLE inline void increaseCounter(int index, QString const &variant_name)
+  {
+    site_model_->increaseCounter(mapToSource(this->index(index, 0)), mpw::variantWithName(variant_name));
   }
 
   Q_INVOKABLE inline void remove(int index)
@@ -55,14 +65,9 @@ public:
     removeRow(index);
   }
 
-  Q_INVOKABLE void setCategoryFilter(QString const &category);
+  void setCategoryFilter(QString const &category);
 
   bool filterAcceptsRow(int row, QModelIndex const &parent) const;
-
-  Q_INVOKABLE void setSortRole(int role)
-  {
-    QSortFilterProxyModel::setSortRole(role);
-  }
 
   inline Site const & siteAt(int index)
   {
@@ -93,6 +98,9 @@ public:
   {
     return rowCount();
   }
+
+signals:
+  void sortOrderChanged(Qt::SortOrder order);
 };
 
 #endif // SITEPROXYMODEL_H

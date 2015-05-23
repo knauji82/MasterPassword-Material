@@ -25,166 +25,552 @@ import Material.ListItems 0.1 as ListItem
 import MasterPassword 1.0
 
 Page {
-    title: newSite ? qsTr("New site") : site.siteName
+    title: newSite ? qsTr("New site") : currentSite.siteName
 
     property bool newSite: true
     property int siteIndex: -1
-    readonly property var site: siteIndex >= 0 ? SiteProxyModel.getMap(siteIndex) : {}
+    readonly property var currentSite: siteIndex >= 0 ? SiteProxyModel.getMap(siteIndex) : {}
 
     onNewSiteChanged: {
         if (newSite)
             siteIndex = -1
     }
 
-    onSiteChanged: {
+    onCurrentSiteChanged: {
         newSite = siteIndex < 0
-        type.selectedIndex = type.typeNames.indexOf(newSite ? MPW.typeName(Settings.defaultSiteType()) : MPW.typeName(site.siteType))
+        passwordType.selectedIndex = passwordType.typeNames.indexOf(!newSite && currentSite.sitePassword.isGenerated
+                                                                    ? MPW.typeName(currentSite.sitePassword.type)
+                                                                    : MPW.typeName(Settings.defaultSiteType()))
     }
+
+    actions: [
+        Action {
+            name: qsTr("Delete")
+            iconName: "action/delete"
+            enabled: siteIndex >= 0
+            onTriggered: {
+                SiteProxyModel.remove(siteIndex)
+                Backend.save()
+                pageStack.pop()
+            }
+        },
+        Action {
+            name: qsTr("Save")
+            iconName: "content/save"
+            enabled: siteName.text != "" && (passwordSelection.selectedIndex > 0 || loginSelection.selectedIndex > 0 || answerSelection.selectedIndex > 0)
+            onTriggered: {
+                var password = {}
+                var login = {}
+                var answer = {}
+
+                // password
+                switch (passwordSelection.selectedIndex) {
+                    case ContentType.Generated:
+                        password = {
+                            "contentType": ContentType.Generated,
+                            "type": MPW.typeWithNameAsInt(passwordType.selectedText),
+                            "counter": parseInt(passwordCounter.text)
+                        }
+                        break
+                    case ContentType.Stored:
+                        password = {
+                            "contentType": ContentType.Stored,
+                            "content": Backend.encrypt(passwordContent.text)
+                        }
+                        break
+                }
+
+                // login
+                switch (loginSelection.selectedIndex) {
+                    case ContentType.Generated:
+                        login = {
+                            "contentType": ContentType.Generated,
+                            "counter": parseInt(loginCounter.text)
+                        }
+                        break
+                    case ContentType.Stored:
+                       login = {
+                            "contentType": ContentType.Stored,
+                            "content": Backend.encrypt(loginContent.text)
+                        }
+                }
+
+                // answer
+                switch (answerSelection.selectedIndex) {
+                    case ContentType.Generated:
+                        answer = {
+                            "contentType": ContentType.Generated,
+                            "context": answerContext.text,
+                            "counter": parseInt(answerCounter.text)
+                        }
+                        break
+                    case ContentType.Stored:
+                        answer = {
+                            "contentType": ContentType.Stored,
+                            "content": Backend.encrypt(answerContent.text)
+                        }
+                        break
+                }
+
+                var site = {
+                    "name": siteName.text,
+                    "category": siteCategory.text,
+                    "url": siteUrl.text,
+                    "lastUsed": newSite ? 0 : currentSite.siteLastUsed,
+                    "lastVariant": newSite? "" : currentSite.lastVariant,
+                    "password": password,
+                    "login": login,
+                    "answer": answer
+                }
+
+                var err = (newSite) ? SiteProxyModel.insert(site) : SiteProxyModel.modify(siteIndex, site)
+                if (err !== -1) {
+                    Backend.save()
+                    pageStack.pop()
+                }
+                else {
+                    errorDialog.open()
+                }
+            }
+        }
+    ]
 
     Dialog {
         id: errorDialog
         title: qsTr("Error")
-        text: qsTr("%1 already exists.").arg(name.text)
+        text: qsTr("%1 already exists.").arg(siteName.text)
     }
 
-    View {
-        anchors.centerIn: parent
+    Flickable {
+        anchors {
+            fill: parent
+            margins: Units.dp(32)
+        }
+        contentHeight: content.height
+        contentWidth: width
 
-        width: units.dp(500)
-        height: column.implicitHeight + units.dp(32)
+        Column {
+            id: content
+            anchors.centerIn: parent
+            spacing: Units.dp(16)
 
-        elevation: 1
+            View {
+                width: Units.dp(500)
+                height: columnSite.implicitHeight + Units.dp(32)
 
-        ColumnLayout {
-            id: column
+                elevation: 1
 
-            anchors {
-                fill: parent
-                margins: units.dp(16)
-            }
+                GridLayout {
+                    id: columnSite
 
-            GridLayout {
-                columns: 2
-                rowSpacing: 10
-                columnSpacing: 10
-                anchors.horizontalCenter: parent.horizontalCenter
+                    anchors {
+                        fill: parent
+                        margins: Units.dp(16)
+                    }
 
-                Label {
-                    text: qsTr("Name")
-                    style: "subheading"
-                }
-                TextField {
-                    id: name
-                    text: newSite ? "" : site.siteName
-                    Layout.fillWidth: true
-                    focus: true
-                }
+                    columns: 2
+                    rowSpacing: Units.dp(16)
+                    columnSpacing: Units.dp(8)
 
-                Label {
-                    text: qsTr("Type")
-                    style: "subheading"
-                }
-                MenuField {
-                    readonly property var typeNames: MPW.typeNames()
-                    id: type
-                    model: typeNames
-                    Layout.fillWidth: true
-                }
+                    Label {
+                        text: qsTr("Name")
+                        style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
+                    }
+                    TextField {
+                        id: siteName
+                        text: newSite ? "" : currentSite.siteName
+                        Layout.fillWidth: true
+                        focus: true
+                    }
 
-                Label {
-                    text: qsTr("Counter")
-                    style: "subheading"
-                }
-                TextField {
-                    id: counter
-                    text: newSite ? 1 : site.siteCounter
-                    input.inputMask: "000"
-                    Layout.fillWidth: true
-                }
+                    Label {
+                        text: qsTr("Category")
+                        style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
+                    }
+                    TextField {
+                        id: siteCategory
+                        text: newSite ? "" : currentSite.siteCategory
+                        Layout.fillWidth: true
+                    }
 
-                Label {
-                    text: qsTr("Context")
-                    style: "subheading"
-                }
-                TextField {
-                    id: context
-                    text: newSite ? "" : site.siteContext
-                    Layout.fillWidth: true
-                }
-
-                Label {
-                    text: qsTr("Categories")
-                    style: "subheading"
-                }
-                TextField {
-                    id: categories
-                    text: newSite ? "" : site.siteCategories
-                    Layout.fillWidth: true
+                    Label {
+                        text: qsTr("Url")
+                        style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
+                    }
+                    TextField {
+                        id: siteUrl
+                        text: newSite ? "" : currentSite.siteUrl
+                        Layout.fillWidth: true
+                    }
                 }
             }
 
             View {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.dp(16)
-                }
-                height: units.dp(36)
+                width: Units.dp(500)
+                height: columnPassword.implicitHeight + Units.dp(32)
 
                 elevation: 1
-                backgroundColor: Theme.primaryDarkColor
 
-                Label {
-                    anchors.centerIn: parent
-                    style: "title"
-                    text: {
-                        if (name.text != "")
-                            Backend.passwordForSite(name.text, MPW.typeWithNameAsInt(type.selectedText), parseInt(counter.text), MPW.variantNamePassword(), context.text)
-                        else
-                            qsTr("Preview")
+                ColumnLayout {
+                    id: columnPassword
+
+                    anchors {
+                        fill: parent
+                        margins: Units.dp(16)
                     }
-                    color: "white"
+
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: Units.dp(8)
+
+                        Label {
+                            text: qsTr("Password")
+                            style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
+                        }
+                        MenuField {
+                            id: passwordSelection
+                            model: [qsTr("None"), qsTr("Generate"), qsTr("Store")]
+                            selectedIndex: !newSite ? currentSite.sitePassword.contentType : 1
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    ViewSwitcher {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        index: passwordSelection.selectedIndex - 1
+
+                        Column {
+                            anchors.fill: parent
+                            spacing: Units.dp(16)
+
+                            GridLayout {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                columns: 2
+                                rowSpacing: Units.dp(16)
+                                columnSpacing: Units.dp(8)
+
+                                Label {
+                                    text: qsTr("Type")
+                                    style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
+                                }
+                                MenuField {
+                                    readonly property var typeNames: MPW.passwordTypeNames()
+                                    id: passwordType
+                                    model: typeNames
+                                    maxVisibleItems: typeNames.length
+                                    Layout.fillWidth: true
+                                }
+
+                                Label {
+                                    text: qsTr("Counter")
+                                    style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
+                                }
+                                TextField {
+                                    id: passwordCounter
+                                    text: !newSite && currentSite.sitePassword.isGenerated ? currentSite.sitePassword.counter : 1
+                                    inputMask: "000"
+                                    Layout.fillWidth: true
+                                }
+                            }
+
+                            View {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                    margins: Units.dp(16)
+                                }
+
+                                height: Units.dp(36)
+
+                                elevation: 1
+                                backgroundColor: Theme.primaryDarkColor
+
+                                Label {
+                                    anchors.centerIn: parent
+                                    style: "title"
+                                    text: siteName.text != ""
+                                          ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(passwordType.selectedText),
+                                                                    parseInt(passwordCounter.text), MPW.variantNamePassword())
+                                          : qsTr("Preview")
+                                    color: "white"
+                                }
+                            }
+                        }
+
+                        GridLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            columns: 2
+                            columnSpacing: Units.dp(8)
+
+                            Label {
+                                text: qsTr("Content")
+                                style: "subheading"
+                                Layout.minimumWidth: Units.dp(80)
+                            }
+                            TextField {
+                                id: passwordContent
+                                text: !newSite && currentSite.sitePassword.isStored ? Backend.decrypt(currentSite.sitePassword.content) : ""
+                                placeholderText: !newSite && currentSite.sitePassword.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
+                                Layout.fillWidth: true
+                            }
+                        }
+                    }
                 }
             }
 
-            RowLayout {
-                Layout.alignment: Qt.AlignRight
-                spacing: units.dp(8)
+            View {
+                width: Units.dp(500)
+                height: columnLogin.implicitHeight + Units.dp(32)
 
-                anchors {
-                    right: parent.right
-                    margins: units.dp(16)
-                }
+                elevation: 1
 
-                Button {
-                    text: qsTr("Cancel")
-                    textColor: Theme.primaryColor
-                    onClicked: pageStack.pop()
-                }
+                ColumnLayout {
+                    id: columnLogin
 
-                Button {
-                    text: qsTr("Delete")
-                    textColor: Theme.primaryColor
-                    onClicked: {
-                        SiteProxyModel.remove(siteIndex)
-                        Backend.save()
-                        pageStack.pop()
+                    anchors {
+                        fill: parent
+                        margins: Units.dp(16)
                     }
-                    visible: !newSite
-                }
 
-                Button {
-                    text: qsTr("Save")
-                    textColor: Theme.primaryColor
-                    onClicked: {
-                        var err = (newSite) ? SiteProxyModel.insert(name.text, type.selectedText, parseInt(counter.text), context.text, categories.text)
-                                            : SiteProxyModel.modify(siteIndex, name.text, type.selectedText, parseInt(counter.text), context.text, categories.text)
-                        if (err != -1) {
-                            Backend.save()
-                            pageStack.pop()
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: Units.dp(8)
+
+                        Label {
+                            text: qsTr("Login")
+                            style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
                         }
-                        else {
-                            errorDialog.open()
+                        MenuField {
+                            id: loginSelection
+                            model: [qsTr("None"), qsTr("Generate"), qsTr("Store")]
+                            selectedIndex: !newSite ? currentSite.siteLogin.contentType : 0
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    ViewSwitcher {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        index: loginSelection.selectedIndex -1
+
+                        Column {
+                            anchors.fill: parent
+                            spacing: Units.dp(16)
+
+                            GridLayout {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                columns: 2
+                                columnSpacing: Units.dp(8)
+
+                                Label {
+                                    text: qsTr("Counter")
+                                    style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
+                                }
+                                TextField {
+                                    id: loginCounter
+                                    text: !newSite && currentSite.siteLogin.isGenerated ? currentSite.siteLogin.counter : 1
+                                    inputMask: "000"
+                                    Layout.fillWidth: true
+                                 }
+                            }
+
+                            View {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                    margins: Units.dp(16)
+                                }
+                                height: Units.dp(36)
+
+                                elevation: 1
+                                backgroundColor: Theme.primaryDarkColor
+
+                                Label {
+                                    anchors.centerIn: parent
+                                    style: "title"
+                                    text: siteName.text != ""
+                                          ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(MPW.typeNameName()),
+                                                                    parseInt(loginCounter.text), MPW.variantNameLogin())
+                                          : qsTr("Preview")
+                                    color: "white"
+                                }
+                            }
+                        }
+
+                        GridLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            columns: 2
+                            columnSpacing: Units.dp(8)
+
+                            Label {
+                                text: qsTr("Content")
+                                style: "subheading"
+                                Layout.minimumWidth: Units.dp(80)
+                            }
+                            TextField {
+                                id: loginContent
+                                text: !newSite && currentSite.siteLogin.isStored ? Backend.decrypt(currentSite.siteLogin.content) : ""
+                                placeholderText: !newSite && currentSite.siteLogin.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
+                                Layout.fillWidth: true
+                            }
+                        }
+                    }
+                }
+            }
+
+            View {
+                width: Units.dp(500)
+                height: columnAnswer.implicitHeight + Units.dp(32)
+
+                elevation: 1
+
+                ColumnLayout {
+                    id: columnAnswer
+
+                    anchors {
+                        fill: parent
+                        margins: Units.dp(16)
+                    }
+
+                    GridLayout {
+                        columns: 2
+                        columnSpacing: Units.dp(8)
+
+                        Label {
+                            text: qsTr("Answer")
+                            style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
+                        }
+                        MenuField {
+                            id: answerSelection
+                            model: [qsTr("None"), qsTr("Generate"), qsTr("Store")]
+                            selectedIndex: !newSite ? currentSite.siteAnswer.contentType : 0
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    ViewSwitcher {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        index: answerSelection.selectedIndex -1
+
+                        Column {
+                            anchors.fill: parent
+                            spacing: Units.dp(16)
+
+                            GridLayout {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                columns: 2
+                                rowSpacing: Units.dp(16)
+                                columnSpacing: Units.dp(8)
+
+                                Label {
+                                    text: qsTr("Context")
+                                    style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
+                                }
+                                TextField {
+                                    id: answerContext
+                                    text: !newSite && currentSite.siteAnswer.isGenerated ? currentSite.siteAnswer.context : ""
+                                    Layout.fillWidth: true
+                                }
+
+                                Label {
+                                    text: qsTr("Counter")
+                                    style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
+                                }
+                                TextField {
+                                    id: answerCounter
+                                    text: !newSite && currentSite.siteAnswer.isGenerated ? currentSite.siteAnswer.counter : 1
+                                    inputMask: "000"
+                                    Layout.fillWidth: true
+                                }
+                            }
+
+                            View {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                    margins: Units.dp(16)
+                                }
+                                height: Units.dp(36)
+
+                                elevation: 1
+                                backgroundColor: Theme.primaryDarkColor
+
+                                visible: answerSelection.selectedIndex == 1
+
+                                Label {
+                                    anchors.centerIn: parent
+                                    style: "title"
+                                    text: siteName.text != ""
+                                          ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(MPW.typeNamePhrase()),
+                                                                    parseInt(answerCounter.text), MPW.variantNameAnswer(), answerContext.text)
+                                          : qsTr("Preview")
+                                    color: "white"
+                                }
+                            }
+                        }
+
+                        GridLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            columns: 2
+                            columnSpacing: Units.dp(8)
+
+                            Label {
+                                text: qsTr("Content")
+                                Layout.minimumWidth: Units.dp(80)
+                                style: "subheading"
+                            }
+                            TextField {
+                                id: answerContent
+                                text: !newSite && currentSite.siteAnswer.isStored ? Backend.decrypt(currentSite.siteAnswer.content) : ""
+                                placeholderText: !newSite && currentSite.siteAnswer.isStored && text == "" ? qsTr("Encrypted with a different master key") : ""
+                                Layout.fillWidth: true
+                            }
                         }
                     }
                 }

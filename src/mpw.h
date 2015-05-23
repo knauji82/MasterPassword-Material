@@ -111,7 +111,7 @@ public:
 
   Q_INVOKABLE static QStringList algorithmVersions();
 
-  Q_INVOKABLE static QStringList typeNames();
+  Q_INVOKABLE static QStringList passwordTypeNames();
 
   Q_INVOKABLE static QStringList variantNames();
 

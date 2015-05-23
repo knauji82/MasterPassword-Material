@@ -1,5 +1,5 @@
 /**
- * categorymodel.h
+ * FileDialog.qml
  * This file is part of MasterPassword-Material
  *
  * Copyright (c) 2015 Kilian Schweppe
@@ -18,30 +18,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CATEGORYMODEL_H
-#define CATEGORYMODEL_H
+import QtQuick 2.3
+import QtQuick.Dialogs 1.0
+import Qt.labs.folderlistmodel 2.1
 
-#include "sitemodel.h"
+FileDialog {
+    property string filePath: {
+        var path = fileUrl.toString()
+        if (Qt.platform.os == "linux")
+            path = path.replace(/^(file:\/{2})/, "")
+        else
+            path = path.replace(/^(file:\/{3})/, "")
+        decodeURIComponent(path)
+    }
 
-#include <QStringListModel>
+    property string folderPath: {
+        var path = folder.toString()
+        if (Qt.platform.os == "linux")
+            path = path.replace(/^(file:\/{2})/, "")
+        else
+            path = path.replace(/^(file:\/{3})/, "")
+        decodeURIComponent(path)
+    }
+}
 
-class CategoryModel : public QStringListModel
-{
-  Q_OBJECT
-
-private:
-  SiteModel *site_model_;
-
-public:
-  CategoryModel(SiteModel *model);
-
-  QHash<int, QByteArray> roleNames() const;
-
-public slots:
-  void updateCategories();
-
-signals:
-  void modelChanged();
-};
-
-#endif // CATEGORYMODEL_H

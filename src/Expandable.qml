@@ -22,59 +22,41 @@ import QtQuick 2.3
 import Material 0.1
 import Material.ListItems 0.1 as ListItem
 
-View {
+Column {
     default property alias expandableContent: column.data
 
     property alias text: header.text
+    property alias expanded: header.expanded
+    property int contentMargin: 0
 
-    property bool expanded: false
+    height: header.expanded ? header.height + column.implicitHeight + Units.dp(8) : header.height
 
     anchors {
         left: parent.left
         right: parent.right
     }
 
-    height: expanded ? header.height + column.implicitHeight + units.dp(16) : header.height
-
-    function collapse() {
-        expanded = false
-    }
-
-    function expand() {
-        expanded = true
-    }
-
-    signal collapsed()
-    signal expanded()
-
     Behavior on height {
         NumberAnimation { duration: 250 }
     }
 
-    ListItem.Subtitled {
+    ListItem.SectionHeader {
         id: header
-        subText: expanded ? qsTr("Click to collapse") : qsTr("Click to expand")
-        onClicked: expanded ? collapse() : expand()
     }
 
     Column {
         id: column
-        spacing: units.dp(10)
-        opacity: expanded ? 1 : 0
+        opacity: header.expanded ? 1 : 0
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            leftMargin: contentMargin
+            rightMargin: contentMargin
+        }
 
         Behavior on opacity {
             NumberAnimation { duration: 250 }
-        }
-
-        anchors {
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            topMargin: units.dp(8)
-            bottomMargin: units.dp(8)
-            leftMargin: units.dp(16)
-            rightMargin: units.dp(16)
         }
     }
 }

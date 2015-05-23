@@ -45,11 +45,13 @@ public:
 
   enum SiteRole {
     NameRole = Qt::UserRole + 1,
-    CounterRole,
-    TypeRole,
-    ContextRole,
+    CategoryRole,
+    UrlRole,
     LastUsedRole,
-    CategoriesRole
+    LastVariantRole,
+    PasswordRole,
+    LoginRole,
+    AnswerRole
   };
 
   inline QList<Site> const & list() const
@@ -57,14 +59,11 @@ public:
     return sites_;
   }
 
-  inline int insert(QString const &name, QString const & type_name, int counter, QString const &context, QString const &categories, bool overwrite)
-  {
-    return insert(Site(name, mpw::typeWithName(type_name), counter, context, 0, categories.split(" ", QString::SkipEmptyParts)), overwrite);
-  }
-
   int insert(Site const &site, bool overwrite=false);
 
-  void updateDate(QModelIndex const &index);
+  void updateDate(QModelIndex const &index, MPSiteVariant variant);
+
+  void increaseCounter(QModelIndex const &index, MPSiteVariant variant);
 
   bool removeRows(int row, int count, QModelIndex const &parent);
 

@@ -27,32 +27,32 @@ SiteProxyModel::SiteProxyModel(SiteModel *model)
   setDynamicSortFilter(true);
   setSortRole(SiteModel::NameRole);
   setSortCaseSensitivity(Qt::CaseInsensitive);
-  setFilterRole(SiteModel::CategoriesRole);
+  setFilterRole(SiteModel::CategoryRole);
   setFilterCaseSensitivity(Qt::CaseSensitive);
 }
 
-int SiteProxyModel::insert(QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories, bool overwrite)
+int SiteProxyModel::insert(QVariantMap const &site_map, bool overwrite)
 {
-  int index = site_model_->insert(name, type_name, counter, context, categories, overwrite);
+  Content *password = passwordFromMap(site_map["password"].toMap());
+  Content *login = loginFromMap(site_map["login"].toMap());
+  Content *answer = answerFromMap(site_map["answer"].toMap());
+
+  int index = site_model_->insert(Site(site_map["name"].toString(), password, login, answer, site_map["category"].toString(), site_map["url"].toString(),
+      site_map["lastUsed"].toUInt(),site_map["lastVariant"].toString().isEmpty() ? 0 : mpw::variantWithName(site_map["lastVariant"].toString())), overwrite);
   return mapFromSource(site_model_->index(index)).row();
 }
 
-/*
-int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories)
+int SiteProxyModel::modify(int index, QVariantMap const &site_map)
 {
-  QModelIndex source_index = mapToSource(this->index(index, 0));
-  site_model_->modify(source_index, name, mpw::typeWithName(type_name), counter, context, categories.split(" ", QString::SkipEmptyParts));
-  return mapFromSource(source_index).row();
-}
-*/
-
-int SiteProxyModel::modify(int index, QString const &name, QString const &type_name, int counter, QString const &context, QString const &categories)
-{
-  bool name_changed = name != siteAt(index).name();
+  bool name_changed = site_map["name"].toString() != siteAt(index).name();
   if (name_changed)
     remove(index);
 
-  return insert(name, type_name, counter, context, categories, !name_changed);
+  // make sure mapFromSource() will work
+  if (site_map["category"].toString().isEmpty())
+    setCategoryFilter("");
+
+  return insert(site_map, !name_changed);
 }
 
 void SiteProxyModel::setCategoryFilter(QString const &category)
@@ -75,5 +75,5 @@ bool SiteProxyModel::filterAcceptsRow(int row, QModelIndex const &parent) const
 
   Site const site = site_model_->list()[index.row()];
 
-  return site.categories().contains(category_filter_);
+  return site.category() == category_filter_;
 }

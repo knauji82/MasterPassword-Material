@@ -26,7 +26,8 @@
 
 #include <QSettings>
 
-namespace key {
+namespace key
+{
   QString const appVersion = "app_version";
 
   QString const algorithmVersion    = "algorithm_version";
@@ -41,17 +42,21 @@ namespace key {
   QString const trayInfoShown       = "tray_info_shown";
   QString const sortOrder           = "sort_order";
 
-  namespace site {
-    QString const name       = "name";
-    QString const type       = "type";
-    QString const counter    = "counter";
-    QString const context    = "context";
-    QString const lastUsed   = "last_used";
-    QString const categories = "categories";
-
-    namespace category {
-      QString const name = "name";
-    }
+  namespace site
+  {
+    QString const name        = "name";
+    QString const category    = "category";
+    QString const url         = "url";
+    QString const lastUsed    = "last_used";
+    QString const lastVariant = "last_variant";
+    QString const type        = "type";
+    QString const counter     = "counter";
+    QString const context     = "context";
+    QString const content     = "content";
+    QString const contentType = "content_type";
+    QString const password    = "password";
+    QString const login       = "login";
+    QString const answer      = "answer";
   }
 }
 
@@ -60,10 +65,10 @@ class Settings : public QSettings
   Q_OBJECT
 
 public:
-  explicit Settings(QObject *parent=0) : QSettings(QSettings::IniFormat,
+  explicit Settings(QObject *parent=0) : QSettings(QSettings::NativeFormat,
                                                    QSettings::UserScope,
                                                    QCoreApplication::applicationName(),
-                                                   "config",
+                                                   "settings",
                                                    parent) {}
 
   Q_INVOKABLE inline QVariant value(QString const &key, QVariant const &default_value=QVariant()) const
@@ -206,52 +211,11 @@ public:
     setValue(key::sortOrder, v);
   }
 
-  void store(Site const &site)
-  {
-    setValue(key::site::name, site.name());
-    setValue(key::site::type, site.type());
-    setValue(key::site::counter, site.counter());
-    setValue(key::site::context, site.context());
-    setValue(key::site::lastUsed, site.lastUsed());
-    beginWriteArray(key::site::categories);
-    for (int i=0; i < site.categories().size(); i++)
-    {
-      setArrayIndex(i);
-      setValue(key::site::category::name, site.categories()[i]);
-    }
-    endArray();
-  }
+  void store(Site const &site);
 
-  void removeSite()
-  {
-    remove(key::site::name);
-    remove(key::site::type);
-    remove(key::site::counter);
-    remove(key::site::context);
-    remove(key::site::lastUsed);
-    remove(key::site::categories);
-  }
+  Site loadSite();
 
-  Site loadSite()
-  {
-    QStringList categories;
-    int size = beginReadArray(key::site::categories);
-    for (int i=0; i < size; i++)
-    {
-      setArrayIndex(i);
-      categories << value<QString>(key::site::category::name);
-    }
-    endArray();
-
-    return Site(
-      value<QString>(key::site::name),
-      static_cast<MPSiteType>(value<uint>(key::site::type)),
-      value<int>(key::site::counter),
-      value<QString>(key::site::context),
-      value<uint>(key::site::lastUsed),
-      categories
-    );
-  }
+  void removeSite();
 
 signals:
   void valueChanged(QString const &key, const QVariant &value);

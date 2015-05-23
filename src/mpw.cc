@@ -28,7 +28,7 @@ QStringList mpw::algorithmVersions()
   return versions;
 }
 
-QStringList mpw::typeNames()
+QStringList mpw::passwordTypeNames()
 {
   QStringList types;
   types << typeNameMaximumSecurityPassword()
@@ -36,9 +36,7 @@ QStringList mpw::typeNames()
         << typeNameMediumPassword()
         << typeNameBasicPassword()
         << typeNameShortPassword()
-        << typeNamePIN()
-        << typeNameName()
-        << typeNamePhrase();
+        << typeNamePIN();
   return types;
 }
 
