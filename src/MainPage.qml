@@ -142,6 +142,7 @@ Page {
 
             Expandable {
                 text: qsTr("Options")
+                contentMargin: Units.dp(8)
 
                 Label {
                     text: qsTr("Order") + ":"
