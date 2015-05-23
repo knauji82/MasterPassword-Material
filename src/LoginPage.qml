@@ -102,22 +102,21 @@ Page {
             }
         }
 
-            Button {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                    margins: Units.dp(16)
-                }
-                text: qsTr("Login")
-                textColor: theme.primaryColor
-                elevation: 1
-                Layout.fillWidth: true
-                onClicked: tryLogin()
+        Button {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+                margins: Units.dp(16)
             }
+            text: qsTr("Login")
+            textColor: theme.primaryColor
+            elevation: 1
+            Layout.fillWidth: true
+            onClicked: tryLogin()
+        }
 
-            Keys.onReturnPressed: tryLogin()
-            Keys.onEnterPressed: tryLogin()
-
+        Keys.onReturnPressed: tryLogin()
+        Keys.onEnterPressed: tryLogin()
     }
 }
