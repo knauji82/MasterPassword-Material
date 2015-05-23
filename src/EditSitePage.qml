@@ -169,12 +169,13 @@ Page {
                     }
 
                     columns: 2
-                    rowSpacing: Units.dp(8)
+                    rowSpacing: Units.dp(16)
                     columnSpacing: Units.dp(8)
 
                     Label {
                         text: qsTr("Name")
                         style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
                     }
                     TextField {
                         id: siteName
@@ -186,6 +187,7 @@ Page {
                     Label {
                         text: qsTr("Category")
                         style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
                     }
                     TextField {
                         id: siteCategory
@@ -196,6 +198,7 @@ Page {
                     Label {
                         text: qsTr("Url")
                         style: "subheading"
+                        Layout.minimumWidth: Units.dp(80)
                     }
                     TextField {
                         id: siteUrl
@@ -221,12 +224,12 @@ Page {
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: Units.dp(8)
                         columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Password")
                             style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
                         }
                         MenuField {
                             id: passwordSelection
@@ -246,7 +249,7 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: Units.dp(8)
+                            spacing: Units.dp(16)
 
                             GridLayout {
                                 anchors {
@@ -255,12 +258,13 @@ Page {
                                 }
 
                                 columns: 2
-                                rowSpacing: Units.dp(8)
+                                rowSpacing: Units.dp(16)
                                 columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Type")
                                     style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
                                 }
                                 MenuField {
                                     readonly property var typeNames: MPW.passwordTypeNames()
@@ -273,6 +277,7 @@ Page {
                                 Label {
                                     text: qsTr("Counter")
                                     style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
                                 }
                                 TextField {
                                     id: passwordCounter
@@ -313,12 +318,12 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: Units.dp(8)
                             columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")
                                 style: "subheading"
+                                Layout.minimumWidth: Units.dp(80)
                             }
                             TextField {
                                 id: passwordContent
@@ -347,12 +352,12 @@ Page {
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: Units.dp(8)
                         columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Login")
                             style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
                         }
                         MenuField {
                             id: loginSelection
@@ -372,7 +377,7 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: Units.dp(8)
+                            spacing: Units.dp(16)
 
                             GridLayout {
                                 anchors {
@@ -381,12 +386,12 @@ Page {
                                 }
 
                                 columns: 2
-                                rowSpacing: Units.dp(8)
                                 columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Counter")
                                     style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
                                 }
                                 TextField {
                                     id: loginCounter
@@ -426,12 +431,12 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: Units.dp(8)
                             columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")
                                 style: "subheading"
+                                Layout.minimumWidth: Units.dp(80)
                             }
                             TextField {
                                 id: loginContent
@@ -460,12 +465,12 @@ Page {
 
                     GridLayout {
                         columns: 2
-                        rowSpacing: Units.dp(8)
                         columnSpacing: Units.dp(8)
 
                         Label {
                             text: qsTr("Answer")
                             style: "subheading"
+                            Layout.minimumWidth: Units.dp(80)
                         }
                         MenuField {
                             id: answerSelection
@@ -485,7 +490,7 @@ Page {
 
                         Column {
                             anchors.fill: parent
-                            spacing: Units.dp(8)
+                            spacing: Units.dp(16)
 
                             GridLayout {
                                 anchors {
@@ -494,12 +499,13 @@ Page {
                                 }
 
                                 columns: 2
-                                rowSpacing: Units.dp(8)
+                                rowSpacing: Units.dp(16)
                                 columnSpacing: Units.dp(8)
 
                                 Label {
                                     text: qsTr("Context")
                                     style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
                                 }
                                 TextField {
                                     id: answerContext
@@ -510,6 +516,7 @@ Page {
                                 Label {
                                     text: qsTr("Counter")
                                     style: "subheading"
+                                    Layout.minimumWidth: Units.dp(80)
                                 }
                                 TextField {
                                     id: answerCounter
@@ -551,11 +558,11 @@ Page {
                             }
 
                             columns: 2
-                            rowSpacing: Units.dp(8)
                             columnSpacing: Units.dp(8)
 
                             Label {
                                 text: qsTr("Content")
+                                Layout.minimumWidth: Units.dp(80)
                                 style: "subheading"
                             }
                             TextField {
