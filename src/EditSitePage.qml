@@ -69,7 +69,7 @@ Page {
                         password = {
                             "contentType": ContentType.Generated,
                             "type": MPW.typeWithNameAsInt(passwordType.selectedText),
-                            "counter": parseInt(passwordCounter.text)
+                            "counter": passwordCounter.value
                         }
                         break
                     case ContentType.Stored:
@@ -85,7 +85,7 @@ Page {
                     case ContentType.Generated:
                         login = {
                             "contentType": ContentType.Generated,
-                            "counter": parseInt(loginCounter.text)
+                            "counter": loginCounter.value
                         }
                         break
                     case ContentType.Stored:
@@ -101,7 +101,7 @@ Page {
                         answer = {
                             "contentType": ContentType.Generated,
                             "context": answerContext.text,
-                            "counter": parseInt(answerCounter.text)
+                            "counter": answerCounter.value
                         }
                         break
                     case ContentType.Stored:
@@ -279,10 +279,10 @@ Page {
                                     style: "subheading"
                                     Layout.minimumWidth: Units.dp(80)
                                 }
-                                TextField {
+                                NumberField {
                                     id: passwordCounter
-                                    text: !newSite && currentSite.sitePassword.isGenerated ? currentSite.sitePassword.counter : 1
-                                    inputMask: "000"
+                                    value: !newSite && currentSite.sitePassword.isGenerated ? currentSite.sitePassword.counter : 1
+                                    minValue: 1
                                     Layout.fillWidth: true
                                 }
                             }
@@ -304,7 +304,7 @@ Page {
                                     style: "title"
                                     text: siteName.text != ""
                                           ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(passwordType.selectedText),
-                                                                    parseInt(passwordCounter.text), MPW.variantNamePassword())
+                                                                    passwordCounter.value, MPW.variantNamePassword())
                                           : qsTr("Preview")
                                     color: "white"
                                 }
@@ -393,12 +393,12 @@ Page {
                                     style: "subheading"
                                     Layout.minimumWidth: Units.dp(80)
                                 }
-                                TextField {
+                                NumberField {
                                     id: loginCounter
-                                    text: !newSite && currentSite.siteLogin.isGenerated ? currentSite.siteLogin.counter : 1
-                                    inputMask: "000"
+                                    value: !newSite && currentSite.siteLogin.isGenerated ? currentSite.siteLogin.counter : 1
+                                    minValue: 1
                                     Layout.fillWidth: true
-                                 }
+                                }
                             }
 
                             View {
@@ -417,7 +417,7 @@ Page {
                                     style: "title"
                                     text: siteName.text != ""
                                           ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(MPW.typeNameName()),
-                                                                    parseInt(loginCounter.text), MPW.variantNameLogin())
+                                                                    loginCounter.value, MPW.variantNameLogin())
                                           : qsTr("Preview")
                                     color: "white"
                                 }
@@ -518,10 +518,10 @@ Page {
                                     style: "subheading"
                                     Layout.minimumWidth: Units.dp(80)
                                 }
-                                TextField {
+                                NumberField {
                                     id: answerCounter
-                                    text: !newSite && currentSite.siteAnswer.isGenerated ? currentSite.siteAnswer.counter : 1
-                                    inputMask: "000"
+                                    value: !newSite && currentSite.siteAnswer.isGenerated ? currentSite.siteAnswer.counter : 1
+                                    minValue: 1
                                     Layout.fillWidth: true
                                 }
                             }
@@ -544,7 +544,7 @@ Page {
                                     style: "title"
                                     text: siteName.text != ""
                                           ? Backend.passwordForSite(siteName.text, MPW.typeWithNameAsInt(MPW.typeNamePhrase()),
-                                                                    parseInt(answerCounter.text), MPW.variantNameAnswer(), answerContext.text)
+                                                                    answerCounter.value, MPW.variantNameAnswer(), answerContext.text)
                                           : qsTr("Preview")
                                     color: "white"
                                 }

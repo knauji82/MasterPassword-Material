@@ -28,9 +28,9 @@ Page {
 
     function save() {
         Settings.setDefaultSiteType(MPW.typeWithNameAsInt(defaultSiteType.selectedText))
-        Settings.setClipboardDuration(parseInt(clipboardDuration.text))
+        Settings.setClipboardDuration(clipboardDuration.value)
         Settings.setAutoLogout(autoLogout.checked)
-        Settings.setAutoLogoutDuration(parseInt(autoLogoutDuration.text))
+        Settings.setAutoLogoutDuration(autoLogoutDuration.value)
         Settings.setHidePasswords(hidePasswords.checked)
         Settings.setVerifyPassword(verifyPassword.checked)
         // finally set algorithm version to prevent problems with logout
@@ -82,10 +82,11 @@ Page {
                     text: qsTr("Copy passwords for")
                 }
                 RowLayout {
-                    TextField {
+                    NumberField {
                         id: clipboardDuration
-                        text: Settings.clipboardDuration()
-                        inputMask: "00"
+                        value: Settings.clipboardDuration()
+                        maxValue: 60
+                        minValue: 1
                     }
                     Label {
                         text: qsTr("seconds")
@@ -106,10 +107,10 @@ Page {
                 }
                 RowLayout {
                     enabled: autoLogout.checked
-                    TextField {
+                    NumberField {
                         id: autoLogoutDuration
-                        text: Settings.autoLogoutDuration()
-                        inputMask: "00"
+                        value: Settings.autoLogoutDuration()
+                        minValue: 1
                     }
                     Label {
                         text: qsTr("minutes")
