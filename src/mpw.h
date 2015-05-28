@@ -54,60 +54,18 @@ public:
     qmlRegisterSingletonType<mpw>("MasterPassword", 1, 0, "MPW", &qmlInstance);
   }
 
-  Q_INVOKABLE static inline QString typeNameMaximumSecurityPassword()
-  {
-    return tr("Maximum Security");
-  }
+  Q_INVOKABLE static inline QString typeNameMaximumSecurityPassword() { return tr("Maximum Security"); }
+  Q_INVOKABLE static inline QString typeNameLongPassword() { return tr("Long"); }
+  Q_INVOKABLE static inline QString typeNameMediumPassword() { return tr("Medium"); }
+  Q_INVOKABLE static inline QString typeNameBasicPassword() { return tr("Basic"); }
+  Q_INVOKABLE static inline QString typeNameShortPassword() { return tr("Short"); }
+  Q_INVOKABLE static inline QString typeNamePIN() { return tr("PIN"); }
+  Q_INVOKABLE static inline QString typeNameName() { return tr("Name"); }
+  Q_INVOKABLE static inline QString typeNamePhrase() { return tr("Phrase"); }
 
-  Q_INVOKABLE static inline QString typeNameLongPassword()
-  {
-    return tr("Long");
-  }
-
-  Q_INVOKABLE static inline QString typeNameMediumPassword()
-  {
-    return tr("Medium");
-  }
-
-  Q_INVOKABLE static inline QString typeNameBasicPassword()
-  {
-    return tr("Basic");
-  }
-
-  Q_INVOKABLE static inline QString typeNameShortPassword()
-  {
-    return tr("Short");
-  }
-
-  Q_INVOKABLE static inline QString typeNamePIN()
-  {
-    return tr("PIN");
-  }
-
-  Q_INVOKABLE static inline QString typeNameName()
-  {
-    return tr("Name");
-  }
-
-  Q_INVOKABLE static inline QString typeNamePhrase()
-  {
-    return tr("Phrase");
-  }
-
-  Q_INVOKABLE static inline QString variantNamePassword()
-  {
-    return tr("Password");
-  }
-
-  Q_INVOKABLE static inline QString variantNameLogin()
-  {
-    return tr("Login");
-  }
-
-  Q_INVOKABLE static inline QString variantNameAnswer()
-  {
-    return tr("Answer");
-  }
+  Q_INVOKABLE static inline QString variantNamePassword() { return tr("Password"); }
+  Q_INVOKABLE static inline QString variantNameLogin() { return tr("Login"); }
+  Q_INVOKABLE static inline QString variantNameAnswer() { return tr("Answer"); }
 
   Q_INVOKABLE static QStringList algorithmVersions();
 

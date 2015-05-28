@@ -27,10 +27,6 @@
 
 class MasterKey
 {
-private:
-  MPAlgorithmVersion algorithm_version_;
-  uint8_t const *key_;
-
 public:
   MasterKey(char const *full_name, char const *master_password)
       : MasterKey(full_name, master_password, MPAlgorithmVersionCurrent) {}
@@ -42,10 +38,7 @@ public:
     mpw_free(key_, MP_dkLen);
   }
 
-  inline MPAlgorithmVersion algorithmVersion() const
-  {
-    return algorithm_version_;
-  }
+  inline MPAlgorithmVersion algorithmVersion() const { return algorithm_version_; }
 
   char const * passwordForSite(Site const &site, MPSiteVariant variant);
 
@@ -57,6 +50,10 @@ public:
   QString encrypt(QString const &text);
 
   QString decrypt(QString const &encrypted);
+
+private:
+  MPAlgorithmVersion algorithm_version_;
+  uint8_t const *key_;
 };
 
 #endif // MASTERKEY_H

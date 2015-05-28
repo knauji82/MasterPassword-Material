@@ -30,21 +30,10 @@ class SiteProxyModel : public QSortFilterProxyModel
   Q_OBJECT
   Q_PROPERTY(QString categoryFilter WRITE setCategoryFilter)
 
-private:
-  SiteModel *site_model_;
-  QString category_filter_;
-
 public:
   SiteProxyModel(SiteModel *model);
 
-  Q_INVOKABLE void sort(Qt::SortOrder order=Qt::AscendingOrder)
-  {
-    if (order != sortOrder())
-    {
-      QSortFilterProxyModel::sort(0, order);
-      emit sortOrderChanged(order);
-    }
-  }
+  Q_INVOKABLE void sort(Qt::SortOrder order=Qt::AscendingOrder);
 
   Q_INVOKABLE int insert(QVariantMap const &site_map, bool overwrite=false);
 
@@ -94,13 +83,14 @@ public:
     return getMap(this->index(index, 0));
   }
 
-  inline int length()
-  {
-    return rowCount();
-  }
+  inline int length() { return rowCount(); }
 
 signals:
   void sortOrderChanged(Qt::SortOrder order);
+
+private:
+  SiteModel *site_model_;
+  QString category_filter_;
 };
 
 #endif // SITEPROXYMODEL_H

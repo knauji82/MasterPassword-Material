@@ -44,23 +44,13 @@ public:
     qmlRegisterType<Content>("MasterPassword", 1, 0, "ContentType");
   }
 
-  virtual Type contentType() const
-  {
-    return None;
-  }
-
-  virtual QVariantMap toMap() const
-  {
-    QVariantMap map;
-    map.insert("contentType", contentType());
-    map["isGenerated"] = isGenerated();
-    map["isStored"] = isStored();
-    return map;
-  }
+  virtual inline Type contentType() const { return None; }
 
   inline bool isGenerated() const { return contentType() == Generated; }
 
   inline bool isStored() const { return contentType() == Stored; }
+
+  virtual QVariantMap toMap() const;
 };
 
 class StoredContent : public Content
@@ -68,21 +58,13 @@ class StoredContent : public Content
 public:
   StoredContent(QString const &content) : content_(content) {}
 
-  Type contentType() const
-  {
-    return Stored;
-  }
-
-  QVariantMap toMap() const
-  {
-    QVariantMap map = Content::toMap();
-    map.insert("content", content_);
-    return map;
-  }
+  Type contentType() const { return Stored; }
 
   inline QString const & content() const { return content_; }
 
   inline void setContent(QString const &content) { content_ = content; }
+
+  QVariantMap toMap() const;
 
 private:
   QString content_;
@@ -94,18 +76,7 @@ public:
   GeneratedPassword(MPSiteType type, uint32_t counter)
       : type_(type), counter_(counter) {}
 
-  Type contentType() const
-  {
-    return Generated;
-  }
-
-  QVariantMap toMap() const
-  {
-    QVariantMap map = Content::toMap();
-    map.insert("type", type_);
-    map.insert("counter", counter_);
-    return map;
-  }
+  inline Type contentType() const { return Generated; }
 
   inline MPSiteType type() const { return type_; }
 
@@ -114,6 +85,8 @@ public:
   inline uint32_t counter() const { return counter_; }
 
   inline void setCounter(uint32_t counter) { counter_ = counter; }
+
+  QVariantMap toMap() const;
 
 private:
   MPSiteType type_;
@@ -125,23 +98,15 @@ class GeneratedLogin : public Content
 public:
   GeneratedLogin(uint32_t counter) : counter_(counter) {}
 
-  Type contentType() const
-  {
-    return Generated;
-  }
-
-  QVariantMap toMap() const
-  {
-    QVariantMap map = Content::toMap();
-    map.insert("counter", counter_);
-    return map;
-  }
+  inline Type contentType() const { return Generated; }
 
   inline MPSiteType type() const { return MPSiteTypeGeneratedName; }
 
   inline uint32_t counter() const { return counter_; }
 
   inline void setCounter(uint32_t counter) { counter_ = counter; }
+
+  QVariantMap toMap() const;
 
 private:
   uint32_t counter_;
@@ -153,18 +118,7 @@ public:
   GeneratedAnswer(QString const &context, uint32_t counter)
       : context_(context), counter_(counter) {}
 
-  Type contentType() const
-  {
-    return Generated;
-  }
-
-  QVariantMap toMap() const
-  {
-    QVariantMap map = Content::toMap();
-    map.insert("context", context_);
-    map.insert("counter", counter_);
-    return map;
-  }
+  inline Type contentType() const { return Generated; }
 
   inline MPSiteType type() const { return MPSiteTypeGeneratedPhrase; }
 
@@ -175,6 +129,8 @@ public:
   inline uint32_t counter() const { return counter_; }
 
   inline void setCounter(uint32_t counter) { counter_ = counter; }
+
+  QVariantMap toMap() const;
 
 private:
   QString context_;

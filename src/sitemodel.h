@@ -31,15 +31,6 @@ class SiteModel : public QAbstractListModel
 {
   Q_OBJECT
 
-private:
-  QList<Site> sites_;
-
-  void append(Site const &site);
-  int insert(Site const &site, int left, int right, bool overwrite);
-
-protected:
-  QHash<int, QByteArray> roleNames() const;
-
 public:
   explicit SiteModel(QObject *parent=0);
 
@@ -54,10 +45,7 @@ public:
     AnswerRole
   };
 
-  inline QList<Site> const & list() const
-  {
-    return sites_;
-  }
+  inline QList<Site> const & list() const { return sites_; }
 
   int insert(Site const &site, bool overwrite=false);
 
@@ -67,17 +55,11 @@ public:
 
   bool removeRows(int row, int count, QModelIndex const &parent);
 
-  inline int length() const
-  {
-    return sites_.length();
-  }
+  inline int length() const { return sites_.length(); }
 
   int rowCount(const QModelIndex &parent=QModelIndex()) const;
 
-  inline Site const & siteAt(int index) const
-  {
-    return sites_.at(index);
-  }
+  inline Site const & siteAt(int index) const { return sites_.at(index); }
 
   QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const;
 
@@ -88,6 +70,15 @@ public:
   void load(Settings &settings);
 
   void save(Settings &settings);
+
+protected:
+  QHash<int, QByteArray> roleNames() const;
+
+private:
+  void append(Site const &site);
+  int insert(Site const &site, int left, int right, bool overwrite);
+
+  QList<Site> sites_;
 };
 
 #endif // SITEMODEL_H

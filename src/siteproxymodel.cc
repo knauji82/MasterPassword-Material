@@ -31,6 +31,15 @@ SiteProxyModel::SiteProxyModel(SiteModel *model)
   setFilterCaseSensitivity(Qt::CaseSensitive);
 }
 
+void SiteProxyModel::sort(Qt::SortOrder order)
+{
+  if (order != sortOrder())
+  {
+    QSortFilterProxyModel::sort(0, order);
+    emit sortOrderChanged(order);
+  }
+}
+
 int SiteProxyModel::insert(QVariantMap const &site_map, bool overwrite)
 {
   Content *password = passwordFromMap(site_map["password"].toMap());

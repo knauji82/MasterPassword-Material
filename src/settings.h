@@ -26,6 +26,8 @@
 
 #include <QSettings>
 
+#define SETTINGS_FILE "settings"
+
 namespace key
 {
   QString const appVersion = "app_version";
@@ -68,7 +70,7 @@ public:
   explicit Settings(QObject *parent=0) : QSettings(QSettings::NativeFormat,
                                                    QSettings::UserScope,
                                                    QCoreApplication::applicationName(),
-                                                   "settings",
+                                                   SETTINGS_FILE,
                                                    parent) {}
 
   Q_INVOKABLE inline QVariant value(QString const &key, QVariant const &default_value=QVariant()) const
@@ -91,130 +93,44 @@ public:
     }
   }
 
-  inline QString appVersion() const
-  {
-    return value<QString>(key::appVersion, "1.0.0");
-  }
+  inline QString appVersion() const { return value<QString>(key::appVersion, "1.0.0"); }
+  inline void setAppVersion(QString const &v) { setValue(key::appVersion, v); }
 
-  inline void setAppVersion(QString const &v)
-  {
-    setValue(key::appVersion, v);
-  }
+  Q_INVOKABLE inline uint algorithmVersion() const { return value<uint>(key::algorithmVersion, MPAlgorithmVersionCurrent); }
+  Q_INVOKABLE inline void setAlgorithmVersion(uint v) { setValue(key::algorithmVersion, v); }
 
-  Q_INVOKABLE inline uint algorithmVersion() const
-  {
-    return value<uint>(key::algorithmVersion, MPAlgorithmVersionCurrent);
-  }
+  Q_INVOKABLE inline QString userName() const { return value<QString>(key::userName); }
+  Q_INVOKABLE inline void setUserName(QString const &v) { setValue(key::userName, v); }
 
-  Q_INVOKABLE inline void setAlgorithmVersion(uint v)
-  {
-    setValue(key::algorithmVersion, v);
-  }
+  Q_INVOKABLE inline uint defaultSiteType() const { return value<uint>(key::defaultSiteType, MPSiteTypeGeneratedLong); }
+  Q_INVOKABLE inline void setDefaultSiteType(uint v) { setValue(key::defaultSiteType, v); }
 
-  Q_INVOKABLE inline QString userName() const
-  {
-    return value<QString>(key::userName);
-  }
+  Q_INVOKABLE inline uint clipboardDuration() const { return value<uint>(key::clipboardDuration, 20); }
+  Q_INVOKABLE inline void setClipboardDuration(uint v) { setValue(key::clipboardDuration, v); }
 
-  Q_INVOKABLE inline void setUserName(QString const &v)
-  {
-    setValue(key::userName, v);
-  }
+  Q_INVOKABLE inline bool autoLogout() const { return value<bool>(key::autoLogout, true); }
+  Q_INVOKABLE inline void setAutoLogout(bool v) { setValue(key::autoLogout, v); }
 
-  Q_INVOKABLE inline uint defaultSiteType() const
-  {
-    return value<uint>(key::defaultSiteType, MPSiteTypeGeneratedLong);
-  }
+  Q_INVOKABLE inline uint autoLogoutDuration() const { return value<uint>(key::autoLogoutDuration, 20); }
+  Q_INVOKABLE inline void setAutoLogoutDuration(uint v) { setValue(key::autoLogoutDuration, v); }
 
-  Q_INVOKABLE inline void setDefaultSiteType(uint v)
-  {
-    setValue(key::defaultSiteType, v);
-  }
+  Q_INVOKABLE inline bool hidePasswords() const { return value<bool>(key::hidePasswords, false); }
+  Q_INVOKABLE inline void setHidePasswords(bool v) { setValue(key::hidePasswords, v); }
 
-  Q_INVOKABLE inline uint clipboardDuration() const
-  {
-    return value<uint>(key::clipboardDuration, 20);
-  }
+  Q_INVOKABLE inline bool verifyPassword() const { return value<bool>(key::verifyPassword, false); }
+  Q_INVOKABLE inline void setVerifyPassword(bool v) { setValue(key::verifyPassword, v); }
 
-  Q_INVOKABLE inline void setClipboardDuration(uint v)
-  {
-    setValue(key::clipboardDuration, v);
-  }
+  Q_INVOKABLE inline QString passwordHash() const { return value<QString>(key::passwordHash); }
+  Q_INVOKABLE inline void setPasswordHash(QString const &v) { setValue(key::passwordHash, v); }
 
-  Q_INVOKABLE inline bool autoLogout() const
-  {
-    return value<bool>(key::autoLogout, true);
-  }
+  Q_INVOKABLE inline bool trayInfoShown() const { return value<bool>(key::trayInfoShown, false); }
+  Q_INVOKABLE inline void setTrayInfoShown(bool v) { setValue(key::trayInfoShown, v); }
 
-  Q_INVOKABLE inline void setAutoLogout(bool v)
-  {
-    setValue(key::autoLogout, v);
-  }
-
-  Q_INVOKABLE inline uint autoLogoutDuration() const
-  {
-    return value<uint>(key::autoLogoutDuration, 20);
-  }
-
-  Q_INVOKABLE inline void setAutoLogoutDuration(uint v)
-  {
-    setValue(key::autoLogoutDuration, v);
-  }
-
-  Q_INVOKABLE inline bool hidePasswords() const
-  {
-    return value<bool>(key::hidePasswords, false);
-  }
-
-  Q_INVOKABLE inline void setHidePasswords(bool v)
-  {
-    setValue(key::hidePasswords, v);
-  }
-
-  Q_INVOKABLE inline bool verifyPassword() const
-  {
-    return value<bool>(key::verifyPassword, false);
-  }
-
-  Q_INVOKABLE inline void setVerifyPassword(bool v)
-  {
-    setValue(key::verifyPassword, v);
-  }
-
-  Q_INVOKABLE inline QString passwordHash() const
-  {
-    return value<QString>(key::passwordHash);
-  }
-
-  Q_INVOKABLE inline void setPasswordHash(QString const &v)
-  {
-    setValue(key::passwordHash, v);
-  }
-
-  Q_INVOKABLE inline bool trayInfoShown() const
-  {
-    return value<bool>(key::trayInfoShown, false);
-  }
-
-  Q_INVOKABLE inline void setTrayInfoShown(bool v)
-  {
-    setValue(key::trayInfoShown, v);
-  }
-
-  Q_INVOKABLE inline int sortOrder() const
-  {
-    return value<int>(key::sortOrder, Qt::AscendingOrder);
-  }
-
-  Q_INVOKABLE inline void setSortOrder(int v)
-  {
-    setValue(key::sortOrder, v);
-  }
+  Q_INVOKABLE inline int sortOrder() const { return value<int>(key::sortOrder, Qt::AscendingOrder); }
+  Q_INVOKABLE inline void setSortOrder(int v) { setValue(key::sortOrder, v); }
 
   void store(Site const &site);
-
   Site loadSite();
-
   void removeSite();
 
 signals:

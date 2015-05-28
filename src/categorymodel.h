@@ -29,9 +29,6 @@ class CategoryModel : public QStringListModel
 {
   Q_OBJECT
 
-private:
-  SiteModel *site_model_;
-
 public:
   CategoryModel(SiteModel *model);
 
@@ -42,6 +39,9 @@ public slots:
 
 signals:
   void modelChanged();
+
+private:
+  SiteModel *site_model_;
 };
 
 #endif // CATEGORYMODEL_H

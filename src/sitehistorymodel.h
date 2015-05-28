@@ -31,21 +31,21 @@ class SiteHistoryModel : public QSortFilterProxyModel
 {
   Q_OBJECT
 
-private:
-  QDateTime min_date_;
-
-protected slots:
-  void updateModel();
-
 public:
   SiteHistoryModel(SiteModel *model);
 
   bool filterAcceptsRow(int row, QModelIndex const &parent) const;
 
-  Q_INVOKABLE int mapIndexToSource(int index) const
+  Q_INVOKABLE inline int mapIndexToSource(int index) const
   {
     return mapToSource(this->index(index, 0)).row();
   }
+
+protected slots:
+  void updateModel();
+
+private:
+  QDateTime min_date_;
 };
 
 #endif // SITEHISTORYMODEL_H

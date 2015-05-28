@@ -41,63 +41,26 @@ public:
     answer_.reset(answer);
   }
 
-  inline QString const & name() const
-  {
-    return name_;
-  }
+  inline QString const & name() const { return name_; }
+  inline void setName(QString const &name) { name_ = name; }
 
-  inline void setName(QString const &name)
-  {
-    name_ = name;
-  }
+  inline QString const & category() const { return category_; }
+  inline void setCategory(QString const &category) { category_ = category; }
 
-  inline QString const & category() const
-  {
-    return category_;
-  }
+  inline QString const & url() const { return url_; }
+  inline void setUrl(QString const &url) { url_ = url; }
 
-  inline void setCategory(QString const &category)
-  {
-    category_ = category;
-  }
-
-  inline QString const & url() const
-  {
-    return url_;
-  }
-
-  inline void setUrl(QString const &url)
-  {
-    url_ = url;
-  }
-
-  inline uint lastUsed() const
-  {
-    return last_used_;
-  }
-
+  inline uint lastUsed() const { return last_used_; }
+  inline MPSiteVariant lastVariant() const { return last_variant_; }
   inline void setLastUsed(uint last_used, MPSiteVariant variant)
   {
     last_used_ = last_used;
     last_variant_ = variant;
   }
 
-  inline MPSiteVariant lastVariant() const { return last_variant_; }
-
-  inline Content * password() const
-  {
-    return password_.data();
-  }
-
-  inline Content * login() const
-  {
-    return login_.data();
-  }
-
-  inline Content * answer() const
-  {
-    return answer_.data();
-  }
+  inline Content * password() const { return password_.data(); }
+  inline Content * login() const { return login_.data(); }
+  inline Content * answer() const { return answer_.data(); }
 
 private:
   QString name_;

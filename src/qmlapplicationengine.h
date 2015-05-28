@@ -26,10 +26,6 @@
 
 class QmlApplicationEngine : public QQmlEngine
 {
-private:
-  QQmlComponent *component_;
-  QObject *root_;
-
 public:
   QObject * load(QUrl const &url);
 
@@ -37,6 +33,10 @@ public:
   {
     return root_;
   }
+
+private:
+  QQmlComponent *component_;
+  QObject *root_;
 };
 
 #endif // QMLAPPLICATIONENGINE_H

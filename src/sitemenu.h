@@ -29,9 +29,6 @@ class SiteMenu : public QMenu
 {
   Q_OBJECT
 
-private:
-  Site const *site_;
-
 public:
   SiteMenu(Site const *site, QWidget *parent)
       : QMenu(site->name(), parent), site_(site)
@@ -45,6 +42,9 @@ public:
   }
 
   inline Site const * site() const { return site_; }
+
+private:
+  Site const *site_;
 };
 
 #endif // SITEMENU

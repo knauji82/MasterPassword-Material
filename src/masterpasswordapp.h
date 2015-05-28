@@ -39,51 +39,6 @@ class MasterPasswordApp : public QApplication
 {
   Q_OBJECT
 
-private:
-  QmlApplicationEngine engine_;
-  QQuickWindow *root_window_;
-
-  Settings settings_;
-
-  QScopedPointer<MasterKey> master_key_;
-
-  SiteModel site_model_;
-  SiteProxyModel   *site_proxy_model_;
-  CategoryModel    *category_model_;
-  SiteHistoryModel *site_history_model_;
-
-  ResetClipboardThread clipboard_thread_;
-
-  QSharedMemory shared_mem_;
-  QTimer bg_timer_;
-  QTimer logout_timer_;
-
-  QTranslator translator_;
-
-  QSystemTrayIcon tray_icon_;
-  QMenu tray_icon_menu_;
-  QAction *hide_action_;
-  QAction *show_action_;
-
-protected:
-  void resetSharedMemory();
-  void fillTrayIconMenu();
-
-protected slots:
-  void checkForMessage();
-  void autoLogout();
-  void iconActivated(QSystemTrayIcon::ActivationReason reason);
-  void traySiteClicked(QAction *action);
-  void quitOnHide(bool visible);
-  void toggleHideShow(bool visible);
-  void modelChanged();
-  void settingChanged(QString const &key, QVariant const &value);
-#ifdef Q_OS_WIN32
-  inline void resetClipboard() {
-    QApplication::clipboard()->setText("");
-  }
-#endif
-
 public:
   MasterPasswordApp(int &argc, char *argv[]);
   ~MasterPasswordApp();
@@ -127,6 +82,51 @@ public:
 
 signals:
   void requestLogout();
+
+protected:
+  void resetSharedMemory();
+  void fillTrayIconMenu();
+
+protected slots:
+  void checkForMessage();
+  void autoLogout();
+  void iconActivated(QSystemTrayIcon::ActivationReason reason);
+  void traySiteClicked(QAction *action);
+  void quitOnHide(bool visible);
+  void toggleHideShow(bool visible);
+  void modelChanged();
+  void settingChanged(QString const &key, QVariant const &value);
+#ifdef Q_OS_WIN32
+  inline void resetClipboard() {
+    QApplication::clipboard()->setText("");
+  }
+#endif
+
+private:
+  QmlApplicationEngine engine_;
+  QQuickWindow *root_window_;
+
+  Settings settings_;
+
+  QScopedPointer<MasterKey> master_key_;
+
+  SiteModel site_model_;
+  SiteProxyModel   *site_proxy_model_;
+  CategoryModel    *category_model_;
+  SiteHistoryModel *site_history_model_;
+
+  ResetClipboardThread clipboard_thread_;
+
+  QSharedMemory shared_mem_;
+  QTimer bg_timer_;
+  QTimer logout_timer_;
+
+  QTranslator translator_;
+
+  QSystemTrayIcon tray_icon_;
+  QMenu tray_icon_menu_;
+  QAction *hide_action_;
+  QAction *show_action_;
 };
 
 #endif // MASTERPASSWORDAPP_H

@@ -29,13 +29,6 @@ class ResetClipboardThread: public QThread
 {
   Q_OBJECT
 
-private:
-  uint secs_;
-  bool clear_now_;
-
-protected:
-  void run();
-
 public:
   ResetClipboardThread();
   ResetClipboardThread(uint secs);
@@ -45,20 +38,21 @@ public:
     return secs_;
   }
 
-  inline void setTimout(uint secs)
-  {
-    secs_ = secs;
-  }
+  inline void setTimout(uint secs) { secs_ = secs; }
 
-  Q_INVOKABLE inline void clearNow()
-  {
-    clear_now_ = true;
-  }
+  Q_INVOKABLE inline void clearNow() { clear_now_ = true; }
 
   void blockUntilFinished();
 
 signals:
   void progressChanged(float progress, int seconds_left);
+
+protected:
+  void run();
+
+private:
+  uint secs_;
+  bool clear_now_;
 };
 
 #endif // CLIPBOARD_H

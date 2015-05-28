@@ -20,6 +20,45 @@
 
 #include "content.h"
 
+QVariantMap Content::toMap() const
+{
+  QVariantMap map;
+  map["contentType"] = contentType();
+  map["isGenerated"] = isGenerated();
+  map["isStored"] = isStored();
+  return map;
+}
+
+QVariantMap StoredContent::toMap() const
+{
+  QVariantMap map = Content::toMap();
+  map.insert("content", content_);
+  return map;
+}
+
+QVariantMap GeneratedPassword::toMap() const
+{
+  QVariantMap map = Content::toMap();
+  map.insert("type", type_);
+  map.insert("counter", counter_);
+  return map;
+}
+
+QVariantMap GeneratedLogin::toMap() const
+{
+  QVariantMap map = Content::toMap();
+  map.insert("counter", counter_);
+  return map;
+}
+
+QVariantMap GeneratedAnswer::toMap() const
+{
+  QVariantMap map = Content::toMap();
+  map.insert("context", context_);
+  map.insert("counter", counter_);
+  return map;
+}
+
 Content * passwordFromMap(QVariantMap const &map)
 {
   switch (map["contentType"].toUInt())
