@@ -67,7 +67,7 @@ Page {
             case ContentType.None:
                 return ""
             case ContentType.Generated:
-                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer())
+                return Backend.passwordForSite(siteName, MPW.typeWithNameAsInt(MPW.typeNamePhrase()), siteAnswer.counter, MPW.variantNameAnswer(), siteAnswer.context)
             case ContentType.Stored:
                 return Backend.decrypt(siteAnswer.content)
         }
